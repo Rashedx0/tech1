@@ -155,7 +155,7 @@
 
   <div class="container">
     <!-- زر الكتاب الإلكتروني -->
-    <a href="files/book.pdf" target="_blank" class="main-btn">📘 الكتاب الإلكتروني</a>
+    <a href="#" id="bookBtn" class="main-btn">📘 الكتاب الإلكتروني</a>
 
     <!-- البطاقات -->
     <div class="cards">
@@ -269,6 +269,20 @@
         msg.style.color = "#94a3b8";
         document.querySelector(".container").appendChild(msg);
       }
+    });
+
+    // تأثير تحميل عند فتح الكتاب الإلكتروني
+    const bookBtn = document.getElementById("bookBtn");
+    bookBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const originalText = bookBtn.textContent;
+      bookBtn.textContent = "⏳ جارٍ التحميل...";
+      bookBtn.style.pointerEvents = "none";
+      setTimeout(() => {
+        window.open("https://jumpshare.com/s/Y8gvihtY2tPVR3qQIhyz", "_blank");
+        bookBtn.textContent = originalText;
+        bookBtn.style.pointerEvents = "auto";
+      }, 2000);
     });
   </script>
 </body>
