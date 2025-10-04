@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>جدول الحصص للطلاب</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+      direction: rtl;
+      text-align: right;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1, h2 {
+      color: #1e4d91;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0 20px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 15px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #e1ecf4;
+    }
+
+    td[contenteditable='true'] {
+      background-color: #fefefe;
+      cursor: text;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #1e4d91;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #163b70;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .print-area {
+      padding: 20px;
+      border: 2px dashed #aaa;
+      border-radius: 10px;
+      position: relative;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      font-weight: bold;
+      color: #666;
+    }
+
+    #info-footer {
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    /* طباعة الجدول فقط */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+
+      #schedule, #schedule * {
+        visibility: visible;
+      }
+
+      #schedule {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        margin: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>جدول الحصص الأسبوعي</h1>
+    </div>
+
+    <div>
+      <label>اسم المدرسة:</label>
+      <input type="text" id="schoolName" placeholder="مثال: متوسطة الإمام الشافعي" />
+
+      <label>اسم الطالب:</label>
+      <input type="text" id="studentName" placeholder="مثال: أحمد بن علي" />
+
+      <button onclick="updateNames()">تحديث المعلومات</button>
+    </div>
+
+    <div class="print-area" id="schedule">
+      <table id="scheduleTable">
+        <thead>
+          <tr>
+            <th>الحصة / اليوم</th>
+            <th>الأحد</th>
+            <th>الاثنين</th>
+            <th>الثلاثاء</th>
+            <th>الأربعاء</th>
+            <th>الخميس</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- سيتم إنشاء الصفوف ديناميكياً -->
+        </tbody>
+      </table>
+
+      <div id="info-footer">
+        <div id="schoolNameDisplay">اسم المدرسة: </div>
+        <div id="studentNameDisplay">اسم الطالب: </div>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button onclick="downloadImage('png')">تحميل PNG</button>
+      <button onclick="downloadImage('jpeg')">تحميل JPEG</button>
+      <button onclick="downloadPDF()">تحميل PDF</button>
+      <button onclick="printTable()">طباعة الجدول</button>
+    </div>
+
+    <div class="footer">برمجة: راشد العتيبي</div>
+  </div>
+
+  <!-- مكتبات -->
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script>
+    // إنشاء جدول الحصص ديناميكياً
+    const tbody = document.querySelector("#scheduleTable tbody");
+    for (let i = 1; i <= 7; i++) { // الآن لدينا 7 حصص
+      const tr = document.createElement("tr");
+      const th = document.createElement("th");
+      th.innerText = `الحصة ${i}`;
+      tr.appendChild(th);
+
+      for (let j = 0; j < 5; j++) { // 5 أيام
+        const td = document.createElement("td");
+        td.contentEditable = "true";
+        tr.appendChild(td);
+      }
+
+      tbody.appendChild(tr);
+    }
+
+    function updateNames() {
+      const school = document.getElementById("schoolName").value;
+      const student = document.getElementById("studentName").value;
+
+      document.getElementById("schoolNameDisplay").innerText = "اسم المدرسة: " + school;
+      document.getElementById("studentNameDisplay").innerText = "اسم الطالب: " + student;
+    }
+
+    function downloadImage(type = "png") {
+      const schedule = document.getElementById("schedule");
+
+      html2canvas(schedule, { scale: 3 }).then((canvas) => {
+        const link = document.createElement("a");
+        link.download = `جدول_الحصص.${type}`;
+        link.href = canvas.toDataURL(`image/${type}`);
+        link.click();
+      });
+    }
+
+    function printTable() {
+      window.print();
+    }
+
+    async function downloadPDF() {
+      const schedule = document.getElementById("schedule");
+      html2canvas(schedule, { scale: 2 }).then((canvas) => {
+        const imgData = canvas.toDataURL("image/png");
+        const pdf = new jspdf.jsPDF({
+          orientation: "landscape",
+          unit: "px",
+          format: [canvas.width, canvas.height],
+        });
+        pdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
+        pdf.save("جدول_الحصص.pdf");
+      });
+    }
+  </script>
+</body>
+</html>
