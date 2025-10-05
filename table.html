@@ -8,28 +8,31 @@
   <style>
     body {
       font-family: 'Cairo', sans-serif;
-      background-color: #f4f6f9;
+      background-color: #111a2d;
       margin: 0;
-      padding: 20px;
+      padding: 15px;
       direction: rtl;
       text-align: right;
+      color: #fff;
     }
 
     .container {
       max-width: 1000px;
       margin: auto;
-      background: white;
+      background: #1c2742;
       padding: 20px;
       border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
     }
 
     h1, h2 {
-      color: #1e4d91;
+      color: #4ea8ff;
+      text-align: center;
     }
 
     label {
       font-weight: bold;
+      color: #ddd;
     }
 
     input {
@@ -37,27 +40,37 @@
       padding: 10px;
       margin: 10px 0 20px 0;
       border-radius: 5px;
-      border: 1px solid #ccc;
+      border: 1px solid #4ea8ff;
+      background-color: #0e1425;
+      color: #fff;
+      font-size: 16px;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
       margin-bottom: 20px;
+      font-size: 15px;
     }
 
     th, td {
-      border: 1px solid #ccc;
-      padding: 15px;
+      border: 1px solid #334a70;
+      padding: 12px;
       text-align: center;
     }
 
     th {
-      background-color: #e1ecf4;
+      background-color: #1e3a5c;
+      color: #fff;
+    }
+
+    td {
+      background-color: #16213b;
+      color: #fff;
     }
 
     td[contenteditable='true'] {
-      background-color: #fefefe;
+      background-color: #1b2a4a;
       cursor: text;
     }
 
@@ -65,48 +78,75 @@
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 10px;
+      justify-content: center;
+      margin-top: 15px;
     }
 
     button {
       padding: 10px 20px;
-      background-color: #1e4d91;
+      background-color: #4ea8ff;
       color: white;
       border: none;
       border-radius: 6px;
       cursor: pointer;
+      transition: background 0.3s ease;
+      font-weight: bold;
     }
 
     button:hover {
-      background-color: #163b70;
+      background-color: #328dd4;
     }
 
     .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 30px;
+      text-align: center;
+      margin-bottom: 25px;
     }
 
     .print-area {
-      padding: 20px;
-      border: 2px dashed #aaa;
+      padding: 15px;
+      border: 2px dashed #334a70;
       border-radius: 10px;
       position: relative;
+      overflow-x: auto;
     }
 
     .footer {
       text-align: center;
-      margin-top: 30px;
+      margin-top: 25px;
       font-weight: bold;
-      color: #666;
+      color: #999;
     }
 
     #info-footer {
       margin-top: 15px;
-      font-size: 18px;
+      font-size: 17px;
       font-weight: bold;
-      color: #333;
+      color: #f5f5f5;
+      text-align: center;
+    }
+
+    /* تحسين العرض على الجوال */
+    @media (max-width: 768px) {
+      .container {
+        padding: 15px;
+      }
+
+      table, th, td {
+        font-size: 13px;
+        padding: 8px;
+      }
+
+      button {
+        flex: 1 1 100%;
+      }
+
+      input {
+        font-size: 14px;
+      }
+
+      #info-footer {
+        font-size: 15px;
+      }
     }
 
     /* طباعة الجدول فقط */
@@ -132,7 +172,7 @@
 <body>
   <div class="container">
     <div class="header">
-      <h1>جدول الحصص الأسبوعي</h1>
+      <h1>📚 جدول الحصص الأسبوعي</h1>
     </div>
 
     <div>
@@ -157,9 +197,7 @@
             <th>الخميس</th>
           </tr>
         </thead>
-        <tbody>
-          <!-- سيتم إنشاء الصفوف ديناميكياً -->
-        </tbody>
+        <tbody></tbody>
       </table>
 
       <div id="info-footer">
@@ -183,20 +221,18 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <script>
-    // إنشاء جدول الحصص ديناميكياً
     const tbody = document.querySelector("#scheduleTable tbody");
-    for (let i = 1; i <= 7; i++) { // الآن لدينا 7 حصص
+    for (let i = 1; i <= 7; i++) {
       const tr = document.createElement("tr");
       const th = document.createElement("th");
       th.innerText = `الحصة ${i}`;
       tr.appendChild(th);
 
-      for (let j = 0; j < 5; j++) { // 5 أيام
+      for (let j = 0; j < 5; j++) {
         const td = document.createElement("td");
         td.contentEditable = "true";
         tr.appendChild(td);
       }
-
       tbody.appendChild(tr);
     }
 
@@ -210,7 +246,6 @@
 
     function downloadImage(type = "png") {
       const schedule = document.getElementById("schedule");
-
       html2canvas(schedule, { scale: 3 }).then((canvas) => {
         const link = document.createElement("a");
         link.download = `جدول_الحصص.${type}`;
@@ -239,4 +274,3 @@
   </script>
 </body>
 </html>
-
