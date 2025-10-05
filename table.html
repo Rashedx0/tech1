@@ -1,276 +1,73 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>جدول الحصص للطلاب</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet" />
-  <style>
-    body {
-      font-family: 'Cairo', sans-serif;
-      background-color: #111a2d;
-      margin: 0;
-      padding: 15px;
-      direction: rtl;
-      text-align: right;
-      color: #fff;
-    }
+<!-- أضف هذا الزر أسفل زر "تحديث المعلومات" -->
+<button onclick="toggleTheme()">تبديل الوضع الليلي/النهاري</button>
 
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      background: #1c2742;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-    }
+<script>
+  let isDark = true; // الوضع الافتراضي: ليلي
 
-    h1, h2 {
-      color: #4ea8ff;
-      text-align: center;
-    }
+  function toggleTheme() {
+    const body = document.body;
+    const container = document.querySelector(".container");
 
-    label {
-      font-weight: bold;
-      color: #ddd;
-    }
+    if (isDark) {
+      // الوضع النهاري
+      body.style.backgroundColor = "#ffffff";
+      body.style.color = "#000000";
 
-    input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0 20px 0;
-      border-radius: 5px;
-      border: 1px solid #4ea8ff;
-      background-color: #0e1425;
-      color: #fff;
-      font-size: 16px;
-    }
+      container.style.backgroundColor = "#f5f5f5";
+      container.style.boxShadow = "0 0 15px rgba(0,0,0,0.1)";
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
-      font-size: 15px;
-    }
-
-    th, td {
-      border: 1px solid #334a70;
-      padding: 12px;
-      text-align: center;
-    }
-
-    th {
-      background-color: #1e3a5c;
-      color: #fff;
-    }
-
-    td {
-      background-color: #16213b;
-      color: #fff;
-    }
-
-    td[contenteditable='true'] {
-      background-color: #1b2a4a;
-      cursor: text;
-    }
-
-    .buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-      margin-top: 15px;
-    }
-
-    button {
-      padding: 10px 20px;
-      background-color: #4ea8ff;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      font-weight: bold;
-    }
-
-    button:hover {
-      background-color: #328dd4;
-    }
-
-    .header {
-      text-align: center;
-      margin-bottom: 25px;
-    }
-
-    .print-area {
-      padding: 15px;
-      border: 2px dashed #334a70;
-      border-radius: 10px;
-      position: relative;
-      overflow-x: auto;
-    }
-
-    .footer {
-      text-align: center;
-      margin-top: 25px;
-      font-weight: bold;
-      color: #999;
-    }
-
-    #info-footer {
-      margin-top: 15px;
-      font-size: 17px;
-      font-weight: bold;
-      color: #f5f5f5;
-      text-align: center;
-    }
-
-    /* تحسين العرض على الجوال */
-    @media (max-width: 768px) {
-      .container {
-        padding: 15px;
-      }
-
-      table, th, td {
-        font-size: 13px;
-        padding: 8px;
-      }
-
-      button {
-        flex: 1 1 100%;
-      }
-
-      input {
-        font-size: 14px;
-      }
-
-      #info-footer {
-        font-size: 15px;
-      }
-    }
-
-    /* طباعة الجدول فقط */
-    @media print {
-      body * {
-        visibility: hidden;
-      }
-
-      #schedule, #schedule * {
-        visibility: visible;
-      }
-
-      #schedule {
-        position: absolute;
-        top: 0;
-        right: 0;
-        left: 0;
-        margin: auto;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="header">
-      <h1>📚 جدول الحصص الأسبوعي</h1>
-    </div>
-
-    <div>
-      <label>اسم المدرسة:</label>
-      <input type="text" id="schoolName" placeholder="مثال: ثانوية أبي تمام" />
-
-      <label>اسم الطالب:</label>
-      <input type="text" id="studentName" placeholder="مثال: أحمد بن علي" />
-
-      <button onclick="updateNames()">تحديث المعلومات</button>
-    </div>
-
-    <div class="print-area" id="schedule">
-      <table id="scheduleTable">
-        <thead>
-          <tr>
-            <th>الحصة / اليوم</th>
-            <th>الأحد</th>
-            <th>الاثنين</th>
-            <th>الثلاثاء</th>
-            <th>الأربعاء</th>
-            <th>الخميس</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-
-      <div id="info-footer">
-        <div id="schoolNameDisplay">اسم المدرسة: </div>
-        <div id="studentNameDisplay">اسم الطالب: </div>
-      </div>
-    </div>
-
-    <div class="buttons">
-      <button onclick="downloadImage('png')">تحميل PNG</button>
-      <button onclick="downloadImage('jpeg')">تحميل JPEG</button>
-      <button onclick="downloadPDF()">تحميل PDF</button>
-      <button onclick="printTable()">طباعة الجدول</button>
-    </div>
-
-    <div class="footer">برمجة المعلم: راشد العتيبي</div>
-  </div>
-
-  <!-- مكتبات -->
-  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-  <script>
-    const tbody = document.querySelector("#scheduleTable tbody");
-    for (let i = 1; i <= 7; i++) {
-      const tr = document.createElement("tr");
-      const th = document.createElement("th");
-      th.innerText = `الحصة ${i}`;
-      tr.appendChild(th);
-
-      for (let j = 0; j < 5; j++) {
-        const td = document.createElement("td");
-        td.contentEditable = "true";
-        tr.appendChild(td);
-      }
-      tbody.appendChild(tr);
-    }
-
-    function updateNames() {
-      const school = document.getElementById("schoolName").value;
-      const student = document.getElementById("studentName").value;
-
-      document.getElementById("schoolNameDisplay").innerText = "اسم المدرسة: " + school;
-      document.getElementById("studentNameDisplay").innerText = "اسم الطالب: " + student;
-    }
-
-    function downloadImage(type = "png") {
-      const schedule = document.getElementById("schedule");
-      html2canvas(schedule, { scale: 3 }).then((canvas) => {
-        const link = document.createElement("a");
-        link.download = `جدول_الحصص.${type}`;
-        link.href = canvas.toDataURL(`image/${type}`);
-        link.click();
+      document.querySelectorAll("input").forEach(input => {
+        input.style.backgroundColor = "#ffffff";
+        input.style.color = "#000000";
+        input.style.border = "1px solid #ccc";
       });
-    }
 
-    function printTable() {
-      window.print();
-    }
-
-    async function downloadPDF() {
-      const schedule = document.getElementById("schedule");
-      html2canvas(schedule, { scale: 2 }).then((canvas) => {
-        const imgData = canvas.toDataURL("image/png");
-        const pdf = new jspdf.jsPDF({
-          orientation: "landscape",
-          unit: "px",
-          format: [canvas.width, canvas.height],
-        });
-        pdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
-        pdf.save("جدول_الحصص.pdf");
+      document.querySelectorAll("th, td").forEach(cell => {
+        cell.style.backgroundColor = "#ffffff";
+        cell.style.color = "#000000";
+        cell.style.border = "1px solid #ccc";
       });
+
+      document.querySelectorAll("button").forEach(btn => {
+        btn.style.backgroundColor = "#4ea8ff";
+        btn.style.color = "#fff";
+      });
+
+      isDark = false;
+    } else {
+      // العودة للوضع الليلي
+      body.style.backgroundColor = "#111a2d";
+      body.style.color = "#fff";
+
+      container.style.backgroundColor = "#1c2742";
+      container.style.boxShadow = "0 0 15px rgba(0,0,0,0.3)";
+
+      document.querySelectorAll("input").forEach(input => {
+        input.style.backgroundColor = "#0e1425";
+        input.style.color = "#fff";
+        input.style.border = "1px solid #4ea8ff";
+      });
+
+      const ths = document.querySelectorAll("th");
+      ths.forEach(th => {
+        th.style.backgroundColor = "#1e3a5c";
+        th.style.color = "#fff";
+        th.style.border = "1px solid #334a70";
+      });
+
+      const tds = document.querySelectorAll("td");
+      tds.forEach(td => {
+        td.style.backgroundColor = td.getAttribute("contenteditable") === "true" ? "#1b2a4a" : "#16213b";
+        td.style.color = "#fff";
+        td.style.border = "1px solid #334a70";
+      });
+
+      document.querySelectorAll("button").forEach(btn => {
+        btn.style.backgroundColor = "#4ea8ff";
+        btn.style.color = "#fff";
+      });
+
+      isDark = true;
     }
-  </script>
-</body>
-</html>
+  }
+</script>
