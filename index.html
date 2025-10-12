@@ -151,18 +151,56 @@
 </head>
 <body>
 <header>
+
+<!-- 🔰 كود البانر -->
+<style>
+  .announcement-banner {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: #38bdf820; /* خلفية شفافة بلون السماء */
+    color: #38bdf8; /* لون الخط */
+    padding: 10px 15px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(56,189,248,0.3);
+    animation: pulse 2.5s ease-in-out infinite;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.02); }
+  }
+
+  /* ⚙️ استجابة للجوال */
+  @media (max-width: 600px) {
+    .announcement-banner {
+      position: static;
+      display: block;
+      margin: 10px auto;
+      width: 90%;
+      font-size: 0.95rem;
+    }
+  }
+</style>
+
+<div class="announcement-banner">
+  🧭 اختبار مادة (تقنية رقمية 1)<br>
+  الفترة الأولى - الأسبوع التاسع
+</div>
+
   💻 مادة تقنية رقمية 1 <br>
   👨‍🏫 المعلم: راشد العتيبي
 </header>
 
 <div class="container">
-<!-- زر الكتاب الإلكتروني وزر إنشاء جدول -->
 <div style="text-align: center; margin-bottom: 30px;">
   <a href="#" id="bookBtn" class="main-btn">📘 الكتاب الإلكتروني</a>
   <a href="table.html" class="main-btn" target="_blank">📊 أنشئ جدولك</a>
 
-
-  <!-- البطاقات -->
   <div class="cards">
     <div class="card" onclick="document.getElementById('unit1').scrollIntoView()">
       🖥️
@@ -186,10 +224,233 @@
     </div>
   </div>
 
-  <!-- مربع البحث -->
   <div class="search-box">
     <input type="text" id="searchInput" placeholder="🔍 ابحث عن درس أو واجب...">
   </div>
+<!-- 🎯 لعبة التحويل بين الثنائي والعشري (ثابتة يسار الشاشة) -->
+<style>
+  /* نفس ألوان موقعك */
+  .conv-game {
+    position: fixed;
+    top: 100px; /* المسافة من الأعلى */
+    left: 15px; /* المسافة من اليسار */
+    z-index: 9999;
+    direction: rtl;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    background: #1e293b;
+    color: #e6f6ff;
+    border-radius: 12px;
+    padding: 12px;
+    width: 300px;
+    box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+    text-align: center;
+    transition: opacity 0.3s ease;
+  }
+
+  .conv-game:hover {
+    opacity: 1;
+  }
+
+  .conv-game .title {
+    color: #38bdf8;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 6px;
+  }
+
+  .conv-game .mode-toggle {
+    display:flex;
+    justify-content:center;
+    gap:6px;
+    margin-bottom:8px;
+  }
+
+  .conv-game button.toggle {
+    background: transparent;
+    border: 1px solid #2b4757;
+    color: #cfeffd;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.85rem;
+  }
+
+  .conv-game button.toggle.active {
+    background: #38bdf8;
+    color: #0f172a;
+    border-color: #38bdf8;
+  }
+
+  .conv-game .question {
+    background: #0f172a10;
+    border: 1px solid #243248;
+    padding: 8px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    color: #f1f5f9;
+  }
+
+  .conv-game input[type="text"] {
+    width: calc(100% - 12px);
+    padding: 6px;
+    border-radius: 8px;
+    border: 1px solid #2b4757;
+    background: #061122;
+    color: #e6f6ff;
+    outline: none;
+    margin-bottom: 8px;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .conv-game .controls {
+    display:flex;
+    gap:8px;
+    justify-content:center;
+  }
+
+  .conv-game button {
+    cursor: pointer;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+
+  .conv-game button.check {
+    background: #38bdf8;
+    color: #0f172a;
+  }
+
+  .conv-game button.next {
+    background: #334155;
+    color: #e6f6ff;
+    border: 1px solid #2b4757;
+  }
+
+  .conv-game .feedback {
+    margin-top:8px;
+    min-height: 22px;
+    font-weight: 700;
+  }
+
+  .conv-game .feedback.correct {
+    color: #86efac;
+  }
+
+  .conv-game .feedback.wrong {
+    color: #fb7185;
+  }
+
+  .conv-game .meta {
+    margin-top:8px;
+    display:flex;
+    justify-content:space-between;
+    font-size:0.85rem;
+    color:#94a3b8;
+  }
+
+  /* للجوال */
+  @media (max-width: 768px) {
+    .conv-game {
+      position: static;
+      width: 95%;
+      margin: 10px auto;
+    }
+  }
+</style>
+
+<div class="conv-game" id="convGame" aria-live="polite">
+  <div class="title">💡 لعبة التحويل: ثنائي ↔ عشري</div>
+
+  <div class="mode-toggle">
+    <button class="toggle active" data-mode="bin2dec">ثنائي → عشري</button>
+    <button class="toggle" data-mode="dec2bin">عشري → ثنائي</button>
+  </div>
+
+  <div class="question" id="cgQuestion"></div>
+
+  <input type="text" id="cgAnswer" placeholder="اكتب إجابتك هنا" inputmode="numeric">
+
+  <div class="controls">
+    <button class="check" id="cgCheck">تحقق</button>
+    <button class="next" id="cgNext">التالي</button>
+  </div>
+
+  <div class="feedback" id="cgFeedback"></div>
+
+  <div class="meta">
+    <div>النقاط: <span id="cgScore">0</span></div>
+    <div>جولات: <span id="cgRound">0</span></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const qEl = document.getElementById('cgQuestion');
+  const answerEl = document.getElementById('cgAnswer');
+  const feedbackEl = document.getElementById('cgFeedback');
+  const scoreEl = document.getElementById('cgScore');
+  const roundEl = document.getElementById('cgRound');
+  const checkBtn = document.getElementById('cgCheck');
+  const nextBtn = document.getElementById('cgNext');
+  const toggles = document.querySelectorAll('.conv-game .toggle');
+
+  let mode = 'bin2dec';
+  let current = {};
+  let score = 0;
+  let rounds = 0;
+
+  function randInt(min, max){ return Math.floor(Math.random()*(max-min+1))+min; }
+
+  function generate(){
+    const n = randInt(0,255);
+    if(mode==='bin2dec'){
+      current = { question: n.toString(2).padStart(8,'0'), answer: n };
+      qEl.innerHTML = `حوّل الثنائي إلى عشري:<br><strong dir="ltr">${current.question}</strong>`;
+    }else{
+      current = { question: n, answer: n.toString(2) };
+      qEl.innerHTML = `حوّل العشري إلى ثنائي:<br><strong dir="ltr">${current.question}</strong>`;
+    }
+    feedbackEl.textContent='';
+    answerEl.value='';
+    answerEl.focus();
+    rounds++;
+    roundEl.textContent=rounds;
+  }
+
+  function check(){
+    const user=answerEl.value.trim();
+    if(!user){feedbackEl.textContent='✏️ اكتب إجابتك أولاً';return;}
+    if(mode==='bin2dec'){
+      if(Number(user)===current.answer){score++;feedbackEl.textContent='✅ صحيح!';feedbackEl.className='feedback correct';}
+      else{feedbackEl.textContent=`❌ خطأ، الصحيح: ${current.answer}`;feedbackEl.className='feedback wrong';}
+    }else{
+      if(user.replace(/^0+/,'')===current.answer){score++;feedbackEl.textContent='✅ صحيح!';feedbackEl.className='feedback correct';}
+      else{feedbackEl.textContent=`❌ خطأ، الصحيح: ${current.answer}`;feedbackEl.className='feedback wrong';}
+    }
+    scoreEl.textContent=score;
+  }
+
+  toggles.forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      toggles.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      mode=btn.dataset.mode;
+      generate();
+    });
+  });
+
+  checkBtn.addEventListener('click',check);
+  nextBtn.addEventListener('click',generate);
+  answerEl.addEventListener('keydown',e=>{if(e.key==='Enter')check();});
+  generate();
+})();
+</script>
 
   <!-- الوحدة الأولى -->
   <section id="unit1">
@@ -197,30 +458,35 @@
     <ul>
       <li>
         <a href="files/unit1_data.pdf" target="_blank">تمثيل البيانات</a>
+        <a class="btn" href="files/unit1/data_summary.pdf" target="_blank">📘 ملخص</a>
         <a class="btn" href="files/unit1/data_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit1/data_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
         <a class="btn" href="files/unit1/data_hw.pdf" target="_blank">📄 واجب</a>
       </li>
       <li>
         <a href="files/unit1/structure.pdf" target="_blank">بُنية جهاز الحاسب</a>
+        <a class="btn" href="files/unit1/structure_summary.pdf" target="_blank">📘 ملخص</a>
         <a class="btn" href="files/unit1/structure_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit1/structure_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
         <a class="btn" href="files/unit1/structure_hw.pdf" target="_blank">📄 واجب</a>
       </li>
       <li>
         <a href="files/unit1/os.pdf" target="_blank">أنظمة التشغيل</a>
+        <a class="btn" href="files/unit1/os_summary.pdf" target="_blank">📘 ملخص</a>
         <a class="btn" href="files/unit1/os_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit1/os_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
         <a class="btn" href="files/unit1/os_hw.pdf" target="_blank">📄 واجب</a>
       </li>
       <li>
         <a href="files/unit1/networks.pdf" target="_blank">أساسيات الشبكات</a>
+        <a class="btn" href="files/unit1/networks_summary.pdf" target="_blank">📘 ملخص</a>
         <a class="btn" href="files/unit1/networks_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit1/networks_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
         <a class="btn" href="files/unit1/networks_hw.pdf" target="_blank">📄 واجب</a>
       </li>
       <li>
         <a href="files/unit1/it_society.pdf" target="_blank">تقنية المعلومات والاتصالات والمجتمع</a>
+        <a class="btn" href="files/unit1/it_society_summary.pdf" target="_blank">📘 ملخص</a>
         <a class="btn" href="files/unit1/it_society_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit1/it_society_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
         <a class="btn" href="files/unit1/it_society_hw.pdf" target="_blank">📄 واجب</a>
@@ -234,30 +500,35 @@
     <ul>
       <li>
         <a href="files/unit2_docs.pdf" target="_blank">العمل مع المستندات عبر الإنترنت</a>
+        <a class="btn" href="files/unit2/docs_summary.pdf" target="_blank">📘 ملخص</a>
         <a class="btn" href="files/unit2/docs_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit2/docs_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
         <a class="btn" href="files/unit2/docs_hw.pdf" target="_blank">📄 واجب</a>
       </li>
       <li>
         <a href="files/unit2_meetings.pdf" target="_blank">الاجتماعات عبر الإنترنت</a>
+        <a class="btn" href="files/unit2/meetings_summary.pdf" target="_blank">📘 ملخص</a>
         <a class="btn" href="files/unit2/meetings_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit2/meetings_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
         <a class="btn" href="files/unit2/meetings_hw.pdf" target="_blank">📄 واجب</a>
       </li>
       <li>
         <a href="files/unit2_presentation.pdf" target="_blank">بث العرض التقديمي</a>
+        <a class="btn" href="files/unit2/presentation_summary.pdf" target="_blank">📘 ملخص</a>
         <a class="btn" href="files/unit2/presentation_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit2/presentation_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
         <a class="btn" href="files/unit2/presentation_hw.pdf" target="_blank">📄 واجب</a>
       </li>
       <li>
         <a href="files/unit2_notes.pdf" target="_blank">إدارة الملاحظات</a>
+        <a class="btn" href="files/unit2/notes_summary.pdf" target="_blank">📘 ملخص</a>
         <a class="btn" href="files/unit2/notes_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit2/notes_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
         <a class="btn" href="files/unit2/notes_hw.pdf" target="_blank">📄 واجب</a>
       </li>
       <li>
         <a href="files/unit2_mindmaps.pdf" target="_blank">الخرائط الذهنية</a>
+        <a class="btn" href="files/unit2/mindmaps_summary.pdf" target="_blank">📘 ملخص</a>
         <a class="btn" href="files/unit2/mindmaps_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit2/mindmaps_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
         <a class="btn" href="files/unit2/mindmaps_hw.pdf" target="_blank">📄 واجب</a>
@@ -271,24 +542,28 @@
     <ul>
       <li>
         <a href="files/unit3/control.pdf" target="_blank">المراقبة والتحكم</a>
+        <a class="btn" href="files/unit3/control_summary.pdf" target="_blank">📘 ملخص</a>
         <a class="btn" href="files/unit3/control_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit3/control_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
         <a class="btn" href="files/unit3/control_hw.pdf" target="_blank">📄 واجب</a>
       </li>
       <li>
         <a href="files/unit3/ai.pdf" target="_blank">الذكاء الاصطناعي</a>
+        <a class="btn" href="files/unit3/ai_summary.pdf" target="_blank">📘 ملخص</a>
         <a class="btn" href="files/unit3/ai_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit3/ai_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
         <a class="btn" href="files/unit3/ai_hw.pdf" target="_blank">📄 واجب</a>
       </li>
       <li>
         <a href="files/unit3/emerging.pdf" target="_blank">التقنيات الناشئة</a>
+        <a class="btn" href="files/unit3/emerging_summary.pdf" target="_blank">📘 ملخص</a>
         <a class="btn" href="files/unit3/emerging_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit3/emerging_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
         <a class="btn" href="files/unit3/emerging_hw.pdf" target="_blank">📄 واجب</a>
       </li>
       <li>
         <a href="files/unit3/health.pdf" target="_blank">الصحة والبيئة</a>
+        <a class="btn" href="files/unit3/health_summary.pdf" target="_blank">📘 ملخص</a>
         <a class="btn" href="files/unit3/health_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit3/health_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
         <a class="btn" href="files/unit3/health_hw.pdf" target="_blank">📄 واجب</a>
@@ -302,27 +577,32 @@
     <ul>
       <li>
         <a href="files/unit4/website.pdf" target="_blank">إنشاء موقع إلكتروني بلغة HTML</a>
+        <a class="btn" href="files/unit4/website_summary.pdf" target="_blank">📘 ملخص</a>
         <a class="btn" href="files/unit4/website_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit4/website_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
         <a class="btn" href="files/unit4/website_hw.pdf" target="_blank">📄 واجب</a>
       </li>
       <li>
         <a href="files/unit4/structure.pdf" target="_blank">بُنية المحتوى</a>
+        <a class="btn" href="files/unit4/structure_summary.pdf" target="_blank">📘 ملخص</a>
         <a class="btn" href="files/unit4/structure_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit4/structure_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
         <a class="btn" href="files/unit4/structure_hw.pdf" target="_blank">📄 واجب</a>
       </li>
       <li>
         <a href="files/unit4/form.pdf" target="_blank">إنشاء نموذج بلغة HTML</a>
+        <a class="btn" href="files/unit4/form_summary.pdf" target="_blank">📘 ملخص</a>
         <a class="btn" href="files/unit4/form_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit4/form_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
         <a class="btn" href="files/unit4/form_hw.pdf" target="_blank">📄 واجب</a>
       </li>
       <li>
         <a href="files/unit4/project.pdf" target="_blank">مشروع الوحدة</a>
+        <a class="btn" href="files/unit4/project_summary.pdf" target="_blank">📘 ملخص</a>
       </li>
       <li>
         <a href="files/unit4/quiz.pdf" target="_blank">اختبر نفسك</a>
+        <a class="btn" href="files/unit4/quiz_summary.pdf" target="_blank">📘 ملخص</a>
         <a class="btn" href="files/unit4/quiz_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit4/quiz_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
         <a class="btn" href="files/unit4/quiz_hw.pdf" target="_blank">📄 واجب</a>
@@ -383,6 +663,3 @@ bookBtn.addEventListener("click", (e) => {
 </script>
 </body>
 </html>
-
-
-
