@@ -147,7 +147,6 @@
     html {
       scroll-behavior: smooth;
     }
-
   </style>
 </head>
 <body>
@@ -225,7 +224,7 @@
   <span class="blinking-text">
     📅 موعد اختبار الفترة الأولى يوم الأحد، ١٩ أكتوبر ٢٠٢٥
   </span>
-   <a href="#" id="bookBtn" class="main-btn">📘 الكتاب الإلكتروني</a>
+  <a href="#" id="bookBtn" class="main-btn">📘 الكتاب الإلكتروني</a>
   <a href="table.html" class="main-btn" target="_blank">📊 أنشئ جدولك</a>
 
   <div class="cards">
@@ -648,27 +647,8 @@
 <footer>
   📚 مادة تقنية رقمية 1 - إعداد المعلم راشد العتيبي © 2025
 </footer>
+
 <script>
-/* 📅 نافذة مواعيد الاختبار */
-const examBtn = document.getElementById("examBtn");
-const examPopup = document.getElementById("examPopup");
-const overlay = document.getElementById("overlay");
-const closeExam = document.getElementById("closeExam");
-
-examBtn.onclick = e => {
-  e.preventDefault();
-  examPopup.classList.add("show");
-  overlay.classList.add("show");
-};
-closeExam.onclick = () => {
-  examPopup.classList.remove("show");
-  overlay.classList.remove("show");
-};
-overlay.onclick = () => {
-  examPopup.classList.remove("show");
-  overlay.classList.remove("show");
-};
-
 const searchInput = document.getElementById("searchInput");
 searchInput.addEventListener("keyup", function() {
   let filter = searchInput.value.toLowerCase();
@@ -709,6 +689,3 @@ bookBtn.addEventListener("click", (e) => {
 </script>
 </body>
 </html>
-
-
-
