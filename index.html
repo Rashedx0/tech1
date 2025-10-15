@@ -147,46 +147,7 @@
     html {
       scroll-behavior: smooth;
     }
-	    /* نافذة مواعيد الاختبار */
-    .popup {
-      position: fixed;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%) scale(0.95);
-      background: #1e293b;
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 0 25px rgba(0,0,0,0.5);
-      z-index: 10000;
-      width: 90%;
-      max-width: 400px;
-      text-align: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-    .popup.show {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-      pointer-events: all;
-    }
-    .popup h3 { color: #38bdf8; margin-bottom: 10px; }
-    .popup ul { list-style: none; padding: 0; text-align: right; }
-    .popup ul li {
-      background: #334155;
-      margin: 6px 0;
-      padding: 10px;
-      border-radius: 8px;
-    }
-    .popup .close-btn {
-      background: #38bdf8;
-      color: #0f172a;
-      border: none;
-      padding: 6px 10px;
-      border-radius: 8px;
-      cursor: pointer;
-      margin-top: 12px;
-      font-weight: bold;
-    }
+
   </style>
 </head>
 <body>
@@ -245,25 +206,27 @@
 
 <div class="container">
 <div style="text-align: center; margin-bottom: 30px;">
-  <a href="#" id="examBtn" class="main-btn">📅 موعد الاختبار</a>
-  <a href="#" id="bookBtn" class="main-btn">📘 الكتاب الإلكتروني</a>
-  <a href="table.html" class="main-btn" target="_blank">📊 أنشئ جدولك</a>
+	  <!-- ✨ كتابة تومض بدل زر موعد الاختبار -->
+  <style>
+    .blinking-text {
+      color: #38bdf8;
+      font-size: 1.2rem;
+      font-weight: bold;
+      animation: blink 1.5s infinite;
+      margin-bottom: 25px;
+      display: block;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+  </style>
 
-  <!-- Overlay ونافذة المواعيد -->
-  <div class="overlay" id="overlay"></div>
-  <div class="popup" id="examPopup">
-    <h3>📅 مواعيد اختبار مادة تقنية رقمية 1</h3>
-    <ul>
-      <li>📘 أولى أول - الأحد (الحصة الرابعة)</li>
-      <li>📘 أولى ثاني - الأربعاء (الحصة الثانية)</li>
-      <li>📘 أولى ثالث - الاثنين (الحصة الثالثة)</li>
-      <li>📘 أولى رابع - الأحد (الحصة الثانية)</li>
-      <li>📘 أولى خامس - الخميس (الحصة الثانية)</li>
-      <li>📘 أولى سادس - الأحد (الحصة الثالثة)</li>
-      <li>📘 أولى سابع - الاثنين (الحصة الخامسة)</li>
-    </ul>
-    <button class="close-btn" id="closeExam">إغلاق</button>
-  </div>
+  <span class="blinking-text">
+    📅 موعد اختبار الفترة الأولى يوم الأحد، ١٩ أكتوبر ٢٠٢٥
+  </span>
+   <a href="#" id="bookBtn" class="main-btn">📘 الكتاب الإلكتروني</a>
+  <a href="table.html" class="main-btn" target="_blank">📊 أنشئ جدولك</a>
 
   <div class="cards">
     <div class="card" onclick="document.getElementById('unit1').scrollIntoView()">
@@ -746,5 +709,6 @@ bookBtn.addEventListener("click", (e) => {
 </script>
 </body>
 </html>
+
 
 
