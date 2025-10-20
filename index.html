@@ -253,13 +253,12 @@
   <div class="search-box">
     <input type="text" id="searchInput" placeholder="🔍 ابحث عن درس أو واجب...">
   </div>
-<!-- 🎯 لعبة التحويل بين الثنائي والعشري (ثابتة يسار الشاشة) -->
+<!-- 🎯 لعبة التحويل بين الثنائي والعشري والست عشري (ثابتة يسار الشاشة) -->
 <style>
-  /* نفس ألوان موقعك */
   .conv-game {
     position: fixed;
-    top: 100px; /* المسافة من الأعلى */
-    left: 15px; /* المسافة من اليسار */
+    top: 100px;
+    left: 15px;
     z-index: 9999;
     direction: rtl;
     font-family: "Segoe UI", Tahoma, sans-serif;
@@ -270,11 +269,6 @@
     width: 300px;
     box-shadow: 0 6px 18px rgba(2,6,23,0.6);
     text-align: center;
-    transition: opacity 0.3s ease;
-  }
-
-  .conv-game:hover {
-    opacity: 1;
   }
 
   .conv-game .title {
@@ -285,10 +279,11 @@
   }
 
   .conv-game .mode-toggle {
-    display:flex;
-    justify-content:center;
-    gap:6px;
-    margin-bottom:8px;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
   }
 
   .conv-game button.toggle {
@@ -333,9 +328,9 @@
   }
 
   .conv-game .controls {
-    display:flex;
-    gap:8px;
-    justify-content:center;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
   }
 
   .conv-game button {
@@ -359,7 +354,7 @@
   }
 
   .conv-game .feedback {
-    margin-top:8px;
+    margin-top: 8px;
     min-height: 22px;
     font-weight: 700;
   }
@@ -373,14 +368,13 @@
   }
 
   .conv-game .meta {
-    margin-top:8px;
-    display:flex;
-    justify-content:space-between;
-    font-size:0.85rem;
-    color:#94a3b8;
+    margin-top: 8px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: #94a3b8;
   }
 
-  /* للجوال */
   @media (max-width: 768px) {
     .conv-game {
       position: static;
@@ -391,16 +385,17 @@
 </style>
 
 <div class="conv-game" id="convGame" aria-live="polite">
-  <div class="title">💡 لعبة التحويل: ثنائي ↔ عشري</div>
+  <div class="title">💡 لعبة التحويل: ثنائي ↔ عشري ↔ ست عشري</div>
 
   <div class="mode-toggle">
     <button class="toggle active" data-mode="bin2dec">ثنائي → عشري</button>
     <button class="toggle" data-mode="dec2bin">عشري → ثنائي</button>
+    <button class="toggle" data-mode="hex2bin">ست عشري → ثنائي</button>
   </div>
 
   <div class="question" id="cgQuestion"></div>
 
-  <input type="text" id="cgAnswer" placeholder="اكتب إجابتك هنا" inputmode="numeric">
+  <input type="text" id="cgAnswer" placeholder="اكتب إجابتك هنا" inputmode="text">
 
   <div class="controls">
     <button class="check" id="cgCheck">تحقق</button>
@@ -436,11 +431,15 @@
   function generate(){
     const n = randInt(0,255);
     if(mode==='bin2dec'){
-      current = { question: n.toString(2).padStart(8,'0'), answer: n };
+      current = { question: n.toString(2).padStart(8,'0'), answer: n.toString(10) };
       qEl.innerHTML = `حوّل الثنائي إلى عشري:<br><strong dir="ltr">${current.question}</strong>`;
-    }else{
-      current = { question: n, answer: n.toString(2) };
+    }else if(mode==='dec2bin'){
+      current = { question: n.toString(10), answer: n.toString(2) };
       qEl.innerHTML = `حوّل العشري إلى ثنائي:<br><strong dir="ltr">${current.question}</strong>`;
+    }else if(mode==='hex2bin'){
+      const hex = n.toString(16).toUpperCase().padStart(2,'0');
+      current = { question: hex, answer: n.toString(2).padStart(8,'0') };
+      qEl.innerHTML = `حوّل الست عشري إلى ثنائي:<br><strong dir="ltr">${current.question}</strong>`;
     }
     feedbackEl.textContent='';
     answerEl.value='';
@@ -449,15 +448,30 @@
     roundEl.textContent=rounds;
   }
 
+  function normalizeBin(str){
+    return str.replace(/^0+/, '') || '0';
+  }
+
   function check(){
-    const user=answerEl.value.trim();
+    const user = answerEl.value.trim().toUpperCase();
     if(!user){feedbackEl.textContent='✏️ اكتب إجابتك أولاً';return;}
+
+    let correct = false;
     if(mode==='bin2dec'){
-      if(Number(user)===current.answer){score++;feedbackEl.textContent='✅ صحيح!';feedbackEl.className='feedback correct';}
-      else{feedbackEl.textContent=`❌ خطأ، الصحيح: ${current.answer}`;feedbackEl.className='feedback wrong';}
+      correct = (user === current.answer);
+    }else if(mode==='dec2bin'){
+      correct = (normalizeBin(user) === normalizeBin(current.answer));
+    }else if(mode==='hex2bin'){
+      correct = (normalizeBin(user) === normalizeBin(current.answer));
+    }
+
+    if(correct){
+      score++;
+      feedbackEl.textContent='✅ صحيح!';
+      feedbackEl.className='feedback correct';
     }else{
-      if(user.replace(/^0+/,'')===current.answer){score++;feedbackEl.textContent='✅ صحيح!';feedbackEl.className='feedback correct';}
-      else{feedbackEl.textContent=`❌ خطأ، الصحيح: ${current.answer}`;feedbackEl.className='feedback wrong';}
+      feedbackEl.textContent=`❌ خطأ، الصحيح: ${current.answer}`;
+      feedbackEl.className='feedback wrong';
     }
     scoreEl.textContent=score;
   }
@@ -689,4 +703,5 @@ bookBtn.addEventListener("click", (e) => {
 </script>
 </body>
 </html>
+
 
