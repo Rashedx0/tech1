@@ -194,11 +194,6 @@
   }
 </style>
 
-<div class="announcement-banner">
-  🧭 اختبار مادة (تقنية رقمية 1)<br>
-  الفترة الأولى - الأسبوع التاسع
-</div>
-
   💻 مادة تقنية رقمية 1 <br>
   👨‍🏫 المعلم: راشد العتيبي
 </header>
@@ -222,7 +217,7 @@
   </style>
 
   <span class="blinking-text">
-    📅 موعد اختبار الفترة الأولى يوم الثلاثاء ٢١ اكتوبر ٢٠٢٥
+    📅 قريباً أختبار الكتروني على منصة مدرستي 
   </span>
   <a href="#" id="bookBtn" class="main-btn">📘 الكتاب الإلكتروني</a>
   <a href="convert.html" class="main-btn" target="_blank">🎮 لعبة التحويل</a>
@@ -384,114 +379,6 @@
     }
   }
 </style>
-
-<div class="conv-game" id="convGame" aria-live="polite">
-  <div class="title">💡 لعبة التحويل: ثنائي ↔ عشري ↔ ست عشري</div>
-
-  <div class="mode-toggle">
-    <button class="toggle active" data-mode="bin2dec">ثنائي → عشري</button>
-    <button class="toggle" data-mode="dec2bin">عشري → ثنائي</button>
-    <button class="toggle" data-mode="hex2bin">ست عشري → ثنائي</button>
-  </div>
-
-  <div class="question" id="cgQuestion"></div>
-
-  <input type="text" id="cgAnswer" placeholder="اكتب إجابتك هنا" inputmode="text">
-
-  <div class="controls">
-    <button class="check" id="cgCheck">تحقق</button>
-    <button class="next" id="cgNext">التالي</button>
-  </div>
-
-  <div class="feedback" id="cgFeedback"></div>
-
-  <div class="meta">
-    <div>النقاط: <span id="cgScore">0</span></div>
-    <div>جولات: <span id="cgRound">0</span></div>
-  </div>
-</div>
-
-<script>
-(function(){
-  const qEl = document.getElementById('cgQuestion');
-  const answerEl = document.getElementById('cgAnswer');
-  const feedbackEl = document.getElementById('cgFeedback');
-  const scoreEl = document.getElementById('cgScore');
-  const roundEl = document.getElementById('cgRound');
-  const checkBtn = document.getElementById('cgCheck');
-  const nextBtn = document.getElementById('cgNext');
-  const toggles = document.querySelectorAll('.conv-game .toggle');
-
-  let mode = 'bin2dec';
-  let current = {};
-  let score = 0;
-  let rounds = 0;
-
-  function randInt(min, max){ return Math.floor(Math.random()*(max-min+1))+min; }
-
-  function generate(){
-    const n = randInt(0,255);
-    if(mode==='bin2dec'){
-      current = { question: n.toString(2).padStart(8,'0'), answer: n.toString(10) };
-      qEl.innerHTML = `حوّل الثنائي إلى عشري:<br><strong dir="ltr">${current.question}</strong>`;
-    }else if(mode==='dec2bin'){
-      current = { question: n.toString(10), answer: n.toString(2) };
-      qEl.innerHTML = `حوّل العشري إلى ثنائي:<br><strong dir="ltr">${current.question}</strong>`;
-    }else if(mode==='hex2bin'){
-      const hex = n.toString(16).toUpperCase().padStart(2,'0');
-      current = { question: hex, answer: n.toString(2).padStart(8,'0') };
-      qEl.innerHTML = `حوّل الست عشري إلى ثنائي:<br><strong dir="ltr">${current.question}</strong>`;
-    }
-    feedbackEl.textContent='';
-    answerEl.value='';
-    answerEl.focus();
-    rounds++;
-    roundEl.textContent=rounds;
-  }
-
-  function normalizeBin(str){
-    return str.replace(/^0+/, '') || '0';
-  }
-
-  function check(){
-    const user = answerEl.value.trim().toUpperCase();
-    if(!user){feedbackEl.textContent='✏️ اكتب إجابتك أولاً';return;}
-
-    let correct = false;
-    if(mode==='bin2dec'){
-      correct = (user === current.answer);
-    }else if(mode==='dec2bin'){
-      correct = (normalizeBin(user) === normalizeBin(current.answer));
-    }else if(mode==='hex2bin'){
-      correct = (normalizeBin(user) === normalizeBin(current.answer));
-    }
-
-    if(correct){
-      score++;
-      feedbackEl.textContent='✅ صحيح!';
-      feedbackEl.className='feedback correct';
-    }else{
-      feedbackEl.textContent=`❌ خطأ، الصحيح: ${current.answer}`;
-      feedbackEl.className='feedback wrong';
-    }
-    scoreEl.textContent=score;
-  }
-
-  toggles.forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      toggles.forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      mode=btn.dataset.mode;
-      generate();
-    });
-  });
-
-  checkBtn.addEventListener('click',check);
-  nextBtn.addEventListener('click',generate);
-  answerEl.addEventListener('keydown',e=>{if(e.key==='Enter')check();});
-  generate();
-})();
-</script>
 
   <!-- الوحدة الأولى -->
   <section id="unit1">
@@ -704,6 +591,7 @@ bookBtn.addEventListener("click", (e) => {
 </script>
 </body>
 </html>
+
 
 
 
