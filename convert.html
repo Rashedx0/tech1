@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎮 لعبة التحويل بين الأنظمة</title>
+  <style>
+    body {
+      background: #0f172a;
+      color: #e2e8f0;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      text-align: center;
+      padding: 20px;
+      direction: rtl;
+    }
+    h1 {
+      color: #38bdf8;
+    }
+    .game {
+      max-width: 450px;
+      margin: auto;
+      background: #1e293b;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+    .modes {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .modes button {
+      background: transparent;
+      color: #cbd5e1;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .modes button.active {
+      background: #38bdf8;
+      color: #0f172a;
+    }
+    .question {
+      margin: 15px 0;
+      background: #334155;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+    input {
+      width: 80%;
+      padding: 8px;
+      border-radius: 8px;
+      border: 1px solid #475569;
+      background: #0f172a;
+      color: #e2e8f0;
+      text-align: center;
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+    .controls button {
+      border: none;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .check { background: #38bdf8; color: #0f172a; }
+    .next { background: #334155; color: #e2e8f0; }
+    .feedback {
+      margin-top: 10px;
+      font-weight: bold;
+      min-height: 22px;
+    }
+    .correct { color: #86efac; }
+    .wrong { color: #fb7185; }
+    .solution {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 10px;
+      margin-top: 8px;
+      font-size: 0.9rem;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🎯 لعبة التحويل بين الأنظمة العددية</h1>
+
+<div class="game">
+  <div class="modes">
+    <button class="active" data-mode="bin2dec">ثنائي → عشري</button>
+    <button data-mode="dec2bin">عشري → ثنائي</button>
+    <button data-mode="bin2oct">ثنائي → ثماني</button>
+    <button data-mode="oct2bin">ثماني → ثنائي</button>
+    <button data-mode="dec2hex">عشري → ست عشري</button>
+    <button data-mode="hex2dec">ست عشري → عشري</button>
+  </div>
+
+  <div class="question" id="question"></div>
+
+  <input type="text" id="answer" placeholder="✏️ اكتب الإجابة هنا">
+
+  <div class="controls">
+    <button class="check" id="checkBtn">تحقق</button>
+    <button class="next" id="nextBtn">التالي</button>
+  </div>
+
+  <div class="feedback" id="feedback"></div>
+  <div class="solution" id="solution"></div>
+
+  <p style="margin-top:10px;">النقاط: <span id="score">0</span> | الجولات: <span id="round">0</span></p>
+</div>
+
+<script>
+(() => {
+  const modes = document.querySelectorAll('.modes button');
+  const qEl = document.getElementById('question');
+  const ansEl = document.getElementById('answer');
+  const fb = document.getElementById('feedback');
+  const sol = document.getElementById('solution');
+  const scoreEl = document.getElementById('score');
+  const roundEl = document.getElementById('round');
+  let mode = 'bin2dec';
+  let score = 0, round = 0, current = {};
+
+  function rand(min, max){return Math.floor(Math.random()*(max-min+1))+min;}
+
+  function gen(){
+    fb.textContent = '';
+    sol.style.display = 'none';
+    sol.textContent = '';
+    ansEl.value = '';
+    const n = rand(1,255);
+    let q='',a='',solTxt='';
+    if(mode==='bin2dec'){q=n.toString(2);a=n.toString(10);solTxt=`نحوّل ${q} من ثنائي إلى عشري عن طريق جمع القيم (128,64,32...) المقابلة للأرقام 1.`;}
+    else if(mode==='dec2bin'){q=n.toString(10);a=n.toString(2);solTxt=`نحوّل ${q} من عشري إلى ثنائي بتقسيم العدد على 2 وأخذ البواقي.`;}
+    else if(mode==='bin2oct'){q=n.toString(2);a=parseInt(q,2).toString(8);solTxt=`نقسم ${q} إلى مجموعات من 3 بت ثم نحول كل مجموعة إلى رقم ثماني.`;}
+    else if(mode==='oct2bin'){q=n.toString(8);a=parseInt(q,8).toString(2);solTxt=`نحوّل كل رقم من ${q} إلى 3 بت ثنائي ثم ندمجها.`;}
+    else if(mode==='dec2hex'){q=n.toString(10);a=n.toString(16).toUpperCase();solTxt=`نحوّل ${q} إلى ست عشري بتقسيم العدد على 16 وأخذ البواقي (A=10, B=11...).`;}
+    else if(mode==='hex2dec'){q=n.toString(16).toUpperCase();a=parseInt(q,16).toString(10);solTxt=`نحوّل ${q} من ست عشري إلى عشري بضرب كل رقم في 16^موضعه.`;}
+    current={q,a,solTxt};
+    qEl.innerHTML=`حوّل: <strong dir="ltr">${q}</strong>`;
+    round++;
+    roundEl.textContent=round;
+  }
+
+  function check(){
+    const u=ansEl.value.trim().toUpperCase();
+    if(!u){fb.textContent='✏️ اكتب الإجابة أولاً';return;}
+    if(u===current.a){
+      fb.textContent='✅ إجابة صحيحة';
+      fb.className='feedback correct';
+      score++;
+      scoreEl.textContent=score;
+    }else{
+      fb.textContent=`❌ خطأ، الصحيح هو: ${current.a}`;
+      fb.className='feedback wrong';
+    }
+    sol.style.display='block';
+    sol.textContent='💡 طريقة الحل: '+current.solTxt;
+  }
+
+  document.getElementById('checkBtn').onclick=check;
+  document.getElementById('nextBtn').onclick=gen;
+  ansEl.addEventListener('keydown',e=>{if(e.key==='Enter')check();});
+  modes.forEach(b=>{
+    b.onclick=()=>{modes.forEach(x=>x.classList.remove('active'));b.classList.add('active');mode=b.dataset.mode;gen();}
+  });
+  gen();
+})();
+</script>
+</body>
+</html>
