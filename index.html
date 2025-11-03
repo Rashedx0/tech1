@@ -147,11 +147,68 @@
     html {
       scroll-behavior: smooth;
     }
+
+    /* ✅ زر الرجوع للأعلى */
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      background-color: #38bdf8;
+      color: #0f172a;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 50%;
+      font-size: 1.3rem;
+      cursor: pointer;
+      display: none;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transition: all 0.3s;
+      z-index: 10000;
+    }
+    #scrollTopBtn:hover {
+      background-color: #0ea5e9;
+      color: white;
+      transform: scale(1.1);
+    }
+
+    /* ✅ شاشة الترحيب */
+    #splash-screen {
+      position: fixed;
+      inset: 0;
+      background: #0f172a;
+      color: #38bdf8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 99999;
+      font-family: "Segoe UI", sans-serif;
+      transition: opacity 1s ease;
+    }
+    .loading-gif {
+      width: 120px;
+      height: 120px;
+      margin-bottom: 20px;
+    }
+    #splash-screen.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
-<header>
 
+<!-- 🌟 شاشة الترحيب -->
+<div id="splash-screen">
+  <div class="splash-content">
+    <img src="https://cdn.pixabay.com/animation/2022/07/29/03/42/03-42-11-849_512.gif" 
+         alt="جارٍ التحميل..." class="loading-gif">
+    <h2>مرحبًا بكم في مادة تقنية رقمية 1 👨‍🏫</h2>
+  </div>
+</div>
+
+<body>
+<header>
 <!-- 🔰 كود البانر المحسّن -->
 <style>
   .announcement-banner {
@@ -193,7 +250,6 @@
     }
   }
 </style>
-
   💻 مادة تقنية رقمية 1 <br>
   👨‍🏫 المعلم: راشد العتيبي
 </header>
@@ -219,167 +275,38 @@
   <span class="blinking-text">
     📅  أختبار الكتروني على منصة مدرستي 
   </span>
-  <a href="#" id="bookBtn" class="main-btn">📘 الكتاب الإلكتروني</a>
-  <a href="https://www.wajibati.net/wp-content/uploads/2023/10/mo_tqeneh1msf1_1_5n8f12a4wv.pdf" class="main-btn" download>📗 الملخصات</a>
-  <a href="convert.html" class="main-btn" target="_blank">🎮 لعبة التحويل</a>
-  <a href="table.html" class="main-btn" target="_blank">📊 أنشئ جدولك</a>
+    <a href="#" id="bookBtn" class="main-btn">📘 الكتاب الإلكتروني</a>
+    <a href="https://www.wajibati.net/wp-content/uploads/2023/10/mo_tqeneh1msf1_1_5n8f12a4wv.pdf" class="main-btn" download>📗 الملخصات</a>
+    <a href="convert.html" class="main-btn" target="_blank">🎮 لعبة التحويل</a>
+    <a href="table.html" class="main-btn" target="_blank">📊 أنشئ جدولك</a>
 
-  <div class="cards">
-    <div class="card" onclick="document.getElementById('unit1').scrollIntoView()">
-      🖥️
-      <h3>الوحدة الأولى</h3>
-      <p>أساسيات علم أجهزة الحاسب</p>
+    <div class="cards">
+      <div class="card" data-aos="fade-up" onclick="document.getElementById('unit1').scrollIntoView()">
+        🖥️
+        <h3>الوحدة الأولى</h3>
+        <p>أساسيات علم أجهزة الحاسب</p>
+      </div>
+      <div class="card" data-aos="fade-up" onclick="document.getElementById('unit2').scrollIntoView()">
+        🌐
+        <h3>الوحدة الثانية</h3>
+        <p>العمل عبر الإنترنت</p>
+      </div>
+      <div class="card" data-aos="fade-up" onclick="document.getElementById('unit3').scrollIntoView()">
+        🤖
+        <h3>الوحدة الثالثة</h3>
+        <p>التقنية والحياة</p>
+      </div>
+      <div class="card" data-aos="fade-up" onclick="document.getElementById('unit4').scrollIntoView()">
+        💻
+        <h3>الوحدة الرابعة</h3>
+        <p>البرمجة باستخدام HTML</p>
+      </div>
     </div>
-    <div class="card" onclick="document.getElementById('unit2').scrollIntoView()">
-      🌐
-      <h3>الوحدة الثانية</h3>
-      <p>العمل عبر الإنترنت</p>
-    </div>
-    <div class="card" onclick="document.getElementById('unit3').scrollIntoView()">
-      🤖
-      <h3>الوحدة الثالثة</h3>
-      <p>التقنية والحياة</p>
-    </div>
-    <div class="card" onclick="document.getElementById('unit4').scrollIntoView()">
-      💻
-      <h3>الوحدة الرابعة</h3>
-      <p>البرمجة باستخدام HTML</p>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="🔍 ابحث عن درس أو واجب...">
     </div>
   </div>
-
-  <div class="search-box">
-    <input type="text" id="searchInput" placeholder="🔍 ابحث عن درس أو واجب...">
-  </div>
-<!-- 🎯 لعبة التحويل بين الثنائي والعشري والست عشري (ثابتة يسار الشاشة) -->
-<style>
-  .conv-game {
-    position: fixed;
-    top: 100px;
-    left: 15px;
-    z-index: 9999;
-    direction: rtl;
-    font-family: "Segoe UI", Tahoma, sans-serif;
-    background: #1e293b;
-    color: #e6f6ff;
-    border-radius: 12px;
-    padding: 12px;
-    width: 300px;
-    box-shadow: 0 6px 18px rgba(2,6,23,0.6);
-    text-align: center;
-  }
-
-  .conv-game .title {
-    color: #38bdf8;
-    font-weight: 700;
-    font-size: 1rem;
-    margin-bottom: 6px;
-  }
-
-  .conv-game .mode-toggle {
-    display: flex;
-    justify-content: center;
-    gap: 6px;
-    margin-bottom: 8px;
-    flex-wrap: wrap;
-  }
-
-  .conv-game button.toggle {
-    background: transparent;
-    border: 1px solid #2b4757;
-    color: #cfeffd;
-    padding: 4px 8px;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    font-size: 0.85rem;
-  }
-
-  .conv-game button.toggle.active {
-    background: #38bdf8;
-    color: #0f172a;
-    border-color: #38bdf8;
-  }
-
-  .conv-game .question {
-    background: #0f172a10;
-    border: 1px solid #243248;
-    padding: 8px;
-    border-radius: 8px;
-    margin-bottom: 8px;
-    font-weight: 700;
-    font-size: 1rem;
-    color: #f1f5f9;
-  }
-
-  .conv-game input[type="text"] {
-    width: calc(100% - 12px);
-    padding: 6px;
-    border-radius: 8px;
-    border: 1px solid #2b4757;
-    background: #061122;
-    color: #e6f6ff;
-    outline: none;
-    margin-bottom: 8px;
-    text-align: center;
-    font-weight: 600;
-  }
-
-  .conv-game .controls {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-  }
-
-  .conv-game button {
-    cursor: pointer;
-    border: none;
-    padding: 6px 10px;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 0.9rem;
-  }
-
-  .conv-game button.check {
-    background: #38bdf8;
-    color: #0f172a;
-  }
-
-  .conv-game button.next {
-    background: #334155;
-    color: #e6f6ff;
-    border: 1px solid #2b4757;
-  }
-
-  .conv-game .feedback {
-    margin-top: 8px;
-    min-height: 22px;
-    font-weight: 700;
-  }
-
-  .conv-game .feedback.correct {
-    color: #86efac;
-  }
-
-  .conv-game .feedback.wrong {
-    color: #fb7185;
-  }
-
-  .conv-game .meta {
-    margin-top: 8px;
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.85rem;
-    color: #94a3b8;
-  }
-
-  @media (max-width: 768px) {
-    .conv-game {
-      position: static;
-      width: 95%;
-      margin: 10px auto;
-    }
-  }
-</style>
 
   <!-- الوحدة الأولى -->
   <section id="unit1">
@@ -485,7 +412,7 @@
       </li>
     </ul>
   </section>
-
+  
   <!-- الوحدة الرابعة -->
   <section id="unit4">
     <h2>💻 الوحدة الرابعة: البرمجة باستخدام HTML</h2>
@@ -532,51 +459,82 @@
   📚 مادة تقنية رقمية 1 - برمجة المعلم راشد العتيبي © 2025
 </footer>
 
+<!-- 🔝 زر الرجوع للأعلى -->
+<button id="scrollTopBtn" title="الرجوع للأعلى">⬆️</button>
+
+<!-- ✨ مكتبة AOS -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
 <script>
-const searchInput = document.getElementById("searchInput");
-searchInput.addEventListener("keyup", function() {
-  let filter = searchInput.value.toLowerCase();
-  let items = document.querySelectorAll("ul li");
-  let anyVisible = false;
-  items.forEach(function(item) {
-    let text = item.textContent.toLowerCase();
-    if (text.includes(filter)) {
-      item.style.display = "";
-      anyVisible = true;
+  // 🌟 شاشة الترحيب
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      const splash = document.getElementById("splash-screen");
+      splash.classList.add("fade-out");
+      setTimeout(() => splash.remove(), 1000);
+    }, 3000);
+  });
+
+  // 🔝 زر الرجوع للأعلى
+  const scrollTopBtn = document.getElementById("scrollTopBtn");
+  window.addEventListener("scroll", () => {
+    if (document.documentElement.scrollTop > 300) {
+      scrollTopBtn.style.display = "block";
     } else {
-      item.style.display = "none";
+      scrollTopBtn.style.display = "none";
     }
   });
-  document.getElementById("noResults")?.remove();
-  if (!anyVisible) {
-    const msg = document.createElement("p");
-    msg.id = "noResults";
-    msg.textContent = "🔍 لا توجد نتائج مطابقة";
-    msg.style.textAlign = "center";
-    msg.style.color = "#94a3b8";
-    document.querySelector(".container").appendChild(msg);
-  }
-});
+  scrollTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 
-const bookBtn = document.getElementById("bookBtn");
-bookBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  const originalText = bookBtn.textContent;
-  bookBtn.textContent = "⏳ جارٍ التحميل...";
-  bookBtn.style.pointerEvents = "none";
-  setTimeout(() => {
-    window.open("https://ktby.net/10782/", "_blank");
-    bookBtn.textContent = originalText;
-    bookBtn.style.pointerEvents = "auto";
-  }, 2000);
-});
+  // ✨ تفعيل AOS
+  AOS.init({
+    duration: 800,
+    easing: "ease-in-out",
+    once: true
+  });
+
+  // 🔍 بحث الدروس
+  const searchInput = document.getElementById("searchInput");
+  searchInput.addEventListener("keyup", function() {
+    let filter = searchInput.value.toLowerCase();
+    let items = document.querySelectorAll("ul li");
+    let anyVisible = false;
+    items.forEach(function(item) {
+      let text = item.textContent.toLowerCase();
+      if (text.includes(filter)) {
+        item.style.display = "";
+        anyVisible = true;
+      } else {
+        item.style.display = "none";
+      }
+    });
+    document.getElementById("noResults")?.remove();
+    if (!anyVisible) {
+      const msg = document.createElement("p");
+      msg.id = "noResults";
+      msg.textContent = "🔍 لا توجد نتائج مطابقة";
+      msg.style.textAlign = "center";
+      msg.style.color = "#94a3b8";
+      document.querySelector(".container").appendChild(msg);
+    }
+  });
+
+  // 📘 زر الكتاب الإلكتروني
+  const bookBtn = document.getElementById("bookBtn");
+  bookBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const originalText = bookBtn.textContent;
+    bookBtn.textContent = "⏳ جارٍ التحميل...";
+    bookBtn.style.pointerEvents = "none";
+    setTimeout(() => {
+      window.open("https://ktby.net/10782/", "_blank");
+      bookBtn.textContent = originalText;
+      bookBtn.style.pointerEvents = "auto";
+    }, 2000);
+  });
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
