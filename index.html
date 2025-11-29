@@ -194,6 +194,22 @@
       opacity: 0;
       pointer-events: none;
     }
+	.flash-btn {
+	background: #38bdf8;
+	color: #0f172a;
+	padding: 6px 10px;
+	border-radius: 8px;
+	font-size: 0.85rem;
+	font-weight: bold;
+	animation: flash 1.3s infinite;
+	cursor: pointer;
+	}
+
+
+	@keyframes flash {
+	0%, 100% { opacity: 1; }
+	50% { opacity: 0.3; }
+	}
   </style>
 </head>
 <body>
@@ -278,7 +294,7 @@
  </span>
     <a href="#" id="bookBtn" class="main-btn">📘 الكتاب الإلكتروني</a>
     <a href="https://www.wajibati.net/wp-content/uploads/2023/10/mo_tqeneh1msf1_1_5n8f12a4wv.pdf" class="main-btn" download>📗 الملخصات</a>
-    <a href="convert.html" class="main-btn" target="_blank">🎮 لعبة التحويل</a>
+    <a href="convert.html" class="main-btn" target="_blank">🔄 التحويل بين الأنظمة</a>
     <a href="table.html" class="main-btn" target="_blank">📊 أنشئ جدولك</a>
 
     <div class="cards">
@@ -416,7 +432,9 @@
   
   <!-- الوحدة الرابعة -->
   <section id="unit4">
-    <h2>💻 الوحدة الرابعة: البرمجة باستخدام HTML</h2>
+    <h2>💻 الوحدة الرابعة: البرمجة باستخدام HTML
+		<a href="summary.html" target="_blank" class="flash-btn">ملخص مبسط</a>
+	</h2>
     <ul>
       <li>
         <a href="files/unit4/website.pdf" target="_blank">إنشاء موقع إلكتروني بلغة HTML</a>
@@ -539,7 +557,6 @@
 </script>
 </body>
 </html>
-
 
 
 
