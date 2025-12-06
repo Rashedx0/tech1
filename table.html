@@ -1,3 +1,4 @@
+<!-- النسخة الجديدة مع تغيير اتجاه الجدول: الحصص بالأعلى والأيام على اليمين -->
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -25,7 +26,7 @@
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
     }
 
-    h1, h2 {
+    h1 {
       color: #4ea8ff;
       text-align: center;
     }
@@ -74,12 +75,18 @@
       cursor: text;
     }
 
+    .print-area {
+      padding: 15px;
+      border: 2px dashed #334a70;
+      border-radius: 10px;
+      overflow-x: auto;
+    }
+
     .buttons {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       justify-content: center;
-      margin-top: 15px;
     }
 
     button {
@@ -96,114 +103,47 @@
     button:hover {
       background-color: #328dd4;
     }
-
-    .header {
-      text-align: center;
-      margin-bottom: 25px;
-    }
-
-    .print-area {
-      padding: 15px;
-      border: 2px dashed #334a70;
-      border-radius: 10px;
-      position: relative;
-      overflow-x: auto;
-    }
-
-    .footer {
-      text-align: center;
-      margin-top: 25px;
-      font-weight: bold;
-      color: #999;
-    }
-
-    #info-footer {
-      margin-top: 15px;
-      font-size: 17px;
-      font-weight: bold;
-      color: #f5f5f5;
-      text-align: center;
-    }
-
-    /* تحسين العرض على الجوال */
-    @media (max-width: 768px) {
-      .container {
-        padding: 15px;
-      }
-
-      table, th, td {
-        font-size: 13px;
-        padding: 8px;
-      }
-
-      button {
-        flex: 1 1 100%;
-      }
-
-      input {
-        font-size: 14px;
-      }
-
-      #info-footer {
-        font-size: 15px;
-      }
-    }
-
-    /* طباعة الجدول فقط */
-    @media print {
-      body * {
-        visibility: hidden;
-      }
-
-      #schedule, #schedule * {
-        visibility: visible;
-      }
-
-      #schedule {
-        position: absolute;
-        top: 0;
-        right: 0;
-        left: 0;
-        margin: auto;
-      }
-    }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="header">
-      <h1>📚 جدول الحصص الأسبوعي</h1>
-    </div>
+    <h1>📚 جدول الحصص الأسبوعي</h1>
 
-    <div>
-      <label>اسم المدرسة:</label>
-      <input type="text" id="schoolName" placeholder="مثال: ثانوية أبي تمام" />
+    <label>اسم المدرسة:</label>
+    <input type="text" id="schoolName" placeholder="مثال: ثانوية أبي تمام" />
 
-      <label>اسم الطالب:</label>
-      <input type="text" id="studentName" placeholder="مثال: أحمد بن علي" />
+    <label>اسم الطالب:</label>
+    <input type="text" id="studentName" placeholder="مثال: أحمد بن علي" />
 
-      <button onclick="updateNames()">تحديث المعلومات</button>
-      <button onclick="toggleTheme()">تبديل الوضع الليلي/النهاري</button>
-    </div>
+    <button onclick="updateNames()">تحديث المعلومات</button>
+    <button onclick="toggleTheme()">تبديل الوضع الليلي/النهاري</button>
 
     <div class="print-area" id="schedule">
       <table id="scheduleTable">
         <thead>
           <tr>
-            <th>الحصة / اليوم</th>
-            <th>الأحد</th>
-            <th>الاثنين</th>
-            <th>الثلاثاء</th>
-            <th>الأربعاء</th>
-            <th>الخميس</th>
+            <th>اليوم / الحصص</th>
+            <th>الحصة 1</th>
+            <th>الحصة 2</th>
+            <th>الحصة 3</th>
+            <th>الحصة 4</th>
+            <th>الحصة 5</th>
+            <th>الحصة 6</th>
+            <th>الحصة 7</th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+          <tr><th>الأحد</th></tr>
+          <tr><th>الاثنين</th></tr>
+          <tr><th>الثلاثاء</th></tr>
+          <tr><th>الأربعاء</th></tr>
+          <tr><th>الخميس</th></tr>
+        </tbody>
       </table>
 
       <div id="info-footer">
-        <div id="schoolNameDisplay">اسم المدرسة: </div>
-        <div id="studentNameDisplay">اسم الطالب: </div>
+        <div id="schoolNameDisplay">اسم المدرسة:</div>
+        <div id="studentNameDisplay">اسم الطالب:</div>
       </div>
     </div>
 
@@ -213,6 +153,7 @@
       <button onclick="downloadPDF()">تحميل PDF</button>
       <button onclick="printTable()">طباعة الجدول</button>
     </div>
+  </div>
 
     <div class="footer">برمجة المعلم: راشد العتيبي</div>
   </div>
@@ -223,20 +164,15 @@
 
   <script>
     // إنشاء الجدول
-    const tbody = document.querySelector("#scheduleTable tbody");
-    for (let i = 1; i <= 7; i++) {
-      const tr = document.createElement("tr");
-      const th = document.createElement("th");
-      th.innerText = `الحصة ${i}`;
-      tr.appendChild(th);
+    const rows = document.querySelectorAll("#scheduleTable tbody tr");
 
-      for (let j = 0; j < 5; j++) {
+    rows.forEach(row => {
+      for (let i = 0; i < 7; i++) {
         const td = document.createElement("td");
         td.contentEditable = "true";
-        tr.appendChild(td);
+        row.appendChild(td);
       }
-      tbody.appendChild(tr);
-    }
+    });
 
     function updateNames() {
       const school = document.getElementById("schoolName").value;
