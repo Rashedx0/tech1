@@ -116,6 +116,52 @@
       body { font-size: 1.05rem; }
       .exam-upload-banner { flex-wrap: wrap; text-align: center; }
     }
+		/* 🖨️ زر الطباعة */
+	.print-box {
+	  text-align: center;
+	  margin: 30px 0;
+	}
+
+	.print-box button {
+	  background: linear-gradient(135deg, #22c55e, #4ade80);
+	  border: none;
+	  padding: 15px 25px;
+	  font-size: 1.1rem;
+	  border-radius: 15px;
+	  cursor: pointer;
+	  font-weight: bold;
+	  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+	}
+
+	.print-box button:hover {
+	  transform: scale(1.05);
+	}
+
+	/* ⏳ العد التنازلي */
+	.countdown-box {
+	  background: #1e293b;
+	  text-align: center;
+	  padding: 20px;
+	  border-radius: 15px;
+	  margin-bottom: 30px;
+	  font-size: 1.2rem;
+	  color: #38bdf8;
+	  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+	}
+
+	#countdown {
+	  font-size: 1.6rem;
+	  margin-top: 10px;
+	  font-weight: bold;
+	  color: #facc15;
+	}
+
+	/* عدم طباعة الأزرار */
+	@media print {
+	  .print-box, .exam-upload-banner {
+		display: none;
+	  }
+	}
   </style>
 </head>
 
@@ -134,6 +180,9 @@
 </header>
 
 <div class="container">
+<div class="print-box">
+  <button onclick="window.print()">🖨️ طباعة تعليمات الاختبار</button>
+</div>
 
 <section>
   <h2>🧪 الاختبار العملي: مشروع برمجة موقع HTML</h2>
@@ -196,10 +245,15 @@
     <li>
       الأسبوع <strong>18</strong><br>
       🗓️ 8 / 7 / 1447 هـ<br>
-      📆 13 فبراير 2026
+      📆 28 / 12 / 2025 م 
     </li>
   </ul>
 </section>
+
+<div class="countdown-box">
+  ⏳ الوقت المتبقي على التسليم:
+  <div id="countdown"></div>
+</div>
 
 </div>
 
@@ -213,6 +267,28 @@
     alert("✅ تم نسخ الإيميل");
   }
 </script>
+<script>
+  const deadline = new Date("December 28, 2025 23:59:59").getTime();
+
+  setInterval(() => {
+    const now = new Date().getTime();
+    const diff = deadline - now;
+
+    if (diff <= 0) {
+      document.getElementById("countdown").innerHTML = "⛔ انتهى وقت التسليم";
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("countdown").innerHTML =
+      `${days} يوم ⏱️ ${hours} ساعة ⏱️ ${minutes} دقيقة ⏱️ ${seconds} ثانية`;
+  }, 1000);
+</script>
+
 
 </body>
 </html>
