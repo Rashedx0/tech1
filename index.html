@@ -1,10 +1,96 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+<!-- 📩 بنر إرسال ملفات الاختبار العملي -->
+<!-- 📩 بنر إرسال ملفات الاختبار العملي -->
+<div class="exam-upload-banner" id="examBanner">
+  <span class="banner-icon">📩</span>
+
+  <span class="banner-text">
+    إرسال ملفات <strong>الاختبار العملي</strong> على الإيميل:
+    <a href="mailto:t19839490@gmail.com" id="examEmail">t19839490@gmail.com</a>
+  </span>
+
+  <button class="copy-email-btn" onclick="copyEmail()">📋 نسخ الإيميل</button>
+
+  <button class="close-banner"
+    onclick="document.getElementById('examBanner').style.display='none'">✖</button>
+</div>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>مادة تقنية رقمية 1 - المعلم راشد العتيبي</title>
   <style>
+	  /* 📩 بنر إرسال الاختبار */
+	.exam-upload-banner {
+	  position: fixed;
+	  top: 0;
+	  left: 0;
+	  right: 0;
+	  background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+	  color: #0f172a;
+	  padding: 12px 20px;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  gap: 10px;
+	  font-weight: bold;
+	  font-size: 1rem;
+	  z-index: 100000;
+	  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+	  animation: bannerPulse 2s infinite;
+	}
+
+	.exam-upload-banner a {
+	  color: #0f172a;
+	  text-decoration: underline;
+	  font-weight: 900;
+	}
+
+	.banner-icon {
+	  font-size: 1.3rem;
+	}
+
+	.close-banner {
+	  position: absolute;
+	  left: 15px;
+	  background: none;
+	  border: none;
+	  font-size: 1.2rem;
+	  cursor: pointer;
+	  color: #0f172a;
+	}
+
+	@keyframes bannerPulse {
+	  0%,100% { opacity: 1; }
+	  50% { opacity: 0.85; }
+	}
+
+	/* 📱 للجوال */
+	@media (max-width: 600px) {
+	  .exam-upload-banner {
+		flex-wrap: wrap;
+		text-align: center;
+		font-size: 0.95rem;
+	  }
+		  /* زر نسخ الإيميل */
+	.copy-email-btn {
+	  background: #0f172a;
+	  color: #38bdf8;
+	  border: none;
+	  padding: 6px 12px;
+	  border-radius: 10px;
+	  font-size: 0.85rem;
+	  font-weight: bold;
+	  cursor: pointer;
+	  transition: 0.2s;
+	}
+
+	.copy-email-btn:hover {
+	  background: #020617;
+	  color: #fff;
+	}
+	}
 	  ul li > a:first-child {
 	  pointer-events: none;
 	  color: #FFFFFF;
@@ -589,7 +675,19 @@
     }, 2000);
   });
 </script>
+<script>
+  function copyEmail() {
+    const email = "t19839490@gmail.com";
+    navigator.clipboard.writeText(email).then(() => {
+      const btn = document.querySelector(".copy-email-btn");
+      const originalText = btn.textContent;
+      btn.textContent = "✅ تم النسخ";
+      setTimeout(() => {
+        btn.textContent = originalText;
+      }, 1500);
+    });
+  }
+</script>
 </body>
 </html>
-
 
