@@ -375,29 +375,37 @@
 <div class="container">
 <div style="text-align: center; margin-bottom: 30px;">
 		  <!-- ✨ كتابة تومض بدل زر موعد الاختبار -->
-		  <style>
-		.blinking-text {
-			animation: blink 1.2s infinite;
-			font-weight: bold;
-			color: #38bdf8;
-
-		}
-
-		@keyframes blink {
-			0% { opacity: 1; }
-			50% { opacity: 0.4; }
-			100% { opacity: 1; }
-		}
-
-		.exam-announcement {
-			font-weight: 800;
-			font-size: 1.3rem;
-			color: #38bdf8;
-			text-align: center;
-			margin-top: 10px;
-			text-shadow: 0 0 8px #000, 0 0 4px #222;
-		}
+			  <style>
+	.blinking-text {
+	    animation: blink 1.2s infinite;
+	    font-weight: bold;
+	    color: #FFD700; /* لون ذهبي */
+	    text-shadow:
+	        0 0 5px #FFD700,
+	        0 0 10px #FFD700,
+	        0 0 20px #FFB700,
+	        0 0 30px #FF9F00; /* إشعاع ذهبي */
+	}
+	
+	@keyframes blink {
+	    0% { opacity: 1; }
+	    50% { opacity: 0.4; }
+	    100% { opacity: 1; }
+	}
+	
+	.exam-announcement {
+	    font-weight: 800;
+	    font-size: 1.3rem;
+	    color: #FFD700;
+	    text-align: center;
+	    margin-top: 10px;
+	    text-shadow:
+	        0 0 6px #FFD700,
+	        0 0 12px #FFB700,
+	        0 0 20px #FF9F00;
+	}
 	</style>
+
 		<span class="blinking-text">
 		<br>
 		وتسليم مشروع الأختبار العملي في الأسبوع القادم 18 <br> هام : اختبار 2 - الفترة الثانية - سيكون متاح عبر منصة مدرستي 
@@ -690,6 +698,7 @@
 </script>
 </body>
 </html>
+
 
 
 
