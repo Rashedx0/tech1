@@ -21,6 +21,81 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>مادة تقنية رقمية 1 - المعلم راشد العتيبي</title>
   <style>
+	  /* 🚀 بانر النسخة الجديدة */
+.new-version-banner {
+  position: fixed;
+  top: 70px; /* تحت بانر الإيميل */
+  right: 50%;
+  transform: translateX(50%);
+  background: linear-gradient(135deg, #1e293b, #334155);
+  color: #38bdf8;
+  padding: 18px 35px;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 0 25px rgba(56,189,248,0.35);
+  z-index: 9998;
+  animation: floatPulse 3s ease-in-out infinite;
+  overflow: hidden;
+}
+
+.new-version-banner h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 900;
+}
+
+.new-version-banner p {
+  margin-top: 6px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #fde68a;
+  text-shadow: 0 0 6px rgba(253,230,138,0.6);
+}
+
+/* ✨ حركة النبض */
+@keyframes floatPulse {
+  0%, 100% {
+    transform: translateX(50%) scale(1);
+  }
+  50% {
+    transform: translateX(50%) scale(1.05);
+  }
+}
+
+/* ✨ لمعان متحرك */
+.new-version-banner .shine {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    120deg,
+    transparent 40%,
+    rgba(255,255,255,0.15) 50%,
+    transparent 60%
+  );
+  animation: shineMove 4s infinite;
+}
+
+@keyframes shineMove {
+  0% {
+    transform: translateX(-100%) translateY(-100%);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%);
+  }
+}
+
+/* 📱 للجوال */
+@media (max-width: 600px) {
+  .new-version-banner {
+    width: 90%;
+    top: 80px;
+    font-size: 0.95rem;
+  }
+}
+
 	  /* 📩 بنر إرسال الاختبار */
 	.exam-upload-banner {
 	  position: fixed;
@@ -315,6 +390,12 @@
   </style>
 </head>
 <body>
+<!-- 🚀 بانر نسخة جديدة -->
+<div class="new-version-banner">
+  <div class="shine"></div>
+  <h3>🚀 نسخة جديدة من الموقع قريبًا</h3>
+  <p>🌴 إجازة سعيدة</p>
+</div>
 
 <!-- 🌟 شاشة الترحيب -->
 <div id="splash-screen">
@@ -695,6 +776,7 @@
 </script>
 </body>
 </html>
+
 
 
 
