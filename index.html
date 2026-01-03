@@ -21,6 +21,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>مادة تقنية رقمية 1 - المعلم راشد العتيبي</title>
   <style>
+	  /* 🔴 الموقع مغلق */
+.site-closed-ar,
+.site-closed-en {
+  margin-top: 10px;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #b91c1c; /* أحمر غامق */
+  text-shadow: 0 0 8px rgba(185,28,28,0.7);
+  letter-spacing: 1px;
+}
+
+.site-closed-en {
+  font-size: 1.2rem;
+}
+
+/* 📱 للجوال */
+@media (max-width: 600px) {
+  .site-closed-ar,
+  .site-closed-en {
+    font-size: 1.1rem;
+  }
+}
+
 /* 🔒 إخفاء كامل الموقع */
 #site-lock {
   position: fixed;
@@ -441,11 +464,15 @@
 <body>
 <!-- 🔒 شاشة إخفاء الموقع -->
 <div id="site-lock">
-  <div class="lock-content">
-    <h1> نسخة جديدة من الموقع قريبًا 🚀</h1>
-    <p class="holiday"> إجازة سعيدة 🌴</p>
-    <span class="loader"></span>
-  </div>
+<div class="lock-content">
+  <h1>🚀 نسخة جديدة من الموقع قريبًا</h1>
+  <p class="holiday">🌴 إجازة سعيدة</p>
+
+  <p class="site-closed-ar">🔒 الموقع مغلق</p>
+  <p class="site-closed-en">SITE CLOSED</p>
+
+  <span class="loader"></span>
+</div>
 </div>
 
 <!-- 🌟 شاشة الترحيب -->
@@ -827,6 +854,7 @@
 </script>
 </body>
 </html>
+
 
 
 
