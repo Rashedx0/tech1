@@ -6,6 +6,46 @@
 <title>تقنية رقمية 1 | الترحيب</title>
 
 <style>
+/* ================= Splash Screen ================= */
+#splash {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top, #1e293b, #020617);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+#splash.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+.splash-content {
+  text-align: center;
+  animation: fadeUp 1.2s ease;
+}
+.splash-content .logo {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  animation: spin 1.8s linear infinite;
+}
+.splash-content h2 {
+  color: #38bdf8;
+  margin: 10px 0 5px;
+  text-shadow: 0 0 10px rgba(56,189,248,0.6);
+}
+.splash-content p {
+  color: #cbd5e1;
+  font-size: 1rem;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================= الصفحة الرئيسية ================= */
 body {
   margin: 0;
   font-family: "Segoe UI", Tahoma, sans-serif;
@@ -29,24 +69,20 @@ body {
   max-width: 420px;
   width: 90%;
 }
-
-/* ✨ حركة خفيفة */
 @keyframes float {
   0%,100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
 }
-
 .welcome-box h1 {
   color: #38bdf8;
   font-size: 2rem;
   margin-bottom: 10px;
   text-shadow: 0 0 12px rgba(56,189,248,0.6);
 }
-
 .welcome-box p {
   color: #cbd5e1;
   font-size: 1.1rem;
-  margin-bottom: 35px;
+  margin-bottom: 25px;
 }
 
 /* 🔘 الأزرار */
@@ -63,52 +99,112 @@ body {
   transition: 0.3s;
   box-shadow: 0 6px 20px rgba(0,0,0,0.4);
 }
-
 .semester-btn:hover {
   transform: scale(1.05);
   background: linear-gradient(135deg, #0ea5e9, #38bdf8);
   color: #fff;
 }
-
-/* ✨ وميض بسيط */
 .semester-btn.first {
   animation: pulse 1.8s infinite;
 }
-
 @keyframes pulse {
   0%,100% { opacity: 1; }
   50% { opacity: 0.8; }
 }
 
+/* ✉️ صندوق التواصل */
+.contact-box {
+  margin-top: 25px;
+  padding: 18px;
+  border-radius: 18px;
+  background: rgba(56,189,248,0.08);
+  border: 1px solid rgba(56,189,248,0.25);
+}
+.contact-box h3 {
+  margin: 0 0 10px;
+  color: #38bdf8;
+  font-size: 1.1rem;
+}
+.email-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.email-row a {
+  color: #fde68a;
+  font-weight: bold;
+  text-decoration: underline;
+}
+.copy-btn {
+  background: #38bdf8;
+  color: #0f172a;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.copy-btn:hover {
+  background: #0ea5e9;
+  color: #fff;
+}
+
 /* 📱 للجوال */
 @media (max-width: 600px) {
-  .welcome-box h1 {
-    font-size: 1.6rem;
-  }
-  .semester-btn {
-    font-size: 1.15rem;
-  }
+  .welcome-box h1 { font-size: 1.6rem; }
+  .semester-btn { font-size: 1.15rem; }
 }
 </style>
 </head>
 
 <body>
 
+<!-- 🌟 Splash Screen -->
+<div id="splash">
+  <div class="splash-content">
+    <div class="logo">💻</div>
+    <h2>تقنية رقمية 1</h2>
+    <p>جارٍ التحميل...</p>
+  </div>
+</div>
+
+<!-- 🌟 واجهة الترحيب -->
 <div class="welcome-box">
   <h1>👨‍🏫 مرحبًا بكم</h1>
   <p>مادة تقنية رقمية 1<br>اختر الفصل الدراسي</p>
 
-  <!-- 🔗 اربط زر الفصل الأول بصفحتك الحالية -->
-  <a href="S1/index_1.html" class="semester-btn first">
-    📘 الفصل الدراسي الأول
-  </a>
+  <a href="S1/index_1.html" class="semester-btn first">📘 الفصل الدراسي الأول</a>
+  <a href="S2/index_2.html" class="semester-btn">📕 الفصل الدراسي الثاني</a>
 
-  <!-- 🔗 رابط الفصل الثاني (عدله لاحقًا) -->
-  <a href="S2/index_2.html" class="semester-btn">
-    📕 الفصل الدراسي الثاني
-  </a>
+  <!-- ✉️ التواصل -->
+  <div class="contact-box">
+    <h3>📩 للتواصل مع المعلم وإرسال الملفات</h3>
+    <div class="email-row">
+      <a href="mailto:t19839490@gmail.com">t19839490@gmail.com</a>
+      <button class="copy-btn" onclick="copyEmail()">📋 نسخ</button>
+    </div>
+  </div>
 </div>
+
+<script>
+  // إخفاء السبلاش
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      document.getElementById("splash").classList.add("hide");
+    }, 1200);
+  });
+
+  // نسخ الإيميل
+  function copyEmail() {
+    navigator.clipboard.writeText("t19839490@gmail.com").then(() => {
+      alert("✅ تم نسخ الإيميل");
+    });
+  }
+</script>
 
 </body>
 </html>
-
