@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تعلم أساسيات HTML </title>
+
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #121a2d;
+      color: #f1f5f9;
+      line-height: 1.9;
+    }
+
+    header {
+      background: #1e293b;
+      color: #38bdf8;
+      padding: 30px;
+      text-align: center;
+      font-size: 2rem;
+      font-weight: bold;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.4);
+    }
+
+    main {
+      max-width: 900px;
+      margin: 30px auto;
+      background: #1e293b;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+
+    h2 {
+      color: #38bdf8;
+      margin-top: 35px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    h2::before {
+      content: "💡";
+      font-size: 1.3rem;
+    }
+
+    h3 {
+      color: #7dd3fc;
+    }
+
+    /* جعل الأكواد من اليسار إلى اليمين */
+    pre {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 18px;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-size: 15px;
+      line-height: 1.7;
+      border: 1px solid #38bdf8;
+      direction: ltr;
+      text-align: left;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background: #334155;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #475569;
+      text-align: center;
+      color: #e2e8f0;
+    }
+
+    th {
+      background: #0f172a;
+      color: #38bdf8;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #94a3b8;
+      margin-top: 40px;
+      font-size: 0.9rem;
+    }
+
+    .diagram {
+      background: #334155;
+      padding: 15px;
+      border-radius: 12px;
+      margin-top: 20px;
+      white-space: pre;
+      line-height: 1.6;
+      border-left: 4px solid #38bdf8;
+      color: #e2e8f0;
+      direction: ltr;
+      text-align: left;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li {
+      background: #334155;
+      margin: 8px 0;
+      padding: 12px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: 0.2s;
+      border: 1px solid #475569;
+    }
+
+    ul li:hover {
+      background: #475569;
+    }
+
+    ul li::before {
+      content: "✔️";
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    📘 تعليم HTML – إصدار محسّن
+  </header>
+
+  <main>
+
+    <h2>ما هي HTML؟</h2>
+    <p>
+      HTML هي اختصار لـ <strong>HyperText Markup Language</strong> وتعني 
+      <strong>لغة ترميز النص التشعبي</strong>.  
+      وهي الأساس الذي تُبنى عليه جميع صفحات الويب، حيث تحدد بنية الصفحة ومحتواها.
+    </p>
+
+    <h2>أبسط مثال على صفحة HTML</h2>
+    <p>هذا مثال قياسي لأي صفحة HTML:</p>
+
+    <pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;صفحة بسيطة&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;أهلاً بالعالم!&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+
+    <h2>هيكل صفحة HTML (رسم توضيحي)</h2>
+
+    <div class="diagram">
+📄 HTML Document
+ ├── &lt;head&gt;
+ │     ├── &lt;title&gt;
+ │     └── meta tags
+ └── &lt;body&gt;
+       ├── &lt;h1&gt;
+       ├── &lt;p&gt;
+       └── &lt;img&gt;
+    </div>
+
+    <h2>أهم الوسوم الأساسية</h2>
+
+    <table>
+      <tr>
+        <th>الوسم</th>
+        <th>وظيفته</th>
+        <th>يحتاج إغلاق؟</th>
+        <th>مثال</th>
+      </tr>
+
+      <tr>
+        <td>&lt;h1&gt;</td>
+        <td>عنوان رئيسي</td>
+        <td>نعم</td>
+        <td>&lt;h1&gt;عنوان&lt;/h1&gt;</td>
+      </tr>
+
+      <tr>
+        <td>&lt;p&gt;</td>
+        <td>فقرة نصية</td>
+        <td>نعم</td>
+        <td>&lt;p&gt;نص&lt;/p&gt;</td>
+      </tr>
+
+      <tr>
+        <td>&lt;a&gt;</td>
+        <td>رابط قابل للضغط</td>
+        <td>نعم</td>
+        <td>&lt;a href="#"&gt;اضغط هنا&lt;/a&gt;</td>
+      </tr>
+
+      <tr>
+        <td>&lt;img&gt;</td>
+        <td>صورة</td>
+        <td>لا</td>
+        <td>&lt;img src="image.jpg" alt="صورة"&gt;</td>
+      </tr>
+
+      <tr>
+        <td>&lt;div&gt;</td>
+        <td>قسم أو حاوية</td>
+        <td>نعم</td>
+        <td>&lt;div&gt;محتوى&lt;/div&gt;</td>
+      </tr>
+    </table>
+
+    <h2>أمثلة سريعة</h2>
+
+    <h3>📌 عنوان</h3>
+    <pre>&lt;h1&gt;هذا عنوان رئيسي&lt;/h1&gt;</pre>
+
+    <h3>📝 فقرة</h3>
+    <pre>&lt;p&gt;هذه فقرة توضيحية.&lt;/p&gt;</pre>
+
+    <h3>🔗 رابط</h3>
+    <pre>&lt;a href="https://example.com"&gt;زيارة الموقع&lt;/a&gt;</pre>
+
+    <h3>🖼️ صورة</h3>
+    <pre>&lt;img src="image.jpg" alt="صورة"&gt;</pre>
+
+    <h2>خطوات عملية للبدء</h2>
+
+    <ul>
+      <li>افتح محرر VS Code.</li>
+      <li>أنشئ ملف جديد باسم <strong>index.html</strong>.</li>
+      <li>الصق مثال HTML الأساسي.</li>
+      <li>افتح الملف في المتصفح.</li>
+      <li>غيّر النصوص وشاهد التغييرات مباشرة.</li>
+    </ul>
+
+    <h2>ملاحظات مهمة</h2>
+
+    <ul>
+      <li>HTML ليست لغة برمجة.</li>
+      <li>المتصفح يفسر الوسوم ولا ينفذها.</li>
+      <li>احرص على كتابة الوسوم بشكل صحيح.</li>
+      <li>استخدم المسافات (Indentation) لترتيب الكود.</li>
+    </ul>
+
+  </main>
+
+  <footer>
+    © 2025 -  المعلم راشد العتيبي
+  </footer>
+
+</body>
+</html>
