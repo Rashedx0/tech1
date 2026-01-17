@@ -1,867 +1,113 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<!-- 📩 بنر إرسال ملفات الاختبار العملي -->
-<!-- 📩 بنر إرسال ملفات الاختبار العملي -->
-<div class="exam-upload-banner" id="examBanner">
-  <span class="banner-icon">📩</span>
-
-  <span class="banner-text">
-    إرسال ملفات <strong>الاختبار العملي</strong> على الإيميل:
-    <a href="mailto:t19839490@gmail.com" id="examEmail">t19839490@gmail.com</a>
-  </span>
-
-  <button class="copy-email-btn" onclick="copyEmail()">📋 نسخ الإيميل</button>
-
-  <button class="close-banner"
-    onclick="document.getElementById('examBanner').style.display='none'">✖</button>
-</div>
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>مادة تقنية رقمية 1 - المعلم راشد العتيبي</title>
-  <style>
-	  /* 🔴 الموقع مغلق */
-.site-closed-ar,
-.site-closed-en {
-  margin-top: 10px;
-  font-size: 1.4rem;
-  font-weight: 900;
-  color: #b91c1c; /* أحمر غامق */
-  text-shadow: 0 0 8px rgba(185,28,28,0.7);
-  letter-spacing: 1px;
-}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تقنية رقمية 1 | الترحيب</title>
 
-.site-closed-en {
-  font-size: 1.2rem;
-}
-
-/* 📱 للجوال */
-@media (max-width: 600px) {
-  .site-closed-ar,
-  .site-closed-en {
-    font-size: 1.1rem;
-  }
-}
-
-/* 🔒 إخفاء كامل الموقع */
-#site-lock {
-  position: fixed;
-  inset: 0;
+<style>
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, sans-serif;
   background: radial-gradient(circle at top, #1e293b, #020617);
-  z-index: 999999;
+  color: #f1f5f9;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* 🌟 صندوق الترحيب */
+.welcome-box {
+  background: #0f172a;
+  padding: 40px 30px;
+  border-radius: 25px;
   text-align: center;
+  box-shadow: 0 0 30px rgba(56,189,248,0.35);
+  animation: float 3s ease-in-out infinite;
+  max-width: 420px;
+  width: 90%;
+}
+
+/* ✨ حركة خفيفة */
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.welcome-box h1 {
   color: #38bdf8;
-  font-family: "Segoe UI", sans-serif;
-}
-
-/* المحتوى */
-.lock-content {
-  animation: fadeZoom 2s ease-in-out infinite alternate;
-}
-
-.lock-content h1 {
   font-size: 2rem;
-  font-weight: 900;
-  margin-bottom: 15px;
-  text-shadow: 0 0 15px rgba(56,189,248,0.6);
+  margin-bottom: 10px;
+  text-shadow: 0 0 12px rgba(56,189,248,0.6);
 }
 
-.lock-content .holiday {
-  font-size: 1.5rem;
-  color: #fde68a;
-  font-weight: bold;
-  text-shadow: 0 0 10px rgba(253,230,138,0.6);
-}
-
-/* ⏳ لودر */
-.loader {
-  display: block;
-  margin: 30px auto 0;
-  width: 50px;
-  height: 50px;
-  border: 5px solid rgba(56,189,248,0.3);
-  border-top-color: #38bdf8;
-  border-radius: 50%;
-  animation: spin 1.2s linear infinite;
-}
-
-/* ✨ أنيميشن */
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes fadeZoom {
-  from { opacity: 0.85; transform: scale(0.97); }
-  to { opacity: 1; transform: scale(1.03); }
-}
-
-/* 📱 للجوال */
-@media (max-width: 600px) {
-  .lock-content h1 {
-    font-size: 1.5rem;
-  }
-  .lock-content .holiday {
-    font-size: 1.2rem;
-  }
-}
-
-
-.new-version-banner h3 {
-  margin: 0;
-  font-size: 1.2rem;
-  font-weight: 900;
-}
-
-.new-version-banner p {
-  margin-top: 6px;
+.welcome-box p {
+  color: #cbd5e1;
   font-size: 1.1rem;
-  font-weight: bold;
-  color: #fde68a;
-  text-shadow: 0 0 6px rgba(253,230,138,0.6);
+  margin-bottom: 35px;
 }
 
-/* ✨ حركة النبض */
-@keyframes floatPulse {
-  0%, 100% {
-    transform: translateX(50%) scale(1);
-  }
-  50% {
-    transform: translateX(50%) scale(1.05);
-  }
+/* 🔘 الأزرار */
+.semester-btn {
+  display: block;
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  color: #0f172a;
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 900;
+  padding: 16px;
+  border-radius: 18px;
+  margin: 15px 0;
+  transition: 0.3s;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
 }
 
-/* ✨ لمعان متحرك */
-.new-version-banner .shine {
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    120deg,
-    transparent 40%,
-    rgba(255,255,255,0.15) 50%,
-    transparent 60%
-  );
-  animation: shineMove 4s infinite;
+.semester-btn:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+  color: #fff;
 }
 
-@keyframes shineMove {
-  0% {
-    transform: translateX(-100%) translateY(-100%);
-  }
-  100% {
-    transform: translateX(100%) translateY(100%);
-  }
+/* ✨ وميض بسيط */
+.semester-btn.first {
+  animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0.8; }
 }
 
 /* 📱 للجوال */
 @media (max-width: 600px) {
-  .new-version-banner {
-    width: 90%;
-    top: 80px;
-    font-size: 0.95rem;
+  .welcome-box h1 {
+    font-size: 1.6rem;
+  }
+  .semester-btn {
+    font-size: 1.15rem;
   }
 }
-
-	  /* 📩 بنر إرسال الاختبار */
-	.exam-upload-banner {
-	  position: fixed;
-	  top: 0;
-	  left: 0;
-	  right: 0;
-	  background: linear-gradient(135deg, #0ea5e9, #38bdf8);
-	  color: #0f172a;
-	  padding: 12px 20px;
-	  display: flex;
-	  align-items: center;
-	  justify-content: center;
-	  gap: 10px;
-	  font-weight: bold;
-	  font-size: 1rem;
-	  z-index: 100000;
-	  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-	  animation: bannerPulse 2s infinite;
-	}
-
-	.exam-upload-banner a {
-	  color: #0f172a;
-	  text-decoration: underline;
-	  font-weight: 900;
-	}
-
-	.banner-icon {
-	  font-size: 1.3rem;
-	}
-
-	.close-banner {
-	  position: absolute;
-	  left: 15px;
-	  background: none;
-	  border: none;
-	  font-size: 1.2rem;
-	  cursor: pointer;
-	  color: #0f172a;
-	}
-
-	@keyframes bannerPulse {
-	  0%,100% { opacity: 1; }
-	  50% { opacity: 0.85; }
-	}
-
-	/* 📱 للجوال */
-	@media (max-width: 600px) {
-	  .exam-upload-banner {
-		flex-wrap: wrap;
-		text-align: center;
-		font-size: 0.95rem;
-	  }
-		  /* زر نسخ الإيميل */
-	.copy-email-btn {
-	  background: #0f172a;
-	  color: #38bdf8;
-	  border: none;
-	  padding: 6px 12px;
-	  border-radius: 10px;
-	  font-size: 0.85rem;
-	  font-weight: bold;
-	  cursor: pointer;
-	  transition: 0.2s;
-	}
-
-	.copy-email-btn:hover {
-	  background: #020617;
-	  color: #fff;
-	}
-	}
-	  ul li > a:first-child {
-	  pointer-events: none;
-	  color: #FFFFFF;
-	  font-weight: bold;
-	}
-    body {
-      font-family: "Segoe UI", Tahoma, sans-serif;
-      background-color: #121a2d;
-      margin: 0;
-      padding: 0;
-      line-height: 1.8;
-      color: #f1f5f9;
-    }
-    header {
-      background: #1e293b;
-      color: #38bdf8;
-      text-align: center;
-      padding: 25px;
-      font-size: 1.8rem;
-      font-weight: bold;
-      letter-spacing: 2px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.4);
-    }
-    .container {
-      max-width: 900px;
-      margin: 30px auto;
-      padding: 15px;
-    }
-    .main-btn {
-      display: block;
-      text-align: center;
-      background: #38bdf8;
-      color: #0f172a;
-      padding: 12px 20px;
-      font-size: 1.1rem;
-      border-radius: 12px;
-      font-weight: bold;
-      width: fit-content;
-      margin: 0 auto 30px;
-      text-decoration: none;
-      transition: 0.2s;
-    }
-    .main-btn:hover {
-      background: #0ea5e9;
-      color: #fff;
-    }
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      margin-bottom: 30px;
-    }
-    .card {
-      background: #334155;
-      padding: 25px;
-      border-radius: 15px;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      transition: transform 0.2s ease-in-out, background 0.2s;
-      cursor: pointer;
-    }
-    .card:hover {
-      transform: scale(1.05);
-      background: #475569;
-    }
-    .card h3 {
-      color: #38bdf8;
-      margin: 10px 0;
-    }
-    .card p {
-      color: #cbd5e1;
-      font-size: 0.9rem;
-    }
-    section {
-      background: #334155;
-      padding: 20px;
-      margin: 20px 0;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      transition: transform 0.2s ease-in-out;
-    }
-    section:hover {
-      transform: scale(1.02);
-    }
-    h2 {
-      color: #38bdf8;
-      margin-bottom: 10px;
-    }
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-    ul li {
-      background: #475569;
-      margin: 8px 0;
-      padding: 12px;
-      border-radius: 8px;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 5px;
-      transition: 0.2s;
-    }
-    ul li:hover {
-      background: #64748b;
-    }
-    a {
-      text-decoration: none;
-      color: #f8fafc;
-      font-weight: bold;
-    }
-    .btn {
-      background: #38bdf8;
-      color: #0f172a;
-      padding: 6px 10px;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      font-weight: bold;
-      transition: 0.2s;
-    }
-    .btn:hover {
-      background: #0ea5e9;
-      color: #fff;
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9rem;
-      color: #94a3b8;
-    }
-    .search-box {
-      text-align: center;
-      margin-bottom: 25px;
-    }
-    input[type="text"] {
-      padding: 10px;
-      width: 80%;
-      max-width: 400px;
-      border-radius: 10px;
-      border: none;
-      outline: none;
-      font-size: 1rem;
-    }
-    html {
-      scroll-behavior: smooth;
-    }
-
-    /* ✅ زر الرجوع للأعلى */
-    #scrollTopBtn {
-      position: fixed;
-      bottom: 30px;
-      left: 30px;
-      background-color: #38bdf8;
-      color: #0f172a;
-      border: none;
-      padding: 12px 16px;
-      border-radius: 50%;
-      font-size: 1.3rem;
-      cursor: pointer;
-      display: none;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      transition: all 0.3s;
-      z-index: 10000;
-    }
-    #scrollTopBtn:hover {
-      background-color: #0ea5e9;
-      color: white;
-      transform: scale(1.1);
-    }
-
-    /* ✅ شاشة الترحيب */
-    #splash-screen {
-      position: fixed;
-      inset: 0;
-      background: #0f172a;
-      color: #38bdf8;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      z-index: 99999;
-      font-family: "Segoe UI", sans-serif;
-      transition: opacity 1s ease;
-    }
-    .loading-gif {
-      width: 120px;
-      height: 120px;
-      margin-bottom: 20px;
-    }
-    #splash-screen.fade-out {
-      opacity: 0;
-      pointer-events: none;
-    }
-	.flash-btn {
-	background: #38bdf8;
-	color: #0f172a;
-	padding: 6px 10px;
-	border-radius: 8px;
-	font-size: 0.85rem;
-	font-weight: bold;
-	animation: flash 1.3s infinite;
-	cursor: pointer;
-	}
-
-
-	@keyframes flash {
-	0%, 100% { opacity: 1; }
-	50% { opacity: 0.3; }
-	}
-	.buttons-row {
-	  display: flex;
-	  justify-content: center;
-	  gap: 15px;
-	  flex-wrap: wrap;
-	  margin-bottom: 30px;
-	}
-
-	.buttons-row .main-btn {
-	  margin: 0 !important;
-	}
-  </style>
-</head>
-<body>
-<!-- 🔒 شاشة إخفاء الموقع -->
-<div id="site-lock">
-<div class="lock-content">
-  <h1>🚀 نسخة جديدة من الموقع قريبًا</h1>
-  <p class="holiday">🌴 إجازة سعيدة</p>
-
-  <p class="site-closed-ar">🔒 الموقع مغلق</p>
-  <p class="site-closed-en">SITE CLOSED</p>
-
-  <span class="loader"></span>
-</div>
-</div>
-
-<!-- 🌟 شاشة الترحيب -->
-<div id="splash-screen">
-  <div class="splash-content">
-    <img src="https://cdn.pixabay.com/animation/2022/07/29/03/42/03-42-11-849_512.gif" 
-         alt="جارٍ التحميل..." class="loading-gif">
-    <h2>مرحبًا بكم في مادة تقنية رقمية 1 👨‍🏫</h2>
-  </div>
-</div>
-
-<body>
-<header>
-<!-- 🔰 كود البانر المحسّن -->
-<style>
-  .announcement-banner {
-    position: fixed;
-    top: 15px;
-    right: 20px;
-    background: rgba(56, 189, 248, 0.15);
-    color: #0ea5e9;
-    padding: 10px 18px;
-    border-radius: 12px;
-    font-size: 1rem;
-    font-weight: bold;
-    box-shadow: 0 0 12px rgba(56,189,248,0.3);
-    animation: pulse 2.5s ease-in-out infinite;
-    text-align: center;
-    line-height: 1.5;
-    z-index: 9999;
-    transition: all 0.3s ease;
-  }
-
-  .announcement-banner:hover {
-    background: rgba(56, 189, 248, 0.25);
-    transform: scale(1.03);
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.7; transform: scale(1.02); }
-  }
-
-  /* ⚙️ استجابة للجوال */
-  @media (max-width: 600px) {
-    .announcement-banner {
-      position: static;
-      display: block;
-      margin: 10px auto;
-      width: 90%;
-      font-size: 0.95rem;
-    }
-  }
 </style>
-  💻 مادة تقنية رقمية 1 <br>
-  👨‍🏫 المعلم: راشد العتيبي
-</header>
+</head>
 
-<div class="container">
-<div style="text-align: center; margin-bottom: 30px;">
-		  <!-- ✨ كتابة تومض بدل زر موعد الاختبار -->
-	<style>
-	.blinking-text {
-	    animation: blink 1.8s infinite; /* وميض أبطأ */
-	    font-weight: bold;
-	    color: #FFD700; /* ذهبي هادئ */
-	    text-shadow:
-	        0 0 3px rgba(255, 215, 0, 0.6),
-	        0 0 6px rgba(255, 200, 0, 0.4),
-	        0 0 10px rgba(255, 180, 0, 0.2); /* إشعاع ناعم */
-	}
-	
-	@keyframes blink {
-	    0% { opacity: 1; }
-	    50% { opacity: 0.75; }
-	    100% { opacity: 1; }
-	}
-	
-	.exam-announcement {
-	    font-weight: 800;
-	    font-size: 1.3rem;
-	    color: #FFD700;
-	    text-align: center;
-	    margin-top: 10px;
-	    text-shadow:
-	        0 0 4px rgba(255, 215, 0, 0.5),
-	        0 0 8px rgba(255, 200, 0, 0.3);
-	}
-	</style>
-		<span class="blinking-text">
-		<br>
-		وتسليم مشروع الأختبار العملي في الأسبوع القادم 18 <br> هام : اختبار 2 - الفترة الثانية - متاح الآن عبر منصة مدرستي 
-	</span>
+<body>
 
-	<p class="exam-announcement">
-		تحديد الاختبار هو : أول درسين في الوحدة الرابعة
-	</p>
-	
-	<div class="buttons-row">
-	  <a href="#" id="bookBtn" class="main-btn">📘 الكتاب الإلكتروني</a>
-	  <a href="exam.html" class="main-btn" target="_blank">🧪 الاختبار العملي</a>
-	  <a href="https://www.wajibati.net/wp-content/uploads/2023/10/mo_tqeneh1msf1_1_5n8f12a4wv.pdf" class="main-btn" download>📗 الملخصات</a>
-	  <a href="convert.html" class="main-btn" target="_blank">🔄 التحويل بين الأنظمة</a>
-	  <a href="table.html" class="main-btn" target="_blank">📊 أنشئ جدولك</a>
-	</div>
+<div class="welcome-box">
+  <h1>👨‍🏫 مرحبًا بكم</h1>
+  <p>مادة تقنية رقمية 1<br>اختر الفصل الدراسي</p>
 
+  <!-- 🔗 اربط زر الفصل الأول بصفحتك الحالية -->
+  <a href="index_1.html" class="semester-btn first">
+    📘 الفصل الدراسي الأول
+  </a>
 
-    <div class="cards">
-      <div class="card" data-aos="fade-up" onclick="document.getElementById('unit1').scrollIntoView()">
-        🖥️
-        <h3>الوحدة الأولى</h3>
-        <p>أساسيات علم أجهزة الحاسب</p>
-      </div>
-      <div class="card" data-aos="fade-up" onclick="document.getElementById('unit2').scrollIntoView()">
-        🌐
-        <h3>الوحدة الثانية</h3>
-        <p>العمل عبر الإنترنت</p>
-      </div>
-      <div class="card" data-aos="fade-up" onclick="document.getElementById('unit3').scrollIntoView()">
-        🤖
-        <h3>الوحدة الثالثة</h3>
-        <p>التقنية والحياة</p>
-      </div>
-      <div class="card" data-aos="fade-up" onclick="document.getElementById('unit4').scrollIntoView()">
-        💻
-        <h3>الوحدة الرابعة</h3>
-        <p>البرمجة باستخدام HTML</p>
-      </div>
-    </div>
-
-    <div class="search-box">
-      <input type="text" id="searchInput" placeholder="🔍 ابحث عن درس أو واجب...">
-    </div>
-  </div>
-
-  <!-- الوحدة الأولى -->
-  <section id="unit1">
-    <h2>🖥️ الوحدة الأولى: أساسيات علم أجهزة الحاسب</h2>
-    <ul>
-      <li>
-        <a href="files/unit1_data.pdf" target="_blank">تمثيل البيانات</a>
-        <a class="btn" href="files/unit1/data_ws.pdf" target="_blank">📄 ورقة عمل</a>
-        <a class="btn" href="files/unit1/data_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-        <a class="btn" href="files/unit1/data_hw.pdf" target="_blank">📄 واجب</a>
-      </li>
-      <li>
-        <a href="files/unit1/structure.pdf" target="_blank">بُنية جهاز الحاسب</a>
-        <a class="btn" href="files/unit1/structure_ws.pdf" target="_blank">📄 ورقة عمل</a>
-        <a class="btn" href="files/unit1/structure_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-        <a class="btn" href="files/unit1/structure_hw.pdf" target="_blank">📄 واجب</a>
-      </li>
-      <li>
-        <a href="files/unit1/os.pdf" target="_blank">أنظمة التشغيل</a>
-        <a class="btn" href="files/unit1/os_ws.pdf" target="_blank">📄 ورقة عمل</a>
-        <a class="btn" href="files/unit1/os_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-        <a class="btn" href="files/unit1/os_hw.pdf" target="_blank">📄 واجب</a>
-      </li>
-      <li>
-        <a href="files/unit1/networks.pdf" target="_blank">أساسيات الشبكات</a>
-        <a class="btn" href="files/unit1/networks_ws.pdf" target="_blank">📄 ورقة عمل</a>
-        <a class="btn" href="files/unit1/networks_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-        <a class="btn" href="files/unit1/networks_hw.pdf" target="_blank">📄 واجب</a>
-      </li>
-      <li>
-        <a href="files/unit1/it_society.pdf" target="_blank">تقنية المعلومات والاتصالات والمجتمع</a>
-        <a class="btn" href="files/unit1/it_society_ws.pdf" target="_blank">📄 ورقة عمل</a>
-        <a class="btn" href="files/unit1/it_society_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-        <a class="btn" href="files/unit1/it_society_hw.pdf" target="_blank">📄 واجب</a>
-      </li>
-    </ul>
-  </section>
-
-  <!-- الوحدة الثانية -->
-  <section id="unit2">
-    <h2>🌐 الوحدة الثانية: العمل عبر الإنترنت</h2>
-    <ul>
-      <li>
-        <a href="files/unit2_docs.pdf" target="_blank">العمل مع المستندات عبر الإنترنت</a>
-        <a class="btn" href="files/unit2/docs_ws.pdf" target="_blank">📄 ورقة عمل</a>
-        <a class="btn" href="files/unit2/docs_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-        <a class="btn" href="files/unit2/docs_hw.pdf" target="_blank">📄 واجب</a>
-      </li>
-      <li>
-        <a href="files/unit2_meetings.pdf" target="_blank">الاجتماعات عبر الإنترنت</a>
-        <a class="btn" href="files/unit2/meetings_ws.pdf" target="_blank">📄 ورقة عمل</a>
-        <a class="btn" href="files/unit2/meetings_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-        <a class="btn" href="files/unit2/meetings_hw.pdf" target="_blank">📄 واجب</a>
-      </li>
-      <li>
-        <a href="files/unit2_presentation.pdf" target="_blank">بث العرض التقديمي</a>
-        <a class="btn" href="files/unit2/presentation_ws.pdf" target="_blank">📄 ورقة عمل</a>
-        <a class="btn" href="files/unit2/presentation_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-        <a class="btn" href="files/unit2/presentation_hw.pdf" target="_blank">📄 واجب</a>
-      </li>
-      <li>
-        <a href="files/unit2_notes.pdf" target="_blank">إدارة الملاحظات</a>
-        <a class="btn" href="files/unit2/notes_ws.pdf" target="_blank">📄 ورقة عمل</a>
-        <a class="btn" href="files/unit2/notes_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-        <a class="btn" href="files/unit2/notes_hw.pdf" target="_blank">📄 واجب</a>
-      </li>
-      <li>
-        <a href="files/unit2_mindmaps.pdf" target="_blank">الخرائط الذهنية</a>
-        <a class="btn" href="files/unit2/mindmaps_ws.pdf" target="_blank">📄 ورقة عمل</a>
-        <a class="btn" href="files/unit2/mindmaps_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-        <a class="btn" href="files/unit2/mindmaps_hw.pdf" target="_blank">📄 واجب</a>
-      </li>
-    </ul>
-  </section>
-
-  <!-- الوحدة الثالثة -->
-  <section id="unit3">
-    <h2>🤖 الوحدة الثالثة: التقنية والحياة</h2>
-    <ul>
-      <li>
-        <a href="files/unit3/control.pdf" target="_blank">المراقبة والتحكم</a>
-        <a class="btn" href="files/unit3/control_ws.pdf" target="_blank">📄 ورقة عمل</a>
-        <a class="btn" href="files/unit3/control_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-        <a class="btn" href="files/unit3/control_hw.pdf" target="_blank">📄 واجب</a>
-      </li>
-      <li>
-        <a href="files/unit3/ai.pdf" target="_blank">الذكاء الاصطناعي</a>
-        <a class="btn" href="files/unit3/ai_ws.pdf" target="_blank">📄 ورقة عمل</a>
-        <a class="btn" href="files/unit3/ai_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-        <a class="btn" href="files/unit3/ai_hw.pdf" target="_blank">📄 واجب</a>
-      </li>
-      <li>
-        <a href="files/unit3/emerging.pdf" target="_blank">التقنيات الناشئة</a>
-        <a class="btn" href="files/unit3/emerging_ws.pdf" target="_blank">📄 ورقة عمل</a>
-        <a class="btn" href="files/unit3/emerging_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-        <a class="btn" href="files/unit3/emerging_hw.pdf" target="_blank">📄 واجب</a>
-      </li>
-      <li>
-        <a href="files/unit3/health.pdf" target="_blank">الصحة والبيئة</a>
-        <a class="btn" href="files/unit3/health_ws.pdf" target="_blank">📄 ورقة عمل</a>
-        <a class="btn" href="files/unit3/health_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-        <a class="btn" href="files/unit3/health_hw.pdf" target="_blank">📄 واجب</a>
-      </li>
-    </ul>
-  </section>
-  
-  <!-- الوحدة الرابعة -->
-  <section id="unit4">
-    <h2>💻 الوحدة الرابعة: البرمجة باستخدام HTML
-		<a href="summary.html" target="_blank" class="flash-btn">الملخص الأول</a>
-		<a href="summary1.html" target="_blank" class="flash-btn">الملخص الثاني</a>
-	</h2>
-    <ul>
-      <li>
-        <a href="files/unit4/website.pdf" target="_blank">إنشاء موقع إلكتروني بلغة HTML</a>
-        <a class="btn" href="files/unit4/website_ws.pdf" target="_blank">📄 ورقة عمل</a>
-        <a class="btn" href="files/unit4/website_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-        <a class="btn" href="files/unit4/website_hw.pdf" target="_blank">📄 واجب</a>
-      </li>
-      <li>
-        <a href="files/unit4/structure.pdf" target="_blank">بُنية المحتوى</a>
-        <a class="btn" href="files/unit4/structure_ws.pdf" target="_blank">📄 ورقة عمل</a>
-        <a class="btn" href="files/unit4/structure_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-        <a class="btn" href="files/unit4/structure_hw.pdf" target="_blank">📄 واجب</a>
-      </li>
-      <li>
-        <a href="files/unit4/form.pdf" target="_blank">إنشاء نموذج بلغة HTML</a>
-        <a class="btn" href="files/unit4/form_ws.pdf" target="_blank">📄 ورقة عمل</a>
-        <a class="btn" href="files/unit4/form_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-        <a class="btn" href="files/unit4/form_hw.pdf" target="_blank">📄 واجب</a>
-      </li>
-      <li>
-        <a href="files/unit4/project.pdf" target="_blank">مشروع الوحدة</a>
-      </li>
-       <!--<li>
-        <a href="files/unit4/quiz.pdf" target="_blank">اختبر نفسك</a>
-        <a class="btn" href="files/unit4/quiz_ws.pdf" target="_blank">📄 ورقة عمل</a>
-        <a class="btn" href="files/unit4/quiz_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-        <a class="btn" href="files/unit4/quiz_hw.pdf" target="_blank">📄 واجب</a>
-      </li>-->
-      <li>
-        <a href="files/unit4/review.pdf" target="_blank">مراجعة</a>
-      </li>
-      <li>
-        <a href="files/unit4/practical.pdf" target="_blank">الاختبار العملي</a>
-      </li>
-    </ul>
-  </section>
-
+  <!-- 🔗 رابط الفصل الثاني (عدله لاحقًا) -->
+  <a href="index_2.html" class="semester-btn">
+    📕 الفصل الدراسي الثاني
+  </a>
 </div>
 
-<footer>
-  📚 مادة تقنية رقمية 1 - المعلم راشد العتيبي © 2025
-</footer>
-
-<!-- 🔝 زر الرجوع للأعلى -->
-<button id="scrollTopBtn" title="الرجوع للأعلى">⬆️</button>
-
-<!-- ✨ مكتبة AOS -->
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-
-<script>
-  // 🌟 شاشة الترحيب
-  window.addEventListener("load", () => {
-    setTimeout(() => {
-      const splash = document.getElementById("splash-screen");
-      splash.classList.add("fade-out");
-      setTimeout(() => splash.remove(), 1000);
-    }, 3000);
-  });
-
-  // 🔝 زر الرجوع للأعلى
-  const scrollTopBtn = document.getElementById("scrollTopBtn");
-  window.addEventListener("scroll", () => {
-    if (document.documentElement.scrollTop > 300) {
-      scrollTopBtn.style.display = "block";
-    } else {
-      scrollTopBtn.style.display = "none";
-    }
-  });
-  scrollTopBtn.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-
-  // ✨ تفعيل AOS
-  AOS.init({
-    duration: 800,
-    easing: "ease-in-out",
-    once: true
-  });
-
-  // 🔍 بحث الدروس
-  const searchInput = document.getElementById("searchInput");
-  searchInput.addEventListener("keyup", function() {
-    let filter = searchInput.value.toLowerCase();
-    let items = document.querySelectorAll("ul li");
-    let anyVisible = false;
-    items.forEach(function(item) {
-      let text = item.textContent.toLowerCase();
-      if (text.includes(filter)) {
-        item.style.display = "";
-        anyVisible = true;
-      } else {
-        item.style.display = "none";
-      }
-    });
-    document.getElementById("noResults")?.remove();
-    if (!anyVisible) {
-      const msg = document.createElement("p");
-      msg.id = "noResults";
-      msg.textContent = "🔍 لا توجد نتائج مطابقة";
-      msg.style.textAlign = "center";
-      msg.style.color = "#94a3b8";
-      document.querySelector(".container").appendChild(msg);
-    }
-  });
-
-  // 📘 زر الكتاب الإلكتروني
-  const bookBtn = document.getElementById("bookBtn");
-  bookBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    const originalText = bookBtn.textContent;
-    bookBtn.textContent = "⏳ جارٍ التحميل...";
-    bookBtn.style.pointerEvents = "none";
-    setTimeout(() => {
-      window.open("https://ktby.net/10782/", "_blank");
-      bookBtn.textContent = originalText;
-      bookBtn.style.pointerEvents = "auto";
-    }, 2000);
-  });
-</script>
-<script>
-  function copyEmail() {
-    const email = "t19839490@gmail.com";
-    navigator.clipboard.writeText(email).then(() => {
-      const btn = document.querySelector(".copy-email-btn");
-      const originalText = btn.textContent;
-      btn.textContent = "✅ تم النسخ";
-      setTimeout(() => {
-        btn.textContent = originalText;
-      }, 1500);
-    });
-  }
-</script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
