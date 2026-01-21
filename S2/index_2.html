@@ -20,6 +20,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>مادة تقنية رقمية 1 - المعلم راشد العتيبي</title>
   <style>
+	  /* زر غير متوفر */
+.btn-disabled {
+  background: #64748b;
+  color: #e2e8f0;
+  cursor: not-allowed;
+  opacity: 0.75;
+  position: relative;
+}
+
+/* وسم "قريبًا" */
+.btn-disabled::before {
+  content: "⏳ قريبًا";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  background: #f59e0b;
+  color: #0f172a;
+  font-size: 0.65rem;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+/* Tooltip عند المرور */
+.btn-disabled:hover::after {
+  content: "📌 سيتم رفع الملف قريبًا";
+  position: absolute;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0f172a;
+  color: #38bdf8;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
 /* ⏳ لودر */
 .loader {
   display: block;
@@ -501,9 +539,9 @@
 	</p>
 	
 	<div class="buttons-row">
-	  <!--<a href="" id="bookBtn" class="main-btn">📘 الكتاب الإلكتروني</a>-->
-	  <!--<a href="" class="main-btn" target="_blank">🧪 الاختبار العملي</a>-->
-	  <!--<a href="" class="main-btn" download>📗 الملخصات</a>-->
+	  <a href="" id="bookBtn" class="main-btn">📘 الكتاب الإلكتروني</a>
+	  <a href="" class="main-btn" target="_blank">🧪 الاختبار العملي</a>
+	  <a href="" class="main-btn" download>📗 الملخصات</a>
 	  <a href="table.html" class="main-btn" target="_blank">📊 أنشئ جدولك</a>
 	</div>
 
@@ -542,7 +580,7 @@
     <ul>
       <li>
         <a href="files/unit1_data.pdf" target="_blank">أساسيات تحرير الصور</a>
-        <a class="btn" href="files/unit1/data_ws.pdf" target="_blank">📄 ورقة عمل</a>
+        <span class="btn btn-disabled"><a class="btn" href="files/unit1/data_ws.pdf" target="_blank">📄 ورقة عمل</a></span>
         <a class="btn" href="files/unit1/data_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
         <a class="btn" href="files/unit1/hw1.pdf" target="_blank">📄 واجب</a>
       </li>
@@ -550,25 +588,25 @@
         <a href="files/unit1/structure.pdf" target="_blank">الطبقات</a>
         <a class="btn" href="files/unit1/structure_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit1/structure_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-        <!--<a class="btn" href="files/unit1/structure_hw.pdf" target="_blank">📄 واجب</a>-->
+        <a class="btn" href="files/unit1/structure_hw.pdf" target="_blank">📄 واجب</a>
       </li>
       <li>
         <a href="files/unit1/os.pdf" target="_blank">تحرير الصور</a>
         <a class="btn" href="files/unit1/os_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit1/os_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-       <!-- <a class="btn" href="files/unit1/os_hw.pdf" target="_blank">📄 واجب</a>-->
+       <a class="btn" href="files/unit1/os_hw.pdf" target="_blank">📄 واجب</a>
       </li>
       <li>
         <a href="files/unit1/networks.pdf" target="_blank">تنقيح الصور</a>
         <a class="btn" href="files/unit1/networks_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit1/networks_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-        <!--<a class="btn" href="files/unit1/networks_hw.pdf" target="_blank">📄 واجب</a>-->
+        <a class="btn" href="files/unit1/networks_hw.pdf" target="_blank">📄 واجب</a>
       </li>
       <li>
         <a href="files/unit1/it_society.pdf" target="_blank">إنشاء رسومات ثنائية الأبعاد</a>
         <a class="btn" href="files/unit1/it_society_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit1/it_society_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-       <!-- <a class="btn" href="files/unit1/it_society_hw.pdf" target="_blank">📄 واجب</a>-->
+        <a class="btn" href="files/unit1/it_society_hw.pdf" target="_blank">📄 واجب</a>
       </li>
     </ul>
   </section>
@@ -581,31 +619,31 @@
         <a href="files/unit2_docs.pdf" target="_blank">الكتابة في مستندات الأعمال</a>
         <a class="btn" href="files/unit2/docs_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit2/docs_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-        <!--<a class="btn" href="files/unit2/docs_hw.pdf" target="_blank">📄 واجب</a>-->
+        <a class="btn" href="files/unit2/docs_hw.pdf" target="_blank">📄 واجب</a>
       </li>
       <li>
         <a href="files/unit2_meetings.pdf" target="_blank">مبادئ تصميم مستندات الأعمال</a>
         <a class="btn" href="files/unit2/meetings_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit2/meetings_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-       <!-- <a class="btn" href="files/unit2/meetings_hw.pdf" target="_blank">📄 واجب</a>-->
+        <a class="btn" href="files/unit2/meetings_hw.pdf" target="_blank">📄 واجب</a>
       </li>
       <li>
         <a href="files/unit2_presentation.pdf" target="_blank">نماذج الأعمال 1</a>
         <a class="btn" href="files/unit2/presentation_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit2/presentation_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-        <!--<a class="btn" href="files/unit2/presentation_hw.pdf" target="_blank">📄 واجب</a>-->
+        <a class="btn" href="files/unit2/presentation_hw.pdf" target="_blank">📄 واجب</a>
       </li>
       <li>
         <a href="files/unit2_notes.pdf" target="_blank">نماذج الأعمال 2</a>
         <a class="btn" href="files/unit2/notes_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit2/notes_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-        <!--<a class="btn" href="files/unit2/notes_hw.pdf" target="_blank">📄 واجب</a>-->
+        <a class="btn" href="files/unit2/notes_hw.pdf" target="_blank">📄 واجب</a>
       </li>
       <li>
         <a href="files/unit2_mindmaps.pdf" target="_blank">تقارير الأعمال</a>
         <a class="btn" href="files/unit2/mindmaps_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit2/mindmaps_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-        <!--<a class="btn" href="files/unit2/mindmaps_hw.pdf" target="_blank">📄 واجب</a>-->
+        <a class="btn" href="files/unit2/mindmaps_hw.pdf" target="_blank">📄 واجب</a>
       </li>
     </ul>
   </section>
@@ -618,25 +656,25 @@
         <a href="files/unit3/control.pdf" target="_blank">الشبكات السلكية واللاسلكية</a>
         <a class="btn" href="files/unit3/control_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit3/control_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-        <!--<a class="btn" href="files/unit3/control_hw.pdf" target="_blank">📄 واجب</a>-->
+        <a class="btn" href="files/unit3/control_hw.pdf" target="_blank">📄 واجب</a>
       </li>
       <li>
         <a href="files/unit3/ai.pdf" target="_blank">شبكات النقال وشبكات الأقمار الصناعية</a>
         <a class="btn" href="files/unit3/ai_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit3/ai_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-        <!--<a class="btn" href="files/unit3/ai_hw.pdf" target="_blank">📄 واجب</a>-->
+        <a class="btn" href="files/unit3/ai_hw.pdf" target="_blank">📄 واجب</a>
       </li>
       <li>
         <a href="files/unit3/emerging.pdf" target="_blank">بروتوكول الإنترنت وأداة محاكاة الشبكة</a>
         <a class="btn" href="files/unit3/emerging_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit3/emerging_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-        <!--<a class="btn" href="files/unit3/emerging_hw.pdf" target="_blank">📄 واجب</a>-->
+        <a class="btn" href="files/unit3/emerging_hw.pdf" target="_blank">📄 واجب</a>
       </li>
       <li>
         <a href="files/unit3/health.pdf" target="_blank">إنشاء اتصال إنترنت عبر الكابل</a>
         <a class="btn" href="files/unit3/health_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit3/health_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-        <!--<a class="btn" href="files/unit3/health_hw.pdf" target="_blank">📄 واجب</a>-->
+        <a class="btn" href="files/unit3/health_hw.pdf" target="_blank">📄 واجب</a>
       </li>
     </ul>
   </section>
@@ -652,19 +690,19 @@
         <a href="files/unit4/website.pdf" target="_blank">مقدمة إلى المايكروبت HTML</a>
         <a class="btn" href="files/unit4/website_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit4/website_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-       <!-- <a class="btn" href="files/unit4/website_hw.pdf" target="_blank">📄 واجب</a>-->
+        <a class="btn" href="files/unit4/website_hw.pdf" target="_blank">📄 واجب</a>
       </li>
       <li>
         <a href="files/unit4/structure.pdf" target="_blank">المتغيرات والتكرارات</a>
         <a class="btn" href="files/unit4/structure_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit4/structure_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-        <!--<a class="btn" href="files/unit4/structure_hw.pdf" target="_blank">📄 واجب</a>-->
+        <a class="btn" href="files/unit4/structure_hw.pdf" target="_blank">📄 واجب</a>
       </li>
       <li>
         <a href="files/unit4/form.pdf" target="_blank">اتخاذ القرارات</a>
         <a class="btn" href="files/unit4/form_ws.pdf" target="_blank">📄 ورقة عمل</a>
         <a class="btn" href="files/unit4/form_ws_solved.pdf" target="_blank">📄 ورقة عمل (محلول)</a>
-       <!-- <a class="btn" href="files/unit4/form_hw.pdf" target="_blank">📄 واجب</a>-->
+        <a class="btn" href="files/unit4/form_hw.pdf" target="_blank">📄 واجب</a>
       </li>
       <li>
         <a href="files/unit4/project.pdf" target="_blank">مشروع الوحدة</a>
@@ -782,6 +820,7 @@
 </script>
 </body>
 </html>
+
 
 
 
