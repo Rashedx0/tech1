@@ -20,6 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>مادة تقنية رقمية 1 - المعلم راشد العتيبي</title>
   <style>
+	  
 	  /* زر غير متوفر */
 .btn-disabled {
   background: #64748b;
@@ -440,6 +441,47 @@
 	.buttons-row .main-btn {
 	  margin: 0 !important;
 	}
+	  <style>
+.exam-announcement-banner {
+  position: fixed;
+  top: 65px; /* أسفل بنر الإيميل */
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #facc15, #f59e0b);
+  color: #0f172a;
+  padding: 12px 20px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 900;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  z-index: 99999;
+  animation: examPulse 2s infinite;
+}
+
+.close-exam-banner {
+  position: absolute;
+  left: 15px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #0f172a;
+}
+
+@keyframes examPulse {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+
+/* 📱 للجوال */
+@media (max-width: 600px) {
+  .exam-announcement-banner {
+    font-size: 0.95rem;
+    padding: 10px;
+  }
+}
+	  
+</style>
   </style>
 </head>
 <body>
@@ -499,7 +541,11 @@
   💻 مادة تقنية رقمية 1 <br>
   👨‍🏫 المعلم: راشد العتيبي
 </header>
-
+<div class="exam-announcement-banner" id="examAnnouncement">
+  📢 <strong>الاختبار الفترة 1</strong> - بتاريخ <strong>12 رمضان</strong> 📅 الحصة الثانية
+  <button class="close-exam-banner"
+    onclick="document.getElementById('examAnnouncement').style.display='none'">✖</button>
+</div>
 <div class="container">
 <div style="text-align: center; margin-bottom: 30px;">
 		  <!-- ✨ كتابة تومض بدل زر موعد الاختبار -->
@@ -792,6 +838,7 @@
 </script>
 </body>
 </html>
+
 
 
 
