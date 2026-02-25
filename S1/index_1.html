@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <!-- 📩 بنر إرسال ملفات الاختبار العملي -->
-<!-- 📩 بنر إرسال ملفات الاختبار العملي -->
 <div class="exam-upload-banner" id="examBanner">
   <span class="banner-icon">📩</span>
 
@@ -404,51 +403,7 @@
 	  margin: 0 !important;
 	}
 
-	  /* 🚀 زر المشاريع المميزة */
-.featured-projects-btn {
-  position: fixed;
-  top: 80px;
-  right: 25px;
-  background: linear-gradient(135deg, #facc15, #f59e0b);
-  color: #0f172a;
-  padding: 12px 18px;
-  border-radius: 15px;
-  font-weight: 900;
-  font-size: 1rem;
-  text-decoration: none;
-  box-shadow: 0 0 15px rgba(250,204,21,0.6);
-  z-index: 9999;
-  animation: floatGlow 2.5s ease-in-out infinite;
-  transition: 0.3s ease;
-}
 
-/* ✨ تأثير عند المرور */
-.featured-projects-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 25px rgba(250,204,21,0.9);
-}
-
-/* ✨ حركة عائمة ولمعان */
-@keyframes floatGlow {
-  0%, 100% {
-    transform: translateY(0);
-    box-shadow: 0 0 15px rgba(250,204,21,0.6);
-  }
-  50% {
-    transform: translateY(-8px);
-    box-shadow: 0 0 25px rgba(250,204,21,0.9);
-  }
-}
-
-/* 📱 للجوال */
-@media (max-width: 600px) {
-  .featured-projects-btn {
-    top: 100px;
-    right: 10px;
-    font-size: 0.9rem;
-    padding: 10px 14px;
-  }
-}
   </style>
 </head>
 <body>
@@ -755,11 +710,6 @@
     }, 3000);
   });
 	
-<!-- 🌟 زر المشاريع المميزة -->
-<a href="files/projects.html" class="featured-projects-btn">
-  🚀 المشاريع المميزة
-</a>
-	
   // 🔝 زر الرجوع للأعلى
   const scrollTopBtn = document.getElementById("scrollTopBtn");
   window.addEventListener("scroll", () => {
@@ -835,6 +785,7 @@
 </script>
 </body>
 </html>
+
 
 
 
