@@ -539,6 +539,47 @@
   💻 مادة تقنية رقمية 1 <br>
   👨‍🏫 المعلم: راشد العتيبي
 </header>
+<div class="exam-announcement-banner" id="examAnnouncement">
+  <button class="close-exam-banner"
+    onclick="document.getElementById('examAnnouncement').style.display='none'">✖</button>
+</div>
+<div class="container">
+<div style="text-align: center; margin-bottom: 30px;">
+		  <!-- ✨ كتابة تومض بدل زر موعد الاختبار -->
+	<style>
+	.blinking-text {
+	    animation: blink 1.8s infinite; /* وميض أبطأ */
+	    font-weight: bold;
+	    color: #FFD700; /* ذهبي هادئ */
+	    text-shadow:
+	        0 0 3px rgba(255, 215, 0, 0.6),
+	        0 0 6px rgba(255, 200, 0, 0.4),
+	        0 0 10px rgba(255, 180, 0, 0.2); /* إشعاع ناعم */
+	}
+	
+	@keyframes blink {
+	    0% { opacity: 1; }
+	    50% { opacity: 0.75; }
+	    100% { opacity: 1; }
+	}
+	
+	.exam-announcement {
+	    font-weight: 800;
+	    font-size: 1.3rem;
+	    color: #FFD700;
+	    text-align: center;
+	    margin-top: 10px;
+	    text-shadow:
+	        0 0 4px rgba(255, 215, 0, 0.5),
+	        0 0 8px rgba(255, 200, 0, 0.3);
+	}
+	</style>
+		<span class="blinking-text">
+		<br>
+	</span>
+
+	<p class="exam-announcement">
+	</p>
 	
 	<div class="buttons-row">
 	  <a href="" id="bookBtn" class="main-btn">📘 الكتاب الإلكتروني</a>
@@ -797,7 +838,6 @@
 </script>
 </body>
 </html>
-
 
 
 
