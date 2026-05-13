@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تطبيق المايكروبت: عداد الأرقام - المعلم راشد العتيبي</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep:    #080d1a;
+      --bg-card:    #0d1526;
+      --bg-card2:   #111d33;
+      --border:     #1e3a5f;
+      --accent:     #00d4ff;
+      --accent2:    #0096cc;
+      --gold:       #fbbf24;
+      --gold-glow:  rgba(251,191,36,0.25);
+      --green:      #10b981;
+      --red:        #ef4444;
+      --text:       #e2e8f0;
+      --text-muted: #64748b;
+      --text-dim:   #94a3b8;
+      --radius:     16px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Cairo", sans-serif;
+      background-color: var(--bg-deep);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── ANIMATED BG GRID ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      top: -30%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+      animation: driftOrb 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes driftOrb {
+      from { transform: translate(0, 0); }
+      to   { transform: translate(-40px, 60px); }
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      position: relative;
+      z-index: 10;
+      background: linear-gradient(180deg, rgba(0,212,255,0.07) 0%, transparent 100%);
+      border-bottom: 1px solid rgba(0,212,255,0.15);
+      padding: 40px 20px 30px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,212,255,0.1);
+      border: 1px solid rgba(0,212,255,0.3);
+      border-radius: 50px;
+      padding: 6px 18px;
+      font-size: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      animation: fadeDown 0.6s ease both;
+    }
+
+    .header-title {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 900;
+      line-height: 1.2;
+      animation: fadeDown 0.6s 0.1s ease both;
+    }
+
+    .header-title .accent { color: var(--accent); }
+
+    .header-sub {
+      color: var(--text-dim);
+      font-size: 1rem;
+      margin-top: 10px;
+      animation: fadeDown 0.6s 0.2s ease both;
+    }
+
+    /* ─── CONTAINER ─── */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 40px 20px 60px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─── TIMER ─── */
+    .timer-wrap {
+      background: linear-gradient(135deg, #0a1628 0%, #0d1f3c 100%);
+      border: 1px solid rgba(0,212,255,0.3);
+      border-radius: 24px;
+      padding: 32px 24px;
+      max-width: 480px;
+      margin: 0 auto 50px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 0 60px rgba(0,212,255,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.05);
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+
+    .timer-wrap::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+
+    .timer-label {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .timer-label .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0,212,255,0.4); }
+      50%       { opacity: 0.6; box-shadow: 0 0 0 6px rgba(0,212,255,0); }
+    }
+
+    #timer-display {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 4.5rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 6px;
+      text-shadow: 0 0 30px var(--gold-glow);
+      line-height: 1;
+      margin-bottom: 28px;
+      transition: color 0.3s;
+    }
+
+    /* Progress ring */
+    .timer-ring {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 140px; height: 140px;
+      pointer-events: none;
+      opacity: 0.12;
+    }
+
+    .timer-controls {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .tbtn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 50px;
+      font-family: "Cairo", sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.5px;
+    }
+
+    .tbtn-start { background: var(--green); color: #fff; box-shadow: 0 4px 15px rgba(16,185,129,0.35); }
+    .tbtn-start:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(16,185,129,0.5); }
+    .tbtn-stop  { background: transparent; color: var(--red); border: 1.5px solid var(--red); }
+    .tbtn-stop:hover  { background: rgba(239,68,68,0.1); transform: translateY(-2px); }
+    .tbtn-reset { background: transparent; color: var(--text-dim); border: 1.5px solid var(--border); }
+    .tbtn-reset:hover { color: var(--text); border-color: var(--text-dim); transform: translateY(-2px); }
+
+    /* ─── TOP BUTTONS ─── */
+    .nav-btns {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 50px;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+
+    .nbtn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      border-radius: 50px;
+      font-family: "Cairo", sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: 1.5px solid;
+    }
+
+    .nbtn-home {
+      color: var(--accent);
+      border-color: rgba(0,212,255,0.35);
+      background: rgba(0,212,255,0.05);
+    }
+    .nbtn-home:hover { background: rgba(0,212,255,0.12); transform: translateY(-2px); }
+
+    .nbtn-code {
+      color: #0f172a;
+      background: var(--accent);
+      border-color: var(--accent);
+      box-shadow: 0 4px 20px rgba(0,212,255,0.3);
+    }
+    .nbtn-code:hover { background: #22d9ff; box-shadow: 0 6px 28px rgba(0,212,255,0.5); transform: translateY(-3px); }
+
+    /* ─── MICROBIT SIMULATOR CARD ─── */
+    .sim-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 32px;
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      overflow: hidden;
+      position: relative;
+      animation: fadeUp 0.7s 0.5s ease both;
+    }
+
+    .sim-card::after {
+      content: '';
+      position: absolute;
+      top: -60%;
+      right: -10%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(0,212,255,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Microbit SVG illustration */
+    .microbit-svg {
+      flex-shrink: 0;
+      width: 160px;
+    }
+
+    .sim-text h2 {
+      color: var(--gold);
+      font-size: 1.4rem;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .sim-text p {
+      color: var(--text-dim);
+      font-size: 0.97rem;
+      line-height: 1.8;
+    }
+
+    /* Interactive microbit button */
+    .microbit-btn-demo {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #0f172a;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 20px;
+      font-family: "Cairo", sans-serif;
+      font-weight: 900;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 16px;
+      transition: all 0.15s;
+      box-shadow: 0 4px 16px rgba(0,212,255,0.3);
+    }
+
+    .microbit-btn-demo:active { transform: scale(0.95); }
+    .microbit-btn-demo:hover { background: #22d9ff; }
+
+    .counter-display {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: rgba(0,212,255,0.08);
+      border: 1px solid rgba(0,212,255,0.2);
+      border-radius: 12px;
+      padding: 10px 24px;
+      min-width: 90px;
+      text-align: center;
+      display: inline-block;
+      margin-top: 12px;
+      transition: all 0.15s;
+    }
+
+    .counter-display.bump {
+      transform: scale(1.15);
+      color: var(--gold);
+    }
+
+    /* ─── CODE BLOCK ─── */
+    .code-section {
+      background: #020810;
+      border: 1px solid rgba(0,212,255,0.2);
+      border-radius: var(--radius);
+      margin-bottom: 40px;
+      overflow: hidden;
+      animation: fadeUp 0.7s 0.6s ease both;
+    }
+
+    .code-header {
+      background: rgba(0,212,255,0.06);
+      border-bottom: 1px solid rgba(0,212,255,0.15);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .code-dots {
+      display: flex; gap: 6px;
+    }
+    .code-dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+    }
+
+    .btn-copy {
+      margin-right: auto;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      border-radius: 8px;
+      padding: 5px 14px;
+      font-family: "Cairo", sans-serif;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-copy:hover { border-color: var(--accent); color: var(--accent); }
+
+    .code-body {
+      padding: 24px;
+      direction: ltr;
+    }
+
+    .code-body pre {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 1rem;
+      line-height: 1.9;
+      color: #e2e8f0;
+    }
+
+    /* Syntax highlight */
+    .kw  { color: #c084fc; }  /* keyword */
+    .fn  { color: #60a5fa; }  /* function */
+    .var { color: #34d399; }  /* variable */
+    .str { color: #fbbf24; }  /* string/value */
+    .cm  { color: #475569; font-style: italic; }  /* comment */
+    .op  { color: #94a3b8; }
+
+    /* ─── STEPS ─── */
+    .steps-title {
+      color: var(--accent);
+      font-size: 1.5rem;
+      font-weight: 900;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      animation: fadeUp 0.6s 0.7s ease both;
+    }
+
+    .steps-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--border), transparent);
+    }
+
+    .steps-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .step-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateX(20px);
+    }
+
+    .step-card.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .step-card::before {
+      content: '';
+      position: absolute;
+      right: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--accent);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .step-card:hover {
+      background: var(--bg-card2);
+      border-color: rgba(0,212,255,0.3);
+      transform: translateX(-4px);
+    }
+
+    .step-card:hover::before { opacity: 1; }
+
+    .step-num {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: rgba(0,212,255,0.1);
+      border: 1px solid rgba(0,212,255,0.25);
+      color: var(--accent);
+      font-size: 1.1rem;
+      font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-num.done {
+      background: rgba(16,185,129,0.1);
+      border-color: rgba(16,185,129,0.3);
+      color: var(--green);
+    }
+
+    .step-body h3 {
+      color: var(--text);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .step-body p {
+      color: var(--text-dim);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+
+    .chip {
+      display: inline-block;
+      background: rgba(16,185,129,0.08);
+      border: 1px solid rgba(16,185,129,0.25);
+      color: #6ee7b7;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.88rem;
+      padding: 4px 12px;
+      border-radius: 8px;
+      direction: ltr;
+      margin-top: 4px;
+    }
+
+    /* ─── PROGRESS BAR ─── */
+    .progress-bar-wrap {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 40px 0 0;
+      animation: fadeUp 0.6s 1s ease both;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      font-size: 0.9rem;
+      color: var(--text-dim);
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent2), var(--accent));
+      border-radius: 50px;
+      width: 0%;
+      transition: width 1.5s ease;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+    }
+
+    footer span { color: var(--accent); }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 640px) {
+      .sim-card { flex-direction: column; text-align: center; }
+      .microbit-svg { width: 120px; }
+      #timer-display { font-size: 3.2rem; }
+      .step-card { gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── HEADER ─── -->
+<header>
+  <div class="header-badge">
+    <span>🤖</span>
+    <span>Digital Tech 1 · المايكروبت</span>
+  </div>
+  <div class="header-title">
+    تطبيق <span class="accent">عداد الأرقام</span>
+  </div>
+  <div class="header-sub">برمجة المايكروبت باستخدام Python · المعلم راشد العتيبي</div>
+</header>
+
+<div class="container">
+
+  <!-- ─── TIMER ─── -->
+  <div class="timer-wrap">
+    <div class="timer-label">
+      <span class="dot"></span>
+      وقت إنجاز التطبيق
+    </div>
+    <div id="timer-display">03:00</div>
+    <div class="timer-controls">
+      <button class="tbtn tbtn-start" onclick="startTimer()">▶ بدء</button>
+      <button class="tbtn tbtn-stop"  onclick="stopTimer()">⏸ إيقاف</button>
+      <button class="tbtn tbtn-reset" onclick="resetTimer()">↺ إعادة</button>
+    </div>
+  </div>
+
+  <!-- ─── NAV BUTTONS ─── -->
+  <div class="nav-btns">
+    <a href="index_2.html" class="nbtn nbtn-home">🏠 الرئيسية</a>
+    <a href="https://makecode.microbit.org/" target="_blank" class="nbtn nbtn-code">🚀 افتح MakeCode</a>
+  </div>
+
+  <!-- ─── INTERACTIVE SIM CARD ─── -->
+  <div class="sim-card">
+    <!-- Microbit SVG -->
+    <svg class="microbit-svg" viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Body -->
+      <rect x="10" y="30" width="180" height="160" rx="20" fill="#1a2a3a" stroke="#00d4ff" stroke-width="2"/>
+      <!-- LED matrix -->
+      <g fill="#00d4ff" opacity="0.3">
+        <rect x="55" y="70" width="14" height="14" rx="3"/>
+        <rect x="79" y="70" width="14" height="14" rx="3"/>
+        <rect x="103" y="70" width="14" height="14" rx="3"/>
+        <rect x="127" y="70" width="14" height="14" rx="3"/>
+        <rect x="55" y="93" width="14" height="14" rx="3"/>
+        <rect x="79" y="93" width="14" height="14" rx="3"/>
+        <rect x="103" y="93" width="14" height="14" rx="3"/>
+        <rect x="127" y="93" width="14" height="14" rx="3"/>
+        <rect x="55" y="116" width="14" height="14" rx="3"/>
+        <rect x="79" y="116" width="14" height="14" rx="3"/>
+        <rect x="103" y="116" width="14" height="14" rx="3"/>
+        <rect x="127" y="116" width="14" height="14" rx="3"/>
+        <rect x="151" y="70" width="14" height="14" rx="3"/>
+        <rect x="151" y="93" width="14" height="14" rx="3"/>
+        <rect x="151" y="116" width="14" height="14" rx="3"/>
+        <rect x="55" y="139" width="14" height="14" rx="3"/>
+        <rect x="79" y="139" width="14" height="14" rx="3"/>
+        <rect x="103" y="139" width="14" height="14" rx="3"/>
+        <rect x="127" y="139" width="14" height="14" rx="3"/>
+        <rect x="151" y="139" width="14" height="14" rx="3"/>
+      </g>
+      <!-- Counter LED highlight (active LEDs for number display) -->
+      <g id="led-active" fill="#00d4ff">
+        <rect x="55" y="70" width="14" height="14" rx="3" opacity="0.9"/>
+        <rect x="79" y="116" width="14" height="14" rx="3" opacity="0.9"/>
+        <rect x="103" y="70" width="14" height="14" rx="3" opacity="0.9"/>
+        <rect x="103" y="116" width="14" height="14" rx="3" opacity="0.9"/>
+        <rect x="151" y="93" width="14" height="14" rx="3" opacity="0.9"/>
+        <rect x="55" y="139" width="14" height="14" rx="3" opacity="0.9"/>
+        <rect x="151" y="139" width="14" height="14" rx="3" opacity="0.9"/>
+      </g>
+      <!-- Button A -->
+      <rect x="14" y="95" width="28" height="28" rx="6" fill="#0d1526" stroke="#00d4ff" stroke-width="1.5"/>
+      <text x="28" y="113" text-anchor="middle" fill="#00d4ff" font-size="11" font-family="JetBrains Mono">A</text>
+      <!-- Button B -->
+      <rect x="158" y="95" width="28" height="28" rx="6" fill="#0d1526" stroke="#00d4ff" stroke-width="1.5"/>
+      <text x="172" y="113" text-anchor="middle" fill="#00d4ff" font-size="11" font-family="JetBrains Mono">B</text>
+      <!-- USB -->
+      <rect x="75" y="195" width="50" height="20" rx="5" fill="#0d1526" stroke="#475569" stroke-width="1.5"/>
+      <!-- Pins -->
+      <rect x="20"  y="182" width="14" height="16" rx="3" fill="#334155"/>
+      <rect x="44"  y="182" width="10" height="16" rx="3" fill="#334155"/>
+      <rect x="64"  y="182" width="10" height="16" rx="3" fill="#334155"/>
+      <rect x="166" y="182" width="14" height="16" rx="3" fill="#334155"/>
+    </svg>
+
+    <div class="sim-text">
+      <h2>🎯 فكرة التطبيق</h2>
+      <p>
+        سنبرمج لوحة المايكروبت لتصبح <strong style="color:var(--accent)">عداداً إلكترونياً</strong>. في كل ضغطة على الزر <strong style="color:var(--gold)">(A)</strong> يزداد الرقم بمقدار واحد، ويظهر فوراً على شاشة المصابيح.
+      </p>
+      <p style="margin-top:10px; color: var(--text-muted); font-size:0.88rem;">جرّب المحاكي أدناه ← اضغط الزر A</p>
+      <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-top:8px;">
+        <button class="microbit-btn-demo" onclick="pressA()">⬛ اضغط الزر A</button>
+        <div>
+          <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:4px;">قيمة العداد</div>
+          <div class="counter-display" id="counter-val">0</div>
+        </div>
+        <button onclick="resetCounter()" style="background:transparent;border:1px solid var(--border);color:var(--text-muted);border-radius:8px;padding:8px 14px;font-family:'Cairo',sans-serif;cursor:pointer;font-size:0.85rem;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">↺ إعادة</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── CODE BLOCK ─── -->
+  <div class="code-section">
+    <div class="code-header">
+      <div class="code-dots">
+        <div class="code-dot" style="background:#ef4444"></div>
+        <div class="code-dot" style="background:#fbbf24"></div>
+        <div class="code-dot" style="background:#10b981"></div>
+      </div>
+      <span style="color:var(--text-dim);font-size:0.85rem;margin-right:8px;">main.py</span>
+      <button class="btn-copy" onclick="copyCode(this)">📋 نسخ الكود</button>
+    </div>
+    <div class="code-body">
+<pre id="code-block"><span class="cm"># ━━━ عداد إلكتروني باستخدام المايكروبت ━━━</span>
+
+<span class="var">x</span> <span class="op">=</span> <span class="str">0</span>
+
+<span class="kw">def</span> <span class="fn">on_button_pressed_a</span>():
+    <span class="kw">global</span> <span class="var">x</span>
+    <span class="var">x</span> <span class="op">+=</span> <span class="str">1</span>
+    basic.<span class="fn">show_number</span>(<span class="var">x</span>)
+
+input.<span class="fn">on_button_pressed</span>(Button.A, <span class="fn">on_button_pressed_a</span>)</pre>
+    </div>
+  </div>
+
+  <!-- ─── STEPS ─── -->
+  <div class="steps-title">🛠️ شرح الخطوات البرمجية</div>
+
+  <div class="steps-grid">
+
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h3>تهيئة المتغير</h3>
+        <p>نعرّف متغيراً اسمه <strong>x</strong> ونضع فيه القيمة الابتدائية صفر. هذا المتغير هو "ذاكرة" العداد.</p>
+        <div class="chip">x = 0</div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h3>إنشاء دالة للزر A</h3>
+        <p>ننشئ دالة تُنفَّذ عند الضغط على الزر. نستخدم <code style="color:var(--accent);font-family:'JetBrains Mono'">global x</code> لأننا نريد التعديل على المتغير المعرَّف خارج الدالة.</p>
+        <div class="chip">def on_button_pressed_a():<br>&nbsp;&nbsp;&nbsp;&nbsp;global x</div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h3>زيادة قيمة العداد</h3>
+        <p>داخل الدالة، نزيد <strong>x</strong> بمقدار واحد في كل ضغطة. الاختصار <code style="color:var(--accent);font-family:'JetBrains Mono'">+=</code> يعني: خذ القيمة الحالية وأضف إليها.</p>
+        <div class="chip">x += 1</div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h3>إظهار الرقم على الشاشة</h3>
+        <p>نستخدم دالة <strong>show_number</strong> من مكتبة <strong>basic</strong> لعرض القيمة الجديدة على مصابيح المايكروبت.</p>
+        <div class="chip">basic.show_number(x)</div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h3>ربط الزر A بالدالة</h3>
+        <p>هذا السطر يُخبر المايكروبت: "عندما يُضغط الزر A، نفّذ الدالة". بدونه لن يستجيب البرنامج لأي ضغطة.</p>
+        <div class="chip">input.on_button_pressed(Button.A, on_button_pressed_a)</div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num done">✓</div>
+      <div class="step-body">
+        <h3 style="color:var(--green)">اختبر مشروعك!</h3>
+        <p>انقل الكود إلى محرر Python في MakeCode، ثم اضغط الزر A في المحاكي. يجب أن يتغير الرقم في كل مرة.</p>
+        <a href="https://makecode.microbit.org/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);color:var(--green);text-decoration:none;padding:7px 16px;border-radius:8px;font-size:0.88rem;font-family:'Cairo',sans-serif;margin-top:6px;transition:all 0.2s;" onmouseover="this.style.background='rgba(16,185,129,0.2)'" onmouseout="this.style.background='rgba(16,185,129,0.1)'">🚀 افتح MakeCode الآن</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ─── PROGRESS ─── -->
+  <div class="progress-bar-wrap">
+    <div class="progress-label">
+      <span>تقدم الدرس</span>
+      <span id="prog-text">0 / 5 خطوات</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="prog-fill"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  📚 مادة تقنية رقمية 1 &nbsp;·&nbsp; المعلم <span>راشد العتيبي</span> &nbsp;·&nbsp; © 2025
+</footer>
+
+<script>
+  /* ─── TIMER ─── */
+  let timerInterval = null;
+  let timeLeft = 180;
+  const display = document.getElementById("timer-display");
+
+  function fmt(t) {
+    let m = Math.floor(t / 60), s = t % 60;
+    return (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
+  }
+
+  function startTimer() {
+    if (timerInterval || timeLeft <= 0) return;
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      display.textContent = fmt(timeLeft);
+      if (timeLeft <= 10 && timeLeft > 0) {
+        display.style.color = timeLeft % 2 === 0 ? "#ef4444" : "#fca5a5";
+      } else if (timeLeft > 10) {
+        display.style.color = "#fbbf24";
+      }
+      if (timeLeft <= 0) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        display.textContent = "⏰";
+        display.style.color = "#ef4444";
+      }
+    }, 1000);
+  }
+
+  function stopTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    display.style.color = "#fbbf24";
+  }
+
+  function resetTimer() {
+    stopTimer();
+    timeLeft = 180;
+    display.textContent = fmt(timeLeft);
+    display.style.color = "#fbbf24";
+  }
+
+  /* ─── COUNTER DEMO ─── */
+  let counterVal = 0;
+  const cdisp = document.getElementById("counter-val");
+
+  function pressA() {
+    counterVal++;
+    cdisp.textContent = counterVal;
+    cdisp.classList.add("bump");
+    setTimeout(() => cdisp.classList.remove("bump"), 200);
+
+    // Update progress
+    const done = Math.min(counterVal, 5);
+    document.getElementById("prog-fill").style.width = (done / 5 * 100) + "%";
+    document.getElementById("prog-text").textContent = done + " / 5 خطوات";
+
+    // Flash some LEDs on SVG
+    const leds = document.getElementById("led-active");
+    leds.style.opacity = "1";
+    setTimeout(() => { leds.style.opacity = "0.4"; }, 150);
+  }
+
+  function resetCounter() {
+    counterVal = 0;
+    cdisp.textContent = 0;
+    document.getElementById("prog-fill").style.width = "0%";
+    document.getElementById("prog-text").textContent = "0 / 5 خطوات";
+  }
+
+  /* ─── COPY CODE ─── */
+  function copyCode(btn) {
+    const raw = `x = 0\n\ndef on_button_pressed_a():\n    global x\n    x += 1\n    basic.show_number(x)\n\ninput.on_button_pressed(Button.A, on_button_pressed_a)`;
+    navigator.clipboard.writeText(raw).then(() => {
+      btn.textContent = "✅ تم النسخ!";
+      setTimeout(() => { btn.textContent = "📋 نسخ الكود"; }, 2000);
+    });
+  }
+
+  /* ─── STEP REVEAL ON SCROLL ─── */
+  const cards = document.querySelectorAll(".step-card");
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add("visible"), i * 80);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  cards.forEach(c => io.observe(c));
+
+  /* ─── PROGRESS ON LOAD ─── */
+  setTimeout(() => {
+    document.getElementById("prog-fill").style.width = "0%";
+  }, 1200);
+</script>
+</body>
+</html>
