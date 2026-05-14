@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>برامج وملفات المقرر - المعلم راشد العتيبي</title>
+  
+  <!-- مكتبة حركات AOS -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  
+  <style>
+    /* ===== الإعدادات العامة مطابقة للهوية ===== */
+    body {
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background-color: #121a2d;
+      margin: 0;
+      padding: 0;
+      line-height: 1.8;
+      color: #f1f5f9;
+      scroll-behavior: smooth;
+    }
+
+    /* ===== الهيدر ===== */
+    header {
+      background: #1e293b;
+      color: #38bdf8;
+      text-align: center;
+      padding: 30px 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+      margin-bottom: 30px;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin: 15px 0;
+      color: #f1f5f9;
+    }
+    
+    header h1 span.accent {
+      color: #38bdf8;
+    }
+
+    .header-badge {
+      display: inline-block;
+      background: #334155;
+      color: #38bdf8;
+      padding: 5px 15px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    .header-sub {
+      color: #cbd5e1;
+      font-size: 1rem;
+      margin-bottom: 15px;
+    }
+
+    .header-stats {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .stat-pill {
+      background: #334155;
+      padding: 5px 15px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: #cbd5e1;
+    }
+    
+    .stat-pill strong {
+      color: #38bdf8;
+    }
+
+    /* ===== الحاوية الرئيسية ===== */
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 15px;
+    }
+
+    /* ===== الأزرار الرئيسية ===== */
+    .main-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      background: #38bdf8;
+      color: #0f172a;
+      padding: 12px 20px;
+      font-size: 1.1rem;
+      border-radius: 12px;
+      font-weight: bold;
+      width: fit-content;
+      margin: 0 auto 30px;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+
+    .main-btn:hover {
+      background: #0ea5e9;
+      color: #fff;
+    }
+
+    /* ===== الروابط السريعة ===== */
+    .quick-links {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    .quick-link {
+      background: #334155;
+      color: #f8fafc;
+      padding: 10px 20px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .quick-link:hover {
+      background: #475569;
+      color: #38bdf8;
+    }
+
+    /* ===== شريط الإشعارات ===== */
+    .notice-banner {
+      background: #334155;
+      padding: 15px 20px;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      color: #cbd5e1;
+      font-weight: bold;
+      border-right: 4px solid #f59e0b;
+    }
+
+    .notice-banner .ni {
+      font-size: 1.5rem;
+    }
+
+    /* ===== الأقسام (Sections) ===== */
+    section {
+      background: #334155;
+      padding: 25px;
+      margin: 30px 0;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transition: transform 0.2s ease-in-out;
+    }
+
+    section:hover {
+      transform: scale(1.01);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 25px;
+      color: #38bdf8;
+    }
+
+    .section-header h2 {
+      margin: 0;
+      font-size: 1.4rem;
+    }
+
+    .section-line {
+      display: none; /* إخفاء الخط الطويل ليتناسب مع بساطة الهوية */
+    }
+
+    /* ===== شبكة البرامج ===== */
+    .software-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .software-card {
+      background: #475569;
+      padding: 25px 20px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transition: transform 0.2s ease-in-out, background 0.2s;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .software-card:hover {
+      transform: scale(1.05);
+      background: #64748b;
+    }
+
+    .software-icon-wrap {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    .software-card h3 {
+      color: #38bdf8;
+      margin: 10px 0;
+      font-size: 1.2rem;
+    }
+
+    .software-card p {
+      color: #cbd5e1;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+      flex: 1;
+    }
+
+    /* علامات البطاقات (مجاني، ويب، الخ) */
+    .card-tag {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #334155;
+      color: #38bdf8;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .card-tag.free { color: #10b981; }
+    .card-tag.online { color: #a78bfa; }
+
+    /* أزرار التحميل داخل البطاقة */
+    .card-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .download-btn {
+      background: #38bdf8;
+      color: #0f172a;
+      padding: 8px 15px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.95rem;
+      transition: 0.2s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .download-btn:hover {
+      background: #0ea5e9;
+      color: #fff;
+    }
+
+    .download-btn.mac-btn {
+      background: #cbd5e1;
+      color: #0f172a;
+    }
+    
+    .download-btn.mac-btn:hover {
+      background: #e2e8f0;
+    }
+
+    .download-btn.web-btn {
+      background: #10b981;
+      color: #fff;
+    }
+
+    .download-btn.web-btn:hover {
+      background: #059669;
+    }
+
+    /* ===== قائمة الملفات ===== */
+    .files-desc {
+      color: #cbd5e1;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    ul.files-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    ul.files-list li {
+      background: #475569;
+      padding: 15px 20px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      transition: 0.2s;
+    }
+
+    ul.files-list li:hover {
+      background: #64748b;
+    }
+
+    .file-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .file-icon-wrap {
+      font-size: 1.8rem;
+    }
+
+    .file-meta {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .file-name {
+      color: #f8fafc;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .file-type {
+      color: #cbd5e1;
+      font-size: 0.85rem;
+    }
+
+    .file-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-dl, .btn-view {
+      background: #38bdf8;
+      color: #0f172a;
+      padding: 8px 15px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      text-decoration: none;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .btn-view {
+      background: #cbd5e1;
+    }
+
+    .btn-dl:hover { background: #0ea5e9; color: #fff; }
+    .btn-view:hover { background: #f1f5f9; color: #0f172a; }
+
+    /* ===== الفوتر ===== */
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #94a3b8;
+      margin-top: 20px;
+    }
+
+    /* ===== زر الرجوع للأعلى ===== */
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      background-color: #38bdf8;
+      color: #0f172a;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 50%;
+      font-size: 1.3rem;
+      cursor: pointer;
+      display: none;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transition: all 0.3s;
+      z-index: 10000;
+    }
+
+    #scrollTopBtn:hover {
+      background-color: #0ea5e9;
+      color: white;
+      transform: scale(1.1);
+    }
+    
+  </style>
+</head>
+<body>
+
+<!-- ===== Header ===== -->
+<header>
+  <div class="header-badge">📚 تقنية رقمية 1</div>
+  <h1>💻 برامج وأدوات <span class="accent">المقرر</span></h1>
+  <div class="header-sub">المعلم راشد العتيبي — جميع البرامج والملفات في مكان واحد</div>
+  <div class="header-stats">
+    <div class="stat-pill">🛠️ <strong>4</strong> برامج متاحة</div>
+    <div class="stat-pill">📄 <strong>4</strong> ملفات شرح</div>
+    <div class="stat-pill">✅ تحديث <strong>2025</strong></div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- زر العودة -->
+  <a href="index_2.html" class="main-btn" data-aos="fade-down">
+    🏠 العودة للصفحة الرئيسية
+  </a>
+
+  <!-- روابط سريعة -->
+  <div class="quick-links" data-aos="fade-down" data-aos-delay="100">
+    <a href="#software" class="quick-link">🛠️ البرامج</a>
+    <a href="#files" class="quick-link">📂 ملفات الشرح</a>
+    <a href="https://makecode.microbit.org/" target="_blank" class="quick-link">🤖 MakeCode</a>
+    <a href="https://www.netacad.com/" target="_blank" class="quick-link">🌐 Cisco NetAcad</a>
+  </div>
+
+  <!-- إشعار -->
+  <div class="notice-banner" data-aos="fade-down" data-aos-delay="200">
+    <span class="ni">💡</span>
+    <span>تأكد من تحميل البرامج قبل الحصة. في حال واجهتك مشكلة في التحميل، تواصل مع المعلم راشد مباشرة.</span>
+  </div>
+
+  <!-- ===== قسم البرامج ===== -->
+  <section id="software">
+    <div class="section-header" data-aos="fade-up">
+      <div class="section-icon">📥</div>
+      <h2>تحميل برامج المقرر</h2>
+    </div>
+
+    <div class="software-grid">
+
+      <!-- GIMP -->
+      <div class="software-card" data-aos="fade-up" data-aos-delay="50">
+        <span class="card-tag free">مجاني</span>
+        <div class="software-icon-wrap">🎨</div>
+        <h3>برنامج GIMP</h3>
+        <p>تحرير ومعالجة الصور المتقدمة ثنائية الأبعاد باحترافية.</p>
+        <div class="card-btns">
+          <a href="https://download.gimp.org/gimp/v2.10/windows/gimp-2.10.36-setup.exe" class="download-btn">🪟 تحميل للويندوز</a>
+        </div>
+      </div>
+
+      <!-- Pencil2D -->
+      <div class="software-card" data-aos="fade-up" data-aos-delay="100">
+        <span class="card-tag free">مجاني</span>
+        <div class="software-icon-wrap">✏️</div>
+        <h3>Pencil2D</h3>
+        <p>إنشاء الرسوم المتحركة ثنائية الأبعاد بأدوات بسيطة وفعّالة.</p>
+        <div class="card-btns">
+          <a href="https://github.com/pencil2d/pencil/releases/download/v0.6.6/pencil2d-win64-0.6.6.zip" class="download-btn">🪟 تحميل للويندوز</a>
+        </div>
+      </div>
+
+      <!-- Cisco Packet Tracer -->
+      <div class="software-card" data-aos="fade-up" data-aos-delay="150">
+        <span class="card-tag">محاكاة</span>
+        <div class="software-icon-wrap">🌐</div>
+        <h3>Cisco Packet Tracer</h3>
+        <p>محاكاة شبكات الحاسب وتصميمها باحتراف بيئة افتراضية متكاملة.</p>
+        <div class="card-btns">
+          <a href="https://www.netacad.com/resources/lab-downloads?courseLang=en-US" class="download-btn">🪟 تحميل للويندوز</a>
+          <a href="https://www.netacad.com/resources/lab-downloads?courseLang=en-US" class="download-btn mac-btn">🍎 تحميل للماك</a>
+        </div>
+      </div>
+
+      <!-- MakeCode -->
+      <div class="software-card" data-aos="fade-up" data-aos-delay="200">
+        <span class="card-tag online">ويب</span>
+        <div class="software-icon-wrap">🤖</div>
+        <h3>MakeCode</h3>
+        <p>بيئة برمجة Micro:bit التفاعلية — لا يحتاج تثبيتًا، يعمل مباشرة من المتصفح.</p>
+        <div class="card-btns">
+          <a href="https://makecode.microbit.org/" target="_blank" class="download-btn web-btn">🌐 فتح الموقع</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== قسم الملفات ===== -->
+  <section id="files" data-aos="fade-up">
+    <div class="section-header">
+      <div class="section-icon">📂</div>
+      <h2>ملفات الشرح والمرفقات</h2>
+    </div>
+
+    <p class="files-desc">📌 جميع العروض التقديمية والملفات المساعدة التي تم شرحها خلال الحصص — يمكن تحميلها أو عرضها مباشرة.</p>
+
+    <ul class="files-list">
+
+      <li data-aos="fade-up" data-aos-delay="50">
+        <div class="file-info">
+          <div class="file-icon-wrap">📄</div>
+          <div class="file-meta">
+            <span class="file-name">ملف الشرح الأول</span>
+            <span class="file-type">PDF · الوحدة الأولى</span>
+          </div>
+        </div>
+        <div class="file-actions">
+          <a href="f1.pdf" target="_blank" class="btn-view">👁️ عرض</a>
+          <a href="f1.pdf" download class="btn-dl">⬇️ تحميل</a>
+        </div>
+      </li>
+
+      <li data-aos="fade-up" data-aos-delay="100">
+        <div class="file-info">
+          <div class="file-icon-wrap">📄</div>
+          <div class="file-meta">
+            <span class="file-name">ملف الشرح الثاني</span>
+            <span class="file-type">PDF · الوحدة الثانية</span>
+          </div>
+        </div>
+        <div class="file-actions">
+          <a href="f2.pdf" target="_blank" class="btn-view">👁️ عرض</a>
+          <a href="f2.pdf" download class="btn-dl">⬇️ تحميل</a>
+        </div>
+      </li>
+
+      <li data-aos="fade-up" data-aos-delay="150">
+        <div class="file-info">
+          <div class="file-icon-wrap">📄</div>
+          <div class="file-meta">
+            <span class="file-name">ملف الشرح الثالث</span>
+            <span class="file-type">PDF · الوحدة الثالثة</span>
+          </div>
+        </div>
+        <div class="file-actions">
+          <a href="f3.pdf" target="_blank" class="btn-view">👁️ عرض</a>
+          <a href="f3.pdf" download class="btn-dl">⬇️ تحميل</a>
+        </div>
+      </li>
+
+      <li data-aos="fade-up" data-aos-delay="200">
+        <div class="file-info">
+          <div class="file-icon-wrap">📄</div>
+          <div class="file-meta">
+            <span class="file-name">ملف الشرح الرابع</span>
+            <span class="file-type">PDF · الوحدة الرابعة</span>
+          </div>
+        </div>
+        <div class="file-actions">
+          <a href="f4.pdf" target="_blank" class="btn-view">👁️ عرض</a>
+          <a href="f4.pdf" download class="btn-dl">⬇️ تحميل</a>
+        </div>
+      </li>
+
+    </ul>
+  </section>
+
+</div>
+
+<!-- ===== Footer ===== -->
+<footer>
+  📚 مادة تقنية رقمية 1 - المعلم راشد العتيبي © 2025
+</footer>
+
+<!-- زر الصعود للأعلى -->
+<button id="scrollTopBtn" title="الرجوع للأعلى">⬆️</button>
+
+<!-- سكربتات -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  // تهيئة حركات AOS
+  AOS.init({ 
+    duration: 800, 
+    easing: "ease-in-out", 
+    once: true, 
+    offset: 60 
+  });
+
+  // 🔝 زر الرجوع للأعلى
+  const scrollTopBtn = document.getElementById("scrollTopBtn");
+  window.addEventListener("scroll", () => {
+    if (document.documentElement.scrollTop > 300) {
+      scrollTopBtn.style.display = "block";
+    } else {
+      scrollTopBtn.style.display = "none";
+    }
+  });
+  scrollTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+</script>
+</body>
+</html>
