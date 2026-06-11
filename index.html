@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تقنية رقمية 1 | بوابة التعلم الذكي</title>
+    <title>الموقع مغلق | تقنية رقمية 1</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -27,32 +27,6 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-        }
-
-        /* 🚀 زر المشاريع المميزة المطور */
-        .featured-projects-btn {
-            position: fixed;
-            top: 25px;
-            right: 25px;
-            background: rgba(250, 204, 21, 0.15);
-            backdrop-filter: blur(10px);
-            color: var(--accent);
-            padding: 12px 24px;
-            border-radius: 50px;
-            border: 1px solid var(--accent);
-            font-weight: 700;
-            text-decoration: none;
-            z-index: 1000;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .featured-projects-btn:hover {
-            background: var(--accent);
-            color: var(--bg-dark);
-            box-shadow: 0 0 25px rgba(250, 204, 21, 0.4);
-            transform: translateY(-3px);
         }
 
         /* 🌟 Splash Screen */
@@ -93,8 +67,15 @@
             position: relative;
         }
 
+        .main-card i.fa-lock {
+            font-size: 3.5rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(250, 204, 21, 0.4);
+        }
+
         .main-card h1 {
-            font-size: 2.2rem;
+            font-size: 2.4rem;
             margin-bottom: 5px;
             background: linear-gradient(to left, #fff, var(--primary));
             -webkit-background-clip: text;
@@ -102,59 +83,28 @@
         }
 
         .main-card p {
-            color: #94a3b8;
+            color: #e2e8f0;
             margin-bottom: 35px;
-            font-size: 1.1rem;
-        }
-
-        /* 🔘 الأزرار الحديثة */
-        .btn-container { display: flex; flex-direction: column; gap: 15px; }
-        
-        .nav-btn {
-            position: relative;
-            padding: 18px;
-            border-radius: 20px;
-            text-decoration: none;
-            color: white;
+            font-size: 1.3rem;
             font-weight: 700;
-            font-size: 1.1rem;
-            transition: 0.3s;
-            overflow: hidden;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--glass-border);
-        }
-
-        .nav-btn:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: var(--primary);
-            transform: scale(1.02);
-        }
-
-        .nav-btn.active {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: var(--bg-dark);
-            border: none;
         }
 
         /* 📧 منطقة التواصل */
         .contact-section {
-            margin-top: 40px;
+            margin-top: 20px;
             padding-top: 25px;
             border-top: 1px solid var(--glass-border);
         }
 
         .email-pill {
             background: rgba(0,0,0,0.2);
-            padding: 8px 15px;
+            padding: 10px 20px;
             border-radius: 12px;
             display: inline-flex;
             align-items: center;
             gap: 12px;
             font-family: monospace;
-            font-size: 0.95rem;
+            font-size: 1rem;
         }
 
         .copy-icon {
@@ -175,118 +125,15 @@
 
         @keyframes spin { to { transform: rotate(360deg); } }
 
-
-        /* ==========================================
-           🔔 تنسيقات النافذة المنبثقة (Modal) الجديدة
-           ========================================== */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(8px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000; /* ليكون فوق كل شيء */
-            opacity: 0;
-            visibility: hidden;
-            transition: 0.4s ease-in-out;
-        }
-
-        .modal-overlay.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-content {
-            background: var(--glass-bg);
-            backdrop-filter: blur(25px);
-            border: 1px solid var(--primary);
-            padding: 40px 30px;
-            border-radius: 30px;
-            text-align: center;
-            width: 85%;
-            max-width: 400px;
-            transform: scale(0.8) translateY(20px);
-            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 15px 40px rgba(56, 189, 248, 0.2);
-        }
-
-        .modal-overlay.show .modal-content {
-            transform: scale(1) translateY(0);
-        }
-
-        .modal-icon {
-            font-size: 3.5rem;
-            color: var(--accent);
-            margin-bottom: 15px;
-            animation: pulse-bell 2s infinite;
-        }
-
-        @keyframes pulse-bell {
-            0% { transform: scale(1) rotate(0deg); text-shadow: 0 0 0 rgba(250, 204, 21, 0.7); }
-            10% { transform: scale(1.1) rotate(15deg); }
-            20% { transform: scale(1.1) rotate(-15deg); }
-            30% { transform: scale(1.1) rotate(10deg); text-shadow: 0 0 20px rgba(250, 204, 21, 0.6); }
-            40% { transform: scale(1) rotate(0deg); }
-            100% { transform: scale(1) rotate(0deg); text-shadow: 0 0 0 rgba(250, 204, 21, 0); }
-        }
-
-        .modal-content h2 {
-            color: white;
-            font-size: 1.8rem;
-            margin-top: 0;
-            margin-bottom: 15px;
-        }
-
-        .modal-content p {
-            color: #cbd5e1;
-            font-size: 1.05rem;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-
-        .modal-btn {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: var(--bg-dark);
-            border: none;
-            padding: 15px 30px;
-            font-family: 'Tajawal', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 900;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: 0.3s;
-            width: 100%;
-            box-shadow: 0 5px 15px rgba(56, 189, 248, 0.3);
-        }
-
-        .modal-btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.5);
-        }
-
         @media (max-width: 480px) {
-            .main-card { padding: 30px 20px; }
-            .featured-projects-btn { top: 15px; right: 15px; font-size: 0.8rem; }
-            .modal-content { padding: 30px 20px; }
+            .main-card { padding: 40px 20px; }
+            .main-card h1 { font-size: 2rem; }
+            .main-card p { font-size: 1.1rem; }
         }
     </style>
 </head>
 
 <body>
-
-    <!-- النافذة المنبثقة للإعلانات -->
-    <div id="announcementModal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-icon">
-                <i class="fas fa-bell"></i>
-            </div>
-            <h2>إعلان هام</h2>
-            <p>الاختبار القادم يوم الأحد - 1447/12/21 (يوجد ملخص للفائدة في قسم الفصل الدراسي الثاني) بالتوفيق</p>
-            <button onclick="closeModal()" class="modal-btn">حسناً، لقد فهمت</button>
-        </div>
-    </div>
 
     <!-- شاشة التحميل -->
     <div id="splash">
@@ -296,23 +143,12 @@
 
     <!-- البطاقة الرئيسية -->
     <div class="main-card">
-        <div style="font-size: 3rem; margin-bottom: 15px;">🎓</div>
-        <h1>مرحباً بكم</h1>
-        <p>بوابتك الرقمية للإبداع والتميز</p>
-
-        <div class="btn-container">
-            <a href="S1/index_1.html" class="nav-btn">
-                <span>الفصل الدراسي الأول</span>
-                <i class="fas fa-chevron-left"></i>
-            </a>
-            <a href="S2/index_2.html" class="nav-btn active">
-                <span>الفصل الدراسي الثاني</span>
-                <i class="fas fa-chevron-left"></i>
-            </a>
-        </div>
+        <i class="fas fa-lock"></i>
+        <h1>الموقع مغلق</h1>
+        <p>نراكم على خير السنة القادمة ✨</p>
 
         <div class="contact-section">
-            <p style="margin-bottom: 10px; font-size: 0.9rem;">تواصل مع المعلم</p>
+            <p style="margin-bottom: 12px; font-size: 1rem; color: #94a3b8; font-weight: normal;">للتواصل مع المعلم</p>
             <div class="email-pill">
                 <span id="emailText">t19839490@gmail.com</span>
                 <i class="fas fa-copy copy-icon" onclick="copyEmail()" title="نسخ الإيميل"></i>
@@ -325,26 +161,14 @@
     </div>
 
     <script>
-        // التحكم بشاشة التحميل والنافذة المنبثقة
+        // إخفاء شاشة التحميل
         window.addEventListener("load", () => {
             setTimeout(() => {
-                // إخفاء شاشة التحميل
                 document.getElementById("splash").classList.add("hide");
-                
-                // إظهار نافذة الإعلان بعد إخفاء شاشة التحميل بنصف ثانية
-                setTimeout(() => {
-                    document.getElementById("announcementModal").classList.add("show");
-                }, 500);
-
             }, 1000);
         });
 
-        // وظيفة إغلاق النافذة المنبثقة
-        function closeModal() {
-            document.getElementById("announcementModal").classList.remove("show");
-        }
-
-        // وظيفة النسخ الذكية
+        // وظيفة النسخ الذكية للإيميل
         function copyEmail() {
             const email = document.getElementById("emailText").innerText;
             navigator.clipboard.writeText(email).then(() => {
