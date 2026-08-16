@@ -1,443 +1,366 @@
-<style>
-    @keyframes spin {
-        to {
-            transform: rotate(360deg);
-        }
-    }
-
-    /* ==========================================
-       🔔 تنسيقات النافذة المنبثقة (Modal)
-       ========================================== */
-
-    .modal-overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.6);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 10000;
-        opacity: 0;
-        visibility: hidden;
-        transition: 0.4s ease-in-out;
-    }
-
-    .modal-overlay.show {
-        opacity: 1;
-        visibility: visible;
-    }
-
-    .modal-content {
-        background: var(--glass-bg);
-        backdrop-filter: blur(25px);
-        -webkit-backdrop-filter: blur(25px);
-        border: 1px solid var(--primary);
-        padding: 40px 30px;
-        border-radius: 30px;
-        text-align: center;
-        width: 85%;
-        max-width: 400px;
-        transform: scale(0.8) translateY(20px);
-        transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        box-shadow: 0 15px 40px rgba(56, 189, 248, 0.2);
-    }
-
-    .modal-overlay.show .modal-content {
-        transform: scale(1) translateY(0);
-    }
-
-    .modal-icon {
-        font-size: 3.5rem;
-        color: var(--accent);
-        margin-bottom: 15px;
-        animation: pulse-bell 2s infinite;
-    }
-
-    @keyframes pulse-bell {
-        0% {
-            transform: scale(1) rotate(0deg);
-            text-shadow: 0 0 0 rgba(250, 204, 21, 0.7);
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التقنية الرقمية 1</title>
+    <!-- استدعاء خط تجوال والأيقونات -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ==========================================
+           🎨 المتغيرات والتنسيقات الأساسية
+           ========================================== */
+        :root {
+            --primary: #38bdf8;
+            --secondary: #818cf8;
+            --accent: #facc15;
+            --bg-dark: #0f172a;
+            --glass-bg: rgba(15, 23, 42, 0.7);
+            --text-light: #f8fafc;
         }
 
-        10% {
-            transform: scale(1.1) rotate(15deg);
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        20% {
-            transform: scale(1.1) rotate(-15deg);
+        @keyframes spin { 
+            to { transform: rotate(360deg); } 
         }
 
-        30% {
-            transform: scale(1.1) rotate(10deg);
-            text-shadow: 0 0 20px rgba(250, 204, 21, 0.6);
+        /* ==========================================
+           🔔 تنسيقات النافذة المنبثقة (Modal)
+           ========================================== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000; /* ليكون فوق كل شيء */
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.4s ease-in-out;
         }
 
-        40% {
-            transform: scale(1) rotate(0deg);
-        }
-
-        100% {
-            transform: scale(1) rotate(0deg);
-            text-shadow: 0 0 0 rgba(250, 204, 21, 0);
-        }
-    }
-
-    .modal-content h2 {
-        color: white;
-        font-size: 1.8rem;
-        margin-top: 0;
-        margin-bottom: 15px;
-    }
-
-    .modal-content p {
-        color: #cbd5e1;
-        font-size: 1.05rem;
-        line-height: 1.6;
-        margin-bottom: 30px;
-    }
-
-    .modal-btn {
-        background: linear-gradient(
-            135deg,
-            var(--primary),
-            var(--secondary)
-        );
-
-        color: var(--bg-dark);
-        border: none;
-        padding: 15px 30px;
-        font-family: 'Tajawal', sans-serif;
-        font-size: 1.1rem;
-        font-weight: 900;
-        border-radius: 50px;
-        cursor: pointer;
-        transition: 0.3s;
-        width: 100%;
-        box-shadow: 0 5px 15px rgba(56, 189, 248, 0.3);
-    }
-
-    .modal-btn:hover {
-        transform: translateY(-3px) scale(1.02);
-        box-shadow: 0 10px 25px rgba(56, 189, 248, 0.5);
-    }
-
-    /* ==========================================
-       📢 الشريط العلوي
-       ========================================== */
-
-    .top-banner {
-        position: fixed;
-        top: 0;
-        right: 0;
-        width: 100%;
-        background: linear-gradient(
-            90deg,
-            #38bdf8,
-            #818cf8
-        );
-
-        color: #020617;
-        padding: 12px 20px;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        gap: 20px;
-
-        font-weight: 700;
-
-        z-index: 9999;
-
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-
-        animation: slideDown 0.6s ease;
-        box-sizing: border-box;
-    }
-
-    .top-banner button {
-        position: absolute;
-        left: 20px;
-
-        background: transparent;
-        border: none;
-
-        font-size: 18px;
-        cursor: pointer;
-
-        color: #020617;
-
-        transition: 0.3s;
-    }
-
-    .top-banner button:hover {
-        transform: scale(1.2);
-    }
-
-    @keyframes slideDown {
-        from {
-            transform: translateY(-100%);
-        }
-
-        to {
-            transform: translateY(0);
-        }
-    }
-
-    /* ==========================================
-       📱 الجوال
-       ========================================== */
-
-    @media (max-width: 480px) {
-
-        .main-card {
-            padding: 30px 20px;
-        }
-
-        .featured-projects-btn {
-            top: 15px;
-            right: 15px;
-            font-size: 0.8rem;
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
         }
 
         .modal-content {
-            padding: 30px 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--primary);
+            padding: 40px 30px;
+            border-radius: 30px;
+            text-align: center;
+            width: 85%;
+            max-width: 400px;
+            transform: scale(0.8) translateY(20px);
+            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 15px 40px rgba(56, 189, 248, 0.2);
+        }
+
+        .modal-overlay.show .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-icon {
+            font-size: 3.5rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+            animation: pulse-bell 2s infinite;
+        }
+
+        @keyframes pulse-bell {
+            0% { transform: scale(1) rotate(0deg); text-shadow: 0 0 0 rgba(250, 204, 21, 0.7); }
+            10% { transform: scale(1.1) rotate(15deg); }
+            20% { transform: scale(1.1) rotate(-15deg); }
+            30% { transform: scale(1.1) rotate(10deg); text-shadow: 0 0 20px rgba(250, 204, 21, 0.6); }
+            40% { transform: scale(1) rotate(0deg); }
+            100% { transform: scale(1) rotate(0deg); text-shadow: 0 0 0 rgba(250, 204, 21, 0); }
         }
 
         .modal-content h2 {
-            font-size: 1.5rem;
+            color: white;
+            font-size: 1.8rem;
+            margin-top: 0;
+            margin-bottom: 15px;
         }
 
         .modal-content p {
-            font-size: 0.95rem;
+            color: #cbd5e1;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
         }
 
+        .modal-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--bg-dark);
+            border: none;
+            padding: 15px 30px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 900;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(56, 189, 248, 0.3);
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.5);
+        }
+
+        /* ==========================================
+           📢 شريط الإعلانات العلوي
+           ========================================== */
         .top-banner {
-            padding: 10px 45px 10px 20px;
-            font-size: 0.9rem;
-            text-align: center;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
+            color: #020617;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            font-weight: 700;
+            z-index: 9999;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            animation: slideDown 0.6s ease;
+            box-sizing: border-box;
         }
 
         .top-banner button {
-            left: 15px;
+            position: absolute;
+            left: 20px;
+            background: transparent;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: #020617;
         }
-    }
-</style>
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        /* ==========================================
+           🚀 زر المشاريع والبطاقة الرئيسية
+           ========================================== */
+        .featured-projects-btn {
+            position: fixed;
+            top: 60px;
+            right: 20px;
+            background: var(--glass-bg);
+            color: var(--primary);
+            padding: 10px 15px;
+            border-radius: 15px;
+            text-decoration: none;
+            border: 1px solid var(--primary);
+            transition: 0.3s;
+            z-index: 100;
+        }
+
+        .featured-projects-btn:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+        }
+
+        .main-card {
+            background: rgba(255,255,255,0.05);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        /* تنسيق قسم الإيميل */
+        .email-section {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .email-section span {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .email-section button {
+            background: var(--primary);
+            color: var(--bg-dark);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .email-section button:hover {
+            background: var(--text-light);
+        }
+
+        /* ==========================================
+           ⏳ شاشة التحميل (Splash)
+           ========================================== */
+        #splash {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-dark);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10001;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        #splash.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader {
+            border: 5px solid rgba(255,255,255,0.1);
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        /* ==========================================
+           📱 التجاوب مع الشاشات الصغيرة
+           ========================================== */
+        @media (max-width: 480px) {
+            .main-card { padding: 30px 20px; }
+            .featured-projects-btn { top: 70px; font-size: 0.8rem; }
+            .modal-content { padding: 30px 20px; }
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- ==========================================
-     📢 الشريط العلوي
-     ========================================== -->
+    <!-- شريط الإعلانات العلوي -->
+    <div id="topBanner" class="top-banner">
+        <span>📢 تنبيه: تأكد من مراجعة الدروس أولاً بأول</span>
+        <button onclick="closeBanner()">✖</button>
+    </div>
 
-<div id="topBanner" class="top-banner">
+    <!-- زر المشاريع المميزة -->
+    <a href="projects.html" class="featured-projects-btn">
+        <i class="fas fa-rocket"></i> المشاريع المميزة
+    </a>
 
-    <span>
-        📢 تنبيه مهم: تابع آخر الإعلانات والتحديثات
-    </span>
-
-    <button
-        type="button"
-        onclick="closeBanner()"
-        aria-label="إغلاق الإعلان">
-        ✖
-    </button>
-
-</div>
-
-
-<!-- ==========================================
-     🚀 المشاريع المميزة
-     ========================================== -->
-
-<a href="projects.html" class="featured-projects-btn">
-    <i class="fas fa-rocket"></i>
-    المشاريع المميزة
-</a>
-
-
-<!-- ==========================================
-     🔔 النافذة المنبثقة للإعلانات
-     ========================================== -->
-
-<div id="announcementModal" class="modal-overlay">
-
-    <div class="modal-content">
-
-        <div class="modal-icon">
-            <i class="fas fa-bell"></i>
+    <!-- النافذة المنبثقة للإعلانات -->
+    <div id="announcementModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-bell"></i>
+            </div>
+            <h2>إعلان هام</h2>
+            <p>الاختبار القادم يوم الأحد - 1447/12/21 (يوجد ملخص للفائدة في قسم الفصل الدراسي الثاني) بالتوفيق</p>
+            <button onclick="closeModal()" class="modal-btn">حسناً، لقد فهمت</button>
         </div>
-
-        <h2>
-            إعلان هام
-        </h2>
-
-        <p>
-            الاختبار القادم يوم الأحد - 1447/12/21
-            <br>
-            يوجد ملخص للفائدة في قسم الفصل الدراسي الثاني.
-            <br>
-            بالتوفيق للجميع 🌟
-        </p>
-
-        <button
-            type="button"
-            onclick="closeModal()"
-            class="modal-btn">
-
-            حسناً، لقد فهمت
-
-        </button>
-
     </div>
 
-</div>
-
-
-<!-- ==========================================
-     ⏳ شاشة التحميل
-     ========================================== -->
-
-<div id="splash">
-
-    <div class="loader"></div>
-
-    <h2 style="color: var(--primary)">
-        التقنية الرقمية 1
-    </h2>
-
-</div>
-
-
-<!-- ==========================================
-     🎓 البطاقة الرئيسية
-     ========================================== -->
-
-<div class="main-card">
-
-    <div style="font-size: 3rem; margin-bottom: 15px;">
-        🎓
+    <!-- شاشة التحميل -->
+    <div id="splash">
+        <div class="loader"></div>
+        <h2 style="color: var(--primary)">التقنية الرقمية 1</h2>
     </div>
 
-    <h1>
-        مرحباً بكم
-    </h1>
+    <!-- البطاقة الرئيسية -->
+    <div class="main-card">
+        <div style="font-size: 3rem; margin-bottom: 15px;">🎓</div>
+        <h1>مرحباً بكم</h1>
+        <p>في مقرر التقنية الرقمية 1</p>
 
-    <!-- باقي محتوى البطاقة الأصلية يوضع هنا -->
+        <!-- قسم الإيميل مع زر النسخ -->
+        <div class="email-section">
+            <span id="emailText">student@school.edu.sa</span>
+            <button onclick="copyEmail()">
+                <i class="fas fa-copy"></i> نسخ البريد الإلكتروني
+            </button>
+        </div>
+    </div>
 
-</div>
+    <script>
+        // التحكم بشاشة التحميل والنافذة المنبثقة
+        window.addEventListener("load", () => {
+            setTimeout(() => {
+                // إخفاء شاشة التحميل
+                document.getElementById("splash").classList.add("hide");
+                
+                // إظهار نافذة الإعلان بعد إخفاء شاشة التحميل بنصف ثانية
+                setTimeout(() => {
+                    document.getElementById("announcementModal").classList.add("show");
+                }, 500);
+            }, 1000);
+        });
 
-
-<!-- ==========================================
-     JavaScript
-     ========================================== -->
-
-<script>
-
-    /* ==========================================
-       إخفاء شاشة التحميل وإظهار الإعلان
-       ========================================== */
-
-    window.addEventListener("load", function () {
-
-        setTimeout(function () {
-
-            const splash =
-                document.getElementById("splash");
-
-            const announcementModal =
-                document.getElementById("announcementModal");
-
-            if (splash) {
-                splash.classList.add("hide");
-            }
-
-            /* إظهار الإعلان بعد اختفاء شاشة التحميل */
-            setTimeout(function () {
-
-                if (announcementModal) {
-                    announcementModal.classList.add("show");
-                }
-
-            }, 500);
-
-        }, 1000);
-
-    });
-
-
-    /* ==========================================
-       إغلاق النافذة المنبثقة
-       ========================================== */
-
-    function closeModal() {
-
-        const modal =
-            document.getElementById("announcementModal");
-
-        if (modal) {
-            modal.classList.remove("show");
+        // وظيفة إغلاق النافذة المنبثقة
+        function closeModal() {
+            document.getElementById("announcementModal").classList.remove("show");
         }
 
-    }
-
-
-    /* ==========================================
-       إغلاق الشريط العلوي
-       ========================================== */
-
-    function closeBanner() {
-
-        const banner =
-            document.getElementById("topBanner");
-
-        if (banner) {
-            banner.style.display = "none";
+        // وظيفة إغلاق الشريط العلوي
+        function closeBanner() {
+            document.getElementById("topBanner").style.display = "none";
         }
 
-    }
-
-
-    /* ==========================================
-       النسخ الذكي للبريد الإلكتروني
-       ========================================== */
-
-    function copyEmail() {
-
-        const emailElement =
-            document.getElementById("emailText");
-
-        if (!emailElement) {
-            console.error(
-                "العنصر emailText غير موجود"
-            );
-
-            return;
-        }
-
-        const email =
-            emailElement.innerText;
-
-        navigator.clipboard.writeText(email)
-            .then(function () {
-
-                console.log(
-                    "تم نسخ البريد الإلكتروني"
-                );
-
-            })
-            .catch(function (error) {
-
-                console.error(
-                    "تعذر نسخ البريد الإلكتروني:",
-                    error
-                );
-
+        // وظيفة النسخ الذكية
+        function copyEmail() {
+            const email = document.getElementById("emailText").innerText;
+            
+            // استخدام Clipboard API الحديثة للنسخ
+            navigator.clipboard.writeText(email).then(() => {
+                // تغيير نص الزر مؤقتاً لتأكيد النسخ
+                const btn = document.querySelector('.email-section button');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> تم النسخ!';
+                btn.style.background = '#4ade80'; // لون أخضر
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = 'var(--primary)';
+                }, 2000);
+            }).catch(err => {
+                console.error('فشل النسخ: ', err);
+                alert("حدث خطأ أثناء النسخ");
             });
-
-    }
-
-</script>
+        }
+    </script>
+</body>
+</html>
