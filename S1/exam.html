@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -111,57 +112,111 @@
       cursor: pointer;
     }
 
-    @media (max-width: 600px) {
-      header { font-size: 1.2rem; }
-      body { font-size: 1.05rem; }
-      .exam-upload-banner { flex-wrap: wrap; text-align: center; }
+    /* 🏠 زر العودة للصفحة الرئيسية */
+    .back-home-box {
+      max-width: 900px;
+      margin: 20px auto 0;
+      padding: 0 15px;
+      text-align: right;
     }
-		/* 🖨️ زر الطباعة */
-	.print-box {
-	  text-align: center;
-	  margin: 30px 0;
-	}
 
-	.print-box button {
-	  background: linear-gradient(135deg, #22c55e, #4ade80);
-	  border: none;
-	  padding: 15px 25px;
-	  font-size: 1.1rem;
-	  border-radius: 15px;
-	  cursor: pointer;
-	  font-weight: bold;
-	  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-	}
+    .back-home-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #1e293b;
+      color: #e2e8f0;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 10px 16px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: all 0.25s ease;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+    }
 
-	.print-box button:hover {
-	  transform: scale(1.05);
-	}
+    .back-home-btn:hover {
+      background: #38bdf8;
+      color: #0f172a;
+      border-color: #38bdf8;
+      transform: translateX(3px);
+      box-shadow: 0 0 15px rgba(56,189,248,0.3);
+    }
 
-	/* ⏳ العد التنازلي */
-	.countdown-box {
-	  background: #1e293b;
-	  text-align: center;
-	  padding: 20px;
-	  border-radius: 15px;
-	  margin-bottom: 30px;
-	  font-size: 1.2rem;
-	  color: #38bdf8;
-	  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-	}
+    /* 🖨️ زر الطباعة */
+    .print-box {
+      text-align: center;
+      margin: 30px 0;
+    }
 
-	#countdown {
-	  font-size: 1.6rem;
-	  margin-top: 10px;
-	  font-weight: bold;
-	  color: #facc15;
-	}
+    .print-box button {
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      border: none;
+      padding: 15px 25px;
+      font-size: 1.1rem;
+      border-radius: 15px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+    }
 
-	/* عدم طباعة الأزرار */
-	@media print {
-	  .print-box, .exam-upload-banner {
-		display: none;
-	  }
-	}
+    .print-box button:hover {
+      transform: scale(1.05);
+    }
+
+    /* ⏳ العد التنازلي */
+    .countdown-box {
+      background: #1e293b;
+      text-align: center;
+      padding: 20px;
+      border-radius: 15px;
+      margin: 30px auto;
+      max-width: 900px;
+      font-size: 1.2rem;
+      color: #38bdf8;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+    }
+
+    #countdown {
+      font-size: 1.6rem;
+      margin-top: 10px;
+      font-weight: bold;
+      color: #facc15;
+    }
+
+    /* عدم طباعة الأزرار والبنر */
+    @media print {
+      .print-box,
+      .exam-upload-banner,
+      .back-home-box {
+        display: none;
+      }
+    }
+
+    @media (max-width: 600px) {
+      header {
+        font-size: 1.2rem;
+      }
+
+      body {
+        font-size: 1.05rem;
+      }
+
+      .exam-upload-banner {
+        flex-wrap: wrap;
+        text-align: center;
+      }
+
+      .back-home-box {
+        text-align: center;
+      }
+
+      .back-home-btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
   </style>
 </head>
 
@@ -169,122 +224,289 @@
 
 <!-- 🔔 بنر إرسال الاختبار -->
 <div class="exam-upload-banner" id="examBanner">
+
   📩 إرسال ملفات <strong>الاختبار العملي</strong> على:
-  <a href="mailto:t19839490@gmail.com">t19839490@gmail.com</a>
-  <button class="copy-email-btn" onclick="copyEmail()">📋 نسخ الإيميل</button>
-  <button class="close-banner" onclick="examBanner.style.display='none'">✖</button>
+
+  <a href="mailto:t19839490@gmail.com">
+    t19839490@gmail.com
+  </a>
+
+  <button class="copy-email-btn" onclick="copyEmail()">
+    📋 نسخ الإيميل
+  </button>
+
+  <button
+    class="close-banner"
+    onclick="document.getElementById('examBanner').style.display='none'">
+    ✖
+  </button>
+
 </div>
 
 <header>
   💻 مادة تقنية رقمية 1 — المعلم: راشد العتيبي
 </header>
+
+<!-- 🏠 زر العودة -->
+<div class="back-home-box">
+  <a href="index_1.html" class="back-home-btn">
+    🏠 العودة للصفحة الرئيسية
+  </a>
+</div>
+
+<!-- ⏳ العد التنازلي -->
 <div class="countdown-box">
+
   ⏳ الوقت المتبقي على التسليم:
+
   <div id="countdown"></div>
+
 </div>
-</div>
+
 <div class="container">
-<div class="print-box">
-  <button onclick="window.print()">🖨️ طباعة تعليمات الاختبار</button>
+
+  <!-- 🖨️ الطباعة -->
+  <div class="print-box">
+    <button onclick="window.print()">
+      🖨️ طباعة تعليمات الاختبار
+    </button>
+  </div>
+
+  <!-- 🧪 الاختبار العملي -->
+  <section>
+
+    <h2>🧪 الاختبار العملي: مشروع برمجة موقع HTML</h2>
+
+    <ul>
+
+      <li>
+
+        ✔ يقوم الطالب بتنفيذ
+        <strong>مشروع موقع إلكتروني متكامل</strong>
+        باستخدام لغة HTML
+
+        <p>
+          ✔ الموقع يعمل بشكل كامل
+          <br>
+          ✔ يحتوي على عدة صفحات مترابطة
+          <br>
+          ✔ تصميم منسق وواجهة واضحة
+        </p>
+
+      </li>
+
+    </ul>
+
+  </section>
+
+  <!-- 🧰 الأدوات -->
+  <section>
+
+    <h2>🧰 الأدوات المستخدمة</h2>
+
+    <ul>
+
+      <li>
+        💻 أجهزة الحاسب:
+        Visual Studio Code – Notepad++
+      </li>
+
+      <li>
+        📱 آيفون:
+        Koder – Textastic
+      </li>
+
+      <li>
+        📱 أندرويد:
+        Acode – Dcoder
+      </li>
+
+    </ul>
+
+  </section>
+
+  <!-- 📋 المتطلبات -->
+  <section>
+
+    <h2>📋 متطلبات المشروع</h2>
+
+    <ul>
+
+      <li>✔ لا يقل عن 3 صفحات HTML</li>
+
+      <li>✔ استخدام الروابط بين الصفحات</li>
+
+      <li>✔ إدراج صور داخل الموقع</li>
+
+      <li>✔ استخدام العناوين والفقرات</li>
+
+      <li>✔ تنظيم الملفات داخل مجلدات</li>
+
+    </ul>
+
+  </section>
+
+  <!-- 🎯 التقييم -->
+  <section>
+
+    <h2>🎯 آلية التقييم</h2>
+
+    <ul>
+
+      <li>
+        🎨 التصميم والتنسيق — 5 درجات
+      </li>
+
+      <li>
+        💻 صحة الأكواد — 5 درجات
+      </li>
+
+      <li>
+        📁 التنظيم والترتيب — 5 درجات
+      </li>
+
+      <li>
+        🔗 الربط بين الصفحات — 5 درجات
+      </li>
+
+    </ul>
+
+  </section>
+
+  <!-- 📦 التسليم -->
+  <section>
+
+    <h2>📦 طريقة التسليم</h2>
+
+    <ul>
+
+      <li>
+
+        ⚠️ يتم ضغط المشروع في
+        <strong>ملف ZIP واحد</strong>
+
+        <br>
+
+        ✍️ تسمية الملف باسم الطالب والفصل
+
+        <br>
+
+        📩 الإرسال عبر الإيميل الموضح في الأعلى
+
+      </li>
+
+    </ul>
+
+  </section>
+
+  <!-- 📅 الموعد -->
+  <section>
+
+    <h2>📅 موعد التسليم</h2>
+
+    <ul>
+
+      <li>
+
+        الأسبوع <strong>18</strong>
+
+        <br>
+
+        🗓️ 8 / 7 / 1447 هـ
+
+        <br>
+
+        📆 28 / 12 / 2025 م
+
+      </li>
+
+    </ul>
+
+  </section>
+
 </div>
 
-<section>
-  <h2>🧪 الاختبار العملي: مشروع برمجة موقع HTML</h2>
-  <ul>
-    <li>
-      ✔ يقوم الطالب بتنفيذ <strong>مشروع موقع إلكتروني متكامل</strong> باستخدام لغة HTML  
-      <p>
-        ✔ الموقع يعمل بشكل كامل  
-        ✔ يحتوي على عدة صفحات مترابطة  
-        ✔ تصميم منسق وواجهة واضحة  
-      </p>
-    </li>
-  </ul>
-</section>
-
-<section>
-  <h2>🧰 الأدوات المستخدمة</h2>
-  <ul>
-    <li>💻 أجهزة الحاسب: Visual Studio Code – Notepad++</li>
-    <li>📱 آيفون: Koder – Textastic</li>
-    <li>📱 أندرويد: Acode – Dcoder</li>
-  </ul>
-</section>
-
-<section>
-  <h2>📋 متطلبات المشروع</h2>
-  <ul>
-    <li>✔ لا يقل عن 3 صفحات HTML</li>
-    <li>✔ استخدام الروابط بين الصفحات</li>
-    <li>✔ إدراج صور داخل الموقع</li>
-    <li>✔ استخدام العناوين والفقرات</li>
-    <li>✔ تنظيم الملفات داخل مجلدات</li>
-  </ul>
-</section>
-
-<section>
-  <h2>🎯 آلية التقييم</h2>
-  <ul>
-    <li>🎨 التصميم والتنسيق — 5 درجات</li>
-    <li>💻 صحة الأكواد — 5 درجات</li>
-    <li>📁 التنظيم والترتيب — 5 درجات</li>
-    <li>🔗 الربط بين الصفحات — 5 درجات</li>
-  </ul>
-</section>
-
-<section>
-  <h2>📦 طريقة التسليم</h2>
-  <ul>
-    <li>
-      ⚠️ يتم ضغط المشروع في <strong>ملف ZIP واحد</strong><br>
-      ✍️ تسمية الملف باسم الطالب والفصل<br>
-      📩 الإرسال عبر الإيميل الموضح في الأعلى
-    </li>
-  </ul>
-</section>
-
-<section>
-  <h2>📅 موعد التسليم</h2>
-  <ul>
-    <li>
-      الأسبوع <strong>18</strong><br>
-      🗓️ 8 / 7 / 1447 هـ<br>
-      📆 28 / 12 / 2025 م 
-    </li>
-  </ul>
-</section>
 <footer>
   📚 مادة تقنية رقمية 1 - المعلم راشد العتيبي © 2025
 </footer>
 
 <script>
-  function copyEmail() {
-    navigator.clipboard.writeText("t19839490@gmail.com");
-    alert("✅ تم نسخ الإيميل");
-  }
-</script>
-<script>
-  const deadline = new Date("December 28, 2025 23:59:59").getTime();
 
-  setInterval(() => {
-    const now = new Date().getTime();
-    const diff = deadline - now;
+  /* 📋 نسخ الإيميل */
+  function copyEmail() {
+
+    navigator.clipboard
+      .writeText("t19839490@gmail.com")
+      .then(() => {
+        alert("✅ تم نسخ الإيميل");
+      })
+      .catch(() => {
+        alert("⚠️ تعذر نسخ الإيميل تلقائياً");
+      });
+
+  }
+
+</script>
+
+<script>
+
+  /* ⏳ العد التنازلي */
+
+  const deadline =
+    new Date("December 28, 2025 23:59:59").getTime();
+
+  function updateCountdown() {
+
+    const now =
+      new Date().getTime();
+
+    const diff =
+      deadline - now;
+
+    const countdown =
+      document.getElementById("countdown");
 
     if (diff <= 0) {
-      document.getElementById("countdown").innerHTML = "⛔ انتهى وقت التسليم";
+
+      countdown.innerHTML =
+        "⛔ انتهى وقت التسليم";
+
       return;
     }
 
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
+    const days =
+      Math.floor(
+        diff / (1000 * 60 * 60 * 24)
+      );
 
-    document.getElementById("countdown").innerHTML =
+    const hours =
+      Math.floor(
+        (diff / (1000 * 60 * 60)) % 24
+      );
+
+    const minutes =
+      Math.floor(
+        (diff / (1000 * 60)) % 60
+      );
+
+    const seconds =
+      Math.floor(
+        (diff / 1000) % 60
+      );
+
+    countdown.innerHTML =
       `${days} يوم ⏱️ ${hours} ساعة ⏱️ ${minutes} دقيقة ⏱️ ${seconds} ثانية`;
-  }, 1000);
-</script>
+  }
 
+  updateCountdown();
+
+  setInterval(
+    updateCountdown,
+    1000
+  );
+
+</script>
 
 </body>
 </html>
+```
