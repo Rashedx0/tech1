@@ -1,285 +1,1767 @@
-<!-- النسخة الجديدة مع تغيير اتجاه الجدول: الحصص بالأعلى والأيام على اليمين -->
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>جدول الحصص للطلاب</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>جدول الحصص الأسبوعي</title>
+
+  <!-- الخط -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- مكتبات التصدير -->
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
   <style>
-    body {
-      font-family: 'Cairo', sans-serif;
-      background-color: #111a2d;
-      margin: 0;
-      padding: 15px;
-      direction: rtl;
-      text-align: right;
-      color: #fff;
+    /* =========================================================
+       المتغيرات
+    ========================================================= */
+
+    :root {
+      --bg: #0b1220;
+      --bg-secondary: #111a2d;
+      --card: #17233a;
+      --card-light: #1d2b46;
+
+      --primary: #4ea8ff;
+      --primary-hover: #328dd4;
+
+      --text: #ffffff;
+      --text-secondary: #aebbd0;
+
+      --border: #304666;
+      --input-bg: #0d1526;
+
+      --success: #22c55e;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+
+      --shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+
+      --radius: 16px;
+      --transition: 0.25s ease;
     }
+
+    /* =========================================================
+       الوضع النهاري
+    ========================================================= */
+
+    body.light {
+      --bg: #eef3f8;
+      --bg-secondary: #ffffff;
+      --card: #ffffff;
+      --card-light: #f5f8fc;
+
+      --primary: #1677d2;
+      --primary-hover: #0d64b7;
+
+      --text: #182235;
+      --text-secondary: #64748b;
+
+      --border: #d8e0ea;
+      --input-bg: #f8fafc;
+
+      --shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+    }
+
+    /* =========================================================
+       Reset
+    ========================================================= */
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Cairo", sans-serif;
+      background:
+        radial-gradient(
+          circle at top right,
+          rgba(78, 168, 255, 0.08),
+          transparent 35%
+        ),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 20px;
+      transition:
+        background var(--transition),
+        color var(--transition);
+    }
+
+    button,
+    input,
+    select {
+      font-family: inherit;
+    }
+
+    button {
+      border: 0;
+    }
+
+    /* =========================================================
+       الحاوية الرئيسية
+    ========================================================= */
 
     .container {
-      max-width: 1000px;
+      width: min(1200px, 100%);
       margin: auto;
-      background: #1c2742;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
     }
 
-    h1 {
-      color: #4ea8ff;
+    /* =========================================================
+       Header
+    ========================================================= */
+
+    .header {
+      padding: 30px 25px 20px;
       text-align: center;
+      border-bottom: 1px solid var(--border);
+      background:
+        linear-gradient(
+          135deg,
+          rgba(78, 168, 255, 0.08),
+          transparent
+        );
+    }
+
+    .header-icon {
+      width: 65px;
+      height: 65px;
+      margin: 0 auto 12px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 18px;
+
+      background: rgba(78, 168, 255, 0.12);
+      border: 1px solid rgba(78, 168, 255, 0.25);
+
+      font-size: 32px;
+    }
+
+    .header h1 {
+      font-size: clamp(24px, 4vw, 34px);
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .header p {
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    /* =========================================================
+       لوحة التحكم
+    ========================================================= */
+
+    .controls {
+      padding: 25px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      margin-bottom: 15px;
+
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
     }
 
     label {
-      font-weight: bold;
-      color: #ddd;
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 600;
     }
 
-    input {
+    input,
+    select {
       width: 100%;
-      padding: 10px;
-      margin: 10px 0 20px 0;
-      border-radius: 5px;
-      border: 1px solid #4ea8ff;
-      background-color: #0e1425;
+      height: 48px;
+
+      padding: 0 14px;
+
+      background: var(--input-bg);
+      color: var(--text);
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      outline: none;
+
+      transition:
+        border var(--transition),
+        box-shadow var(--transition);
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--primary);
+
+      box-shadow:
+        0 0 0 3px rgba(78, 168, 255, 0.12);
+    }
+
+    /* =========================================================
+       الأزرار
+    ========================================================= */
+
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      min-height: 44px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+
+      padding: 9px 16px;
+
+      border-radius: 10px;
+
       color: #fff;
-      font-size: 16px;
+
+      background: var(--primary);
+
+      cursor: pointer;
+
+      font-size: 14px;
+      font-weight: 700;
+
+      transition:
+        transform var(--transition),
+        background var(--transition),
+        box-shadow var(--transition);
+    }
+
+    .btn:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn.secondary {
+      background: var(--card-light);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn.secondary:hover {
+      background: var(--border);
+    }
+
+    .btn.success {
+      background: var(--success);
+    }
+
+    .btn.danger {
+      background: var(--danger);
+    }
+
+    .btn.warning {
+      background: var(--warning);
+    }
+
+    /* =========================================================
+       منطقة الجدول
+    ========================================================= */
+
+    .schedule-wrapper {
+      padding: 0 25px 25px;
+    }
+
+    .print-area {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .schedule-header {
+      padding: 18px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .schedule-title {
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .schedule-subtitle {
+      color: var(--text-secondary);
+      font-size: 13px;
+      margin-top: 3px;
+    }
+
+    /* =========================================================
+       الجدول
+    ========================================================= */
+
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     table {
       width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
-      font-size: 15px;
+      min-width: 850px;
+
+      border-collapse: separate;
+      border-spacing: 0;
+
+      table-layout: fixed;
     }
 
-    th, td {
-      border: 1px solid #334a70;
-      padding: 12px;
-      text-align: center;
-    }
-
-    th {
-      background-color: #1e3a5c;
-      color: #fff;
-    }
-
+    th,
     td {
-      background-color: #16213b;
-      color: #fff;
+      min-width: 105px;
+
+      padding: 13px 10px;
+
+      border-left: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+
+      text-align: center;
+      vertical-align: middle;
     }
 
-    td[contenteditable='true'] {
-      background-color: #1b2a4a;
+    th:first-child,
+    td:first-child {
+      border-right: 0;
+    }
+
+    thead th {
+      background: var(--card-light);
+      color: var(--primary);
+
+      font-size: 14px;
+      font-weight: 800;
+
+      position: sticky;
+      top: 0;
+      z-index: 3;
+    }
+
+    thead th:first-child {
+      position: sticky;
+      right: 0;
+      z-index: 5;
+      min-width: 115px;
+    }
+
+    tbody th {
+      position: sticky;
+      right: 0;
+      z-index: 2;
+
+      background: var(--card-light);
+
+      color: var(--text);
+
+      font-weight: 800;
+      min-width: 115px;
+    }
+
+    tbody td {
+      background: var(--input-bg);
+      color: var(--text);
+
+      min-height: 65px;
+
       cursor: text;
+
+      transition:
+        background var(--transition),
+        box-shadow var(--transition);
     }
 
-    .print-area {
-      padding: 15px;
-      border: 2px dashed #334a70;
+    tbody td:hover {
+      background: rgba(78, 168, 255, 0.08);
+    }
+
+    tbody td:focus {
+      outline: 2px solid var(--primary);
+      outline-offset: -2px;
+      background: rgba(78, 168, 255, 0.1);
+    }
+
+    .lesson-time {
+      display: block;
+      color: var(--text-secondary);
+      font-size: 11px;
+      margin-top: 3px;
+      font-weight: 500;
+    }
+
+    /* =========================================================
+       معلومات الطالب
+    ========================================================= */
+
+    .info-footer {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+
+      gap: 15px;
+
+      padding: 18px;
+
+      background: var(--card-light);
+
+      border-top: 1px solid var(--border);
+    }
+
+    .info-box {
+      padding: 12px 15px;
+
+      background: var(--input-bg);
+
+      border: 1px solid var(--border);
       border-radius: 10px;
-      overflow-x: auto;
+
+      font-size: 14px;
+      font-weight: 700;
     }
 
-    .buttons {
+    /* =========================================================
+       حالة الحفظ
+    ========================================================= */
+
+    .save-status {
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+      align-items: center;
       justify-content: center;
+
+      gap: 7px;
+
+      margin-top: 15px;
+
+      color: var(--text-secondary);
+
+      font-size: 12px;
     }
 
-    button {
-      padding: 10px 20px;
-      background-color: #4ea8ff;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      font-weight: bold;
+    .status-dot {
+      width: 7px;
+      height: 7px;
+
+      border-radius: 50%;
+
+      background: var(--success);
+
+      box-shadow:
+        0 0 8px rgba(34, 197, 94, 0.6);
     }
 
-    button:hover {
-      background-color: #328dd4;
+    /* =========================================================
+       Footer
+    ========================================================= */
+
+    .footer {
+      padding: 20px 25px;
+
+      text-align: center;
+
+      color: var(--text-secondary);
+
+      font-size: 12px;
+
+      border-top: 1px solid var(--border);
+    }
+
+    /* =========================================================
+       Toast
+    ========================================================= */
+
+    .toast {
+      position: fixed;
+
+      bottom: 25px;
+      left: 50%;
+
+      transform: translateX(-50%) translateY(100px);
+
+      padding: 12px 20px;
+
+      background: #0f172a;
+      color: #fff;
+
+      border: 1px solid #334155;
+
+      border-radius: 10px;
+
+      box-shadow: var(--shadow);
+
+      font-size: 13px;
+      font-weight: 700;
+
+      opacity: 0;
+
+      pointer-events: none;
+
+      transition: all 0.3s ease;
+
+      z-index: 9999;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* =========================================================
+       Responsive
+    ========================================================= */
+
+    @media (max-width: 700px) {
+
+      body {
+        padding: 10px;
+      }
+
+      .container {
+        border-radius: 12px;
+      }
+
+      .header {
+        padding: 22px 15px 18px;
+      }
+
+      .header-icon {
+        width: 55px;
+        height: 55px;
+        font-size: 27px;
+      }
+
+      .controls {
+        padding: 18px 15px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: auto;
+      }
+
+      .button-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 9px 10px;
+        font-size: 13px;
+      }
+
+      .schedule-wrapper {
+        padding: 0 10px 15px;
+      }
+
+      .schedule-header {
+        padding: 15px;
+      }
+
+      .info-footer {
+        grid-template-columns: 1fr;
+      }
+
+      .footer {
+        padding: 15px;
+      }
+    }
+
+    @media (max-width: 420px) {
+
+      .button-group {
+        grid-template-columns: 1fr;
+      }
+
+      .header h1 {
+        font-size: 23px;
+      }
+
+      .header p {
+        font-size: 12px;
+      }
+
+      .schedule-title {
+        font-size: 15px;
+      }
+    }
+
+    /* =========================================================
+       الطباعة
+    ========================================================= */
+
+    @media print {
+
+      @page {
+        size: landscape;
+        margin: 10mm;
+      }
+
+      body {
+        padding: 0;
+        background: #fff !important;
+        color: #000 !important;
+      }
+
+      .container {
+        width: 100%;
+        max-width: none;
+
+        box-shadow: none;
+        border: 0;
+        background: #fff !important;
+      }
+
+      .header,
+      .controls,
+      .save-status,
+      .footer {
+        display: none !important;
+      }
+
+      .schedule-wrapper {
+        padding: 0;
+      }
+
+      .print-area {
+        border: 1px solid #999;
+        border-radius: 0;
+        background: #fff !important;
+      }
+
+      .schedule-header {
+        display: flex;
+        background: #fff !important;
+        color: #000 !important;
+      }
+
+      table {
+        min-width: 0;
+      }
+
+      th,
+      td {
+        color: #000 !important;
+        background: #fff !important;
+
+        border-color: #999 !important;
+      }
+
+      thead th,
+      tbody th {
+        position: static;
+      }
+
+      .info-footer {
+        background: #fff !important;
+      }
+
+      .info-box {
+        background: #fff !important;
+        color: #000 !important;
+        border-color: #999 !important;
+      }
     }
   </style>
 </head>
+
 <body>
-  <div class="container">
-    <h1>📚 جدول الحصص الأسبوعي</h1>
 
-    <label>اسم المدرسة:</label>
-    <input type="text" id="schoolName" placeholder="مثال: ثانوية أبي تمام" />
+  <main class="container">
 
-    <label>اسم الطالب:</label>
-    <input type="text" id="studentName" placeholder="مثال: أحمد بن علي" />
+    <!-- =======================================================
+         Header
+    ======================================================== -->
 
-    <button onclick="updateNames()">تحديث المعلومات</button>
-    <button onclick="toggleTheme()">تبديل الوضع الليلي/النهاري</button>
+    <header class="header">
 
-    <div class="print-area" id="schedule">
-      <table id="scheduleTable">
-        <thead>
-          <tr>
-            <th>اليوم / الحصص</th>
-            <th>الحصة 1</th>
-            <th>الحصة 2</th>
-            <th>الحصة 3</th>
-            <th>الحصة 4</th>
-            <th>الحصة 5</th>
-            <th>الحصة 6</th>
-            <th>الحصة 7</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><th>الأحد</th></tr>
-          <tr><th>الاثنين</th></tr>
-          <tr><th>الثلاثاء</th></tr>
-          <tr><th>الأربعاء</th></tr>
-          <tr><th>الخميس</th></tr>
-        </tbody>
-      </table>
-
-      <div id="info-footer">
-        <div id="schoolNameDisplay">اسم المدرسة:</div>
-        <div id="studentNameDisplay">اسم الطالب:</div>
+      <div class="header-icon">
+        📚
       </div>
-    </div>
 
-    <div class="buttons">
-      <button onclick="downloadImage('png')">تحميل PNG</button>
-      <button onclick="downloadImage('jpeg')">تحميل JPEG</button>
-      <button onclick="downloadPDF()">تحميل PDF</button>
-      <button onclick="printTable()">طباعة الجدول</button>
-    </div>
-  </div>
-  </div>
+      <h1>
+        جدول الحصص الأسبوعي
+      </h1>
 
-  <!-- مكتبات -->
-  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+      <p>
+        أنشئ جدولك الدراسي واحفظه واطبعه بسهولة
+      </p>
+
+    </header>
+
+
+    <!-- =======================================================
+         لوحة التحكم
+    ======================================================== -->
+
+    <section class="controls">
+
+      <div class="section-title">
+        ⚙️ معلومات الجدول
+      </div>
+
+      <div class="form-grid">
+
+        <div class="form-group">
+
+          <label for="schoolName">
+            اسم المدرسة
+          </label>
+
+          <input
+            type="text"
+            id="schoolName"
+            placeholder="مثال: ثانوية أبي تمام"
+            autocomplete="off"
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="studentName">
+            اسم الطالب
+          </label>
+
+          <input
+            type="text"
+            id="studentName"
+            placeholder="مثال: أحمد بن علي"
+            autocomplete="off"
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="lessonCount">
+            عدد الحصص
+          </label>
+
+          <select id="lessonCount">
+
+            <option value="5">5 حصص</option>
+            <option value="6">6 حصص</option>
+            <option value="7" selected>7 حصص</option>
+            <option value="8">8 حصص</option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="themeSelect">
+            المظهر
+          </label>
+
+          <select id="themeSelect">
+
+            <option value="dark">
+              🌙 الوضع الليلي
+            </option>
+
+            <option value="light">
+              ☀️ الوضع النهاري
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <div class="button-group">
+
+        <button
+          class="btn"
+          onclick="updateScheduleInfo()"
+        >
+          💾 تحديث المعلومات
+        </button>
+
+        <button
+          class="btn secondary"
+          onclick="copyTable()"
+        >
+          📋 نسخ الجدول
+        </button>
+
+        <button
+          class="btn warning"
+          onclick="clearTable()"
+        >
+          🧹 مسح الجدول
+        </button>
+
+        <button
+          class="btn danger"
+          onclick="resetAll()"
+        >
+          🔄 إعادة ضبط
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         الجدول
+    ======================================================== -->
+
+    <section class="schedule-wrapper">
+
+      <div
+        class="print-area"
+        id="schedule"
+      >
+
+        <div class="schedule-header">
+
+          <div>
+
+            <div
+              class="schedule-title"
+              id="scheduleTitle"
+            >
+              جدول الحصص الأسبوعي
+            </div>
+
+            <div class="schedule-subtitle">
+              اضغط على أي خلية لكتابة المادة الدراسية
+            </div>
+
+          </div>
+
+          <div>
+            🐜
+          </div>
+
+        </div>
+
+
+        <div class="table-container">
+
+          <table id="scheduleTable">
+
+            <thead id="tableHead">
+              <!-- يتم إنشاؤه بواسطة JavaScript -->
+            </thead>
+
+            <tbody id="tableBody">
+              <!-- يتم إنشاؤه بواسطة JavaScript -->
+            </tbody>
+
+          </table>
+
+        </div>
+
+
+        <!-- معلومات الطالب -->
+
+        <div class="info-footer">
+
+          <div
+            class="info-box"
+            id="schoolNameDisplay"
+          >
+            🏫 اسم المدرسة:
+          </div>
+
+          <div
+            class="info-box"
+            id="studentNameDisplay"
+          >
+            👨‍🎓 اسم الطالب:
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- حالة الحفظ -->
+
+      <div class="save-status">
+
+        <span class="status-dot"></span>
+
+        <span id="saveStatus">
+          يتم الحفظ تلقائيًا
+        </span>
+
+      </div>
+
+
+      <!-- أزرار التصدير -->
+
+      <div class="button-group">
+
+        <button
+          class="btn"
+          onclick="downloadImage('png')"
+        >
+          🖼️ تحميل PNG
+        </button>
+
+        <button
+          class="btn"
+          onclick="downloadImage('jpeg')"
+        >
+          📷 تحميل JPEG
+        </button>
+
+        <button
+          class="btn success"
+          onclick="downloadPDF()"
+        >
+          📄 تحميل PDF
+        </button>
+
+        <button
+          class="btn secondary"
+          onclick="printTable()"
+        >
+          🖨️ طباعة
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         Footer
+    ======================================================== -->
+
+    <footer class="footer">
+
+      جدول الحصص الأسبوعي ©
+      <span id="currentYear"></span>
+
+    </footer>
+
+  </main>
+
+
+  <!-- Toast -->
+
+  <div
+    class="toast"
+    id="toast"
+  ></div>
+
 
   <script>
-    // إنشاء الجدول
-    const rows = document.querySelectorAll("#scheduleTable tbody tr");
 
-    rows.forEach(row => {
-      for (let i = 0; i < 7; i++) {
-        const td = document.createElement("td");
-        td.contentEditable = "true";
-        row.appendChild(td);
+    /* =========================================================
+       الإعدادات
+    ========================================================= */
+
+    const STORAGE_KEY = "weeklyScheduleData";
+
+    const days = [
+      "الأحد",
+      "الاثنين",
+      "الثلاثاء",
+      "الأربعاء",
+      "الخميس"
+    ];
+
+    let lessonCount = 7;
+
+
+    /* =========================================================
+       العناصر
+    ========================================================= */
+
+    const tableHead =
+      document.getElementById("tableHead");
+
+    const tableBody =
+      document.getElementById("tableBody");
+
+    const lessonCountSelect =
+      document.getElementById("lessonCount");
+
+    const schoolNameInput =
+      document.getElementById("schoolName");
+
+    const studentNameInput =
+      document.getElementById("studentName");
+
+    const themeSelect =
+      document.getElementById("themeSelect");
+
+    const schoolNameDisplay =
+      document.getElementById("schoolNameDisplay");
+
+    const studentNameDisplay =
+      document.getElementById("studentNameDisplay");
+
+    const saveStatus =
+      document.getElementById("saveStatus");
+
+    const toast =
+      document.getElementById("toast");
+
+
+    /* =========================================================
+       إنشاء رأس الجدول
+    ========================================================= */
+
+    function createTableHeader() {
+
+      tableHead.innerHTML = "";
+
+      const row = document.createElement("tr");
+
+      const dayHeader = document.createElement("th");
+
+      dayHeader.textContent = "اليوم / الحصص";
+
+      row.appendChild(dayHeader);
+
+
+      for (let i = 1; i <= lessonCount; i++) {
+
+        const th = document.createElement("th");
+
+        th.innerHTML = `
+          الحصة ${i}
+          <span class="lesson-time">
+            الحصة الدراسية
+          </span>
+        `;
+
+        row.appendChild(th);
       }
-    });
 
-    function updateNames() {
-      const school = document.getElementById("schoolName").value;
-      const student = document.getElementById("studentName").value;
-
-      document.getElementById("schoolNameDisplay").innerText = "اسم المدرسة: " + school;
-      document.getElementById("studentNameDisplay").innerText = "اسم الطالب: " + student;
+      tableHead.appendChild(row);
     }
 
-    function downloadImage(type = "png") {
-      const schedule = document.getElementById("schedule");
-      html2canvas(schedule, { scale: 3 }).then((canvas) => {
-        const link = document.createElement("a");
-        link.download = `جدول_الحصص.${type}`;
-        link.href = canvas.toDataURL(`image/${type}`);
-        link.click();
+
+    /* =========================================================
+       إنشاء جسم الجدول
+    ========================================================= */
+
+    function createTableBody(savedData = null) {
+
+      tableBody.innerHTML = "";
+
+      days.forEach((day, dayIndex) => {
+
+        const row = document.createElement("tr");
+
+        const dayCell =
+          document.createElement("th");
+
+        dayCell.textContent = day;
+
+        row.appendChild(dayCell);
+
+
+        for (let lessonIndex = 0; lessonIndex < lessonCount; lessonIndex++) {
+
+          const cell =
+            document.createElement("td");
+
+          cell.contentEditable = "true";
+
+          cell.spellcheck = false;
+
+          const savedValue =
+            savedData?.schedule?.[dayIndex]?.[lessonIndex] || "";
+
+          cell.textContent = savedValue;
+
+          cell.addEventListener(
+            "input",
+            saveData
+          );
+
+          row.appendChild(cell);
+        }
+
+        tableBody.appendChild(row);
+
       });
+
     }
 
-    function printTable() {
-      window.print();
+
+    /* =========================================================
+       بناء الجدول
+    ========================================================= */
+
+    function buildTable(savedData = null) {
+
+      createTableHeader();
+
+      createTableBody(savedData);
+
     }
+
+
+    /* =========================================================
+       تحديث المعلومات
+    ========================================================= */
+
+    function updateScheduleInfo() {
+
+      const school =
+        schoolNameInput.value.trim();
+
+      const student =
+        studentNameInput.value.trim();
+
+      schoolNameDisplay.textContent =
+        "🏫 اسم المدرسة: " +
+        (school || "—");
+
+      studentNameDisplay.textContent =
+        "👨‍🎓 اسم الطالب: " +
+        (student || "—");
+
+      saveData();
+
+      showToast("تم تحديث معلومات الجدول ✓");
+    }
+
+
+    /* =========================================================
+       جمع بيانات الجدول
+    ========================================================= */
+
+    function getScheduleData() {
+
+      const schedule = [];
+
+      const rows =
+        tableBody.querySelectorAll("tr");
+
+      rows.forEach(row => {
+
+        const cells =
+          row.querySelectorAll("td");
+
+        const rowData = [];
+
+        cells.forEach(cell => {
+          rowData.push(cell.innerText.trim());
+        });
+
+        schedule.push(rowData);
+
+      });
+
+      return schedule;
+    }
+
+
+    /* =========================================================
+       حفظ البيانات
+    ========================================================= */
+
+    function saveData() {
+
+      const data = {
+
+        schoolName:
+          schoolNameInput.value,
+
+        studentName:
+          studentNameInput.value,
+
+        lessonCount,
+
+        theme:
+          document.body.classList.contains("light")
+            ? "light"
+            : "dark",
+
+        schedule:
+          getScheduleData()
+
+      };
+
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(data)
+      );
+
+      saveStatus.textContent =
+        "تم الحفظ تلقائيًا ✓";
+    }
+
+
+    /* =========================================================
+       تحميل البيانات
+    ========================================================= */
+
+    function loadData() {
+
+      const saved =
+        localStorage.getItem(STORAGE_KEY);
+
+      if (!saved) {
+
+        buildTable();
+
+        return;
+      }
+
+      try {
+
+        const data =
+          JSON.parse(saved);
+
+
+        schoolNameInput.value =
+          data.schoolName || "";
+
+        studentNameInput.value =
+          data.studentName || "";
+
+
+        lessonCount =
+          Number(data.lessonCount) || 7;
+
+        lessonCountSelect.value =
+          lessonCount;
+
+
+        if (data.theme === "light") {
+
+          document.body.classList.add("light");
+
+          themeSelect.value = "light";
+
+        } else {
+
+          document.body.classList.remove("light");
+
+          themeSelect.value = "dark";
+
+        }
+
+
+        updateScheduleInfoWithoutSave();
+
+        buildTable(data);
+
+      } catch (error) {
+
+        console.error(
+          "خطأ في تحميل البيانات:",
+          error
+        );
+
+        buildTable();
+
+      }
+
+    }
+
+
+    /* =========================================================
+       تحديث المعلومات بدون حفظ
+    ========================================================= */
+
+    function updateScheduleInfoWithoutSave() {
+
+      const school =
+        schoolNameInput.value.trim();
+
+      const student =
+        studentNameInput.value.trim();
+
+      schoolNameDisplay.textContent =
+        "🏫 اسم المدرسة: " +
+        (school || "—");
+
+      studentNameDisplay.textContent =
+        "👨‍🎓 اسم الطالب: " +
+        (student || "—");
+
+    }
+
+
+    /* =========================================================
+       تغيير عدد الحصص
+    ========================================================= */
+
+    lessonCountSelect.addEventListener(
+      "change",
+      function () {
+
+        lessonCount =
+          Number(this.value);
+
+        const oldSchedule =
+          getScheduleData();
+
+        buildTable({
+          schedule: oldSchedule
+        });
+
+        saveData();
+
+        showToast(
+          `تم تغيير عدد الحصص إلى ${lessonCount}`
+        );
+
+      }
+    );
+
+
+    /* =========================================================
+       تغيير المظهر
+    ========================================================= */
+
+    themeSelect.addEventListener(
+      "change",
+      function () {
+
+        if (this.value === "light") {
+
+          document.body.classList.add("light");
+
+        } else {
+
+          document.body.classList.remove("light");
+
+        }
+
+        saveData();
+
+      }
+    );
+
+
+    /* =========================================================
+       تحميل صورة
+    ========================================================= */
+
+    async function downloadImage(type = "png") {
+
+      const schedule =
+        document.getElementById("schedule");
+
+      showToast("جاري تجهيز الصورة...");
+
+      try {
+
+        const canvas =
+          await html2canvas(schedule, {
+
+            scale: 3,
+
+            useCORS: true,
+
+            backgroundColor:
+              document.body.classList.contains("light")
+                ? "#ffffff"
+                : "#17233a",
+
+            logging: false
+
+          });
+
+
+        const link =
+          document.createElement("a");
+
+
+        link.download =
+          `جدول_الحصص.${type}`;
+
+
+        link.href =
+          canvas.toDataURL(
+            `image/${type}`,
+            0.95
+          );
+
+
+        link.click();
+
+
+        showToast(
+          "تم تحميل الصورة بنجاح ✓"
+        );
+
+      } catch (error) {
+
+        console.error(error);
+
+        showToast(
+          "حدث خطأ أثناء تحميل الصورة"
+        );
+
+      }
+
+    }
+
+
+    /* =========================================================
+       تحميل PDF
+    ========================================================= */
 
     async function downloadPDF() {
-      const schedule = document.getElementById("schedule");
-      html2canvas(schedule, { scale: 2 }).then((canvas) => {
-        const imgData = canvas.toDataURL("image/png");
-        const pdf = new jspdf.jsPDF({
-          orientation: "landscape",
-          unit: "px",
-          format: [canvas.width, canvas.height],
-        });
-        pdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
-        pdf.save("جدول_الحصص.pdf");
-      });
-    }
 
-    // الوضع الليلي/النهاري
-    let isDark = true;
+      const schedule =
+        document.getElementById("schedule");
 
-    function toggleTheme() {
-      const body = document.body;
-      const container = document.querySelector(".container");
+      showToast("جاري تجهيز ملف PDF...");
 
-      if (isDark) {
-        // الوضع النهاري
-        body.style.backgroundColor = "#ffffff";
-        body.style.color = "#000000";
 
-        container.style.backgroundColor = "#f5f5f5";
-        container.style.boxShadow = "0 0 15px rgba(0,0,0,0.1)";
+      try {
 
-        document.querySelectorAll("input").forEach(input => {
-          input.style.backgroundColor = "#ffffff";
-          input.style.color = "#000000";
-          input.style.border = "1px solid #ccc";
-        });
+        const canvas =
+          await html2canvas(schedule, {
 
-        document.querySelectorAll("th, td").forEach(cell => {
-          cell.style.backgroundColor = "#ffffff";
-          cell.style.color = "#000000";
-          cell.style.border = "1px solid #ccc";
-        });
+            scale: 2,
 
-        document.querySelectorAll("td[contenteditable='true']").forEach(td => {
-          td.style.backgroundColor = "#e0e0e0";
-        });
+            useCORS: true,
 
-        document.querySelectorAll("button").forEach(btn => {
-          btn.style.backgroundColor = "#4ea8ff";
-          btn.style.color = "#fff";
-        });
+            backgroundColor: "#ffffff",
 
-        isDark = false;
-      } else {
-        // العودة للوضع الليلي
-        body.style.backgroundColor = "#111a2d";
-        body.style.color = "#fff";
+            logging: false
 
-        container.style.backgroundColor = "#1c2742";
-        container.style.boxShadow = "0 0 15px rgba(0,0,0,0.3)";
+          });
 
-        document.querySelectorAll("input").forEach(input => {
-          input.style.backgroundColor = "#0e1425";
-          input.style.color = "#fff";
-          input.style.border = "1px solid #4ea8ff";
-        });
 
-        document.querySelectorAll("th").forEach(th => {
-          th.style.backgroundColor = "#1e3a5c";
-          th.style.color = "#fff";
-          th.style.border = "1px solid #334a70";
-        });
+        const imgData =
+          canvas.toDataURL("image/png");
 
-        document.querySelectorAll("td").forEach(td => {
-          td.style.backgroundColor = td.getAttribute("contenteditable") === "true" ? "#1b2a4a" : "#16213b";
-          td.style.color = "#fff";
-          td.style.border = "1px solid #334a70";
-        });
 
-        document.querySelectorAll("button").forEach(btn => {
-          btn.style.backgroundColor = "#4ea8ff";
-          btn.style.color = "#fff";
-        });
+        const {
+          jsPDF
+        } = window.jspdf;
 
-        isDark = true;
+
+        const pdf =
+          new jsPDF({
+
+            orientation: "landscape",
+
+            unit: "px",
+
+            format: [
+              canvas.width,
+              canvas.height
+            ]
+
+          });
+
+
+        pdf.addImage(
+          imgData,
+          "PNG",
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
+
+
+        pdf.save(
+          "جدول_الحصص.pdf"
+        );
+
+
+        showToast(
+          "تم تحميل PDF بنجاح ✓"
+        );
+
+      } catch (error) {
+
+        console.error(error);
+
+        showToast(
+          "حدث خطأ أثناء إنشاء PDF"
+        );
+
       }
-    }
-  </script>
-</body>
-</html>
 
+    }
+
+
+    /* =========================================================
+       الطباعة
+    ========================================================= */
+
+    function printTable() {
+
+      window.print();
+
+    }
+
+
+    /* =========================================================
+       نسخ الجدول
+    ========================================================= */
+
+    async function copyTable() {
+
+      const schedule =
+        getScheduleData();
+
+      let text =
+        "جدول الحصص الأسبوعي\n\n";
+
+
+      schedule.forEach(
+        (row, index) => {
+
+          text +=
+            days[index] +
+            ":\n";
+
+          row.forEach(
+            (lesson, lessonIndex) => {
+
+              text +=
+                `الحصة ${lessonIndex + 1}: ` +
+                `${lesson || "—"}\n`;
+
+            }
+          );
+
+          text += "\n";
+
+        }
+      );
+
+
+      try {
+
+        await navigator.clipboard.writeText(
+          text
+        );
+
+        showToast(
+          "تم نسخ الجدول ✓"
+        );
+
+      } catch {
+
+        showToast(
+          "تعذر نسخ الجدول"
+        );
+
+      }
+
+    }
+
+
+    /* =========================================================
+       مسح محتوى الجدول
+    ========================================================= */
+
+    function clearTable() {
+
+      const confirmed =
+        confirm(
+          "هل أنت متأكد من مسح جميع المواد من الجدول؟"
+        );
+
+      if (!confirmed) {
+        return;
+      }
+
+
+      const cells =
+        tableBody.querySelectorAll("td");
+
+      cells.forEach(cell => {
+        cell.textContent = "";
+      });
+
+
+      saveData();
+
+      showToast(
+        "تم مسح الجدول ✓"
+      );
+
+    }
+
+
+    /* =========================================================
+       إعادة ضبط كل شيء
+    ========================================================= */
+
+    function resetAll() {
+
+      const confirmed =
+        confirm(
+          "سيتم حذف جميع البيانات وإعادة الجدول للوضع الافتراضي. هل تريد المتابعة؟"
+        );
+
+      if (!confirmed) {
+        return;
+      }
+
+
+      localStorage.removeItem(
+        STORAGE_KEY
+      );
+
+
+      schoolNameInput.value = "";
+
+      studentNameInput.value = "";
+
+      lessonCount = 7;
+
+      lessonCountSelect.value = 7;
+
+      themeSelect.value = "dark";
+
+      document.body.classList.remove(
+        "light"
+      );
+
+
+      updateScheduleInfoWithoutSave();
+
+      buildTable();
+
+
+      showToast(
+        "تمت إعادة ضبط الجدول ✓"
+      );
+
+    }
+
+
+    /* =========================================================
+       Toast
+    ========================================================= */
+
+    let toastTimer;
+
+    function showToast(message) {
+
+      clearTimeout(toastTimer);
+
+      toast.textContent =
+        message;
+
+      toast.classList.add("show");
+
+
+      toastTimer =
+        setTimeout(() => {
+
+          toast.classList.remove(
+            "show"
+          );
+
+        }, 2500);
+
+    }
+
+
+    /* =========================================================
+       حفظ تلقائي لأسماء المدرسة والطالب
+    ========================================================= */
+
+    schoolNameInput.addEventListener(
+      "input",
+      saveData
+    );
+
+    studentNameInput.addEventListener(
+      "input",
+      saveData
+    );
+
+
+    /* =========================================================
+       السنة الحالية
+    ========================================================= */
+
+    document.getElementById(
+      "currentYear"
+    ).textContent =
+      new Date().getFullYear();
+
+
+    /* =========================================================
+       تشغيل التطبيق
+    ========================================================= */
+
+    loadData();
+
+  </script>
+
+</body>
+
+</html>
