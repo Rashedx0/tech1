@@ -273,6 +273,19 @@
             transform: scale(0.98);
         }
 
+        /* حالة إغلاق الاختبار التشخيصي */
+        .diagnostic-card.disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+            filter: grayscale(0.3);
+            pointer-events: none;
+        }
+
+        .diagnostic-card.disabled .diagnostic-arrow {
+            color: #94a3b8;
+            background: rgba(148, 163, 184, 0.10);
+        }
+
         .diagnostic-icon {
             width: 44px;
             height: 44px;
@@ -496,14 +509,17 @@
             <!-- ==================================================
                  الاختبار التشخيصي (في المنتصف)
             ================================================== -->
-            <a href="testExam.html" class="diagnostic-card" aria-label="بدء الاختبار التشخيصي">
+            <a href="#" class="diagnostic-card disabled"
+               aria-label="الاختبار التشخيصي مغلق"
+               aria-disabled="true"
+               onclick="return false;">
                 <span class="diagnostic-icon" aria-hidden="true">🧪</span>
                 <span class="diagnostic-text">
                     <strong>الاختبار التشخيصي</strong>
-                    <small>اضغط هنا لاختيار فصلك وبدء الاختبار</small>
+                    <small>الاختبار مغلق حاليًا</small>
                 </span>
                 <span class="diagnostic-arrow" aria-hidden="true">
-                    <i class="fas fa-chevron-left"></i>
+                    <i class="fas fa-lock"></i>
                 </span>
             </a>
 
