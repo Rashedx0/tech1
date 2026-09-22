@@ -259,7 +259,7 @@
             align-items: center;
             gap: 12px;
             padding: 14px 16px;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             color: #fff;
             text-decoration: none;
             background: linear-gradient(135deg, rgba(56, 189, 248, 0.18), rgba(129, 140, 248, 0.15));
@@ -326,6 +326,32 @@
             border-radius: 50%;
             color: var(--primary);
             background: rgba(56, 189, 248, 0.12);
+        }
+
+        /* ==================================================
+           بنر اليوم الوطني السعودي (متجاوب للموبيل)
+        ================================================== */
+        .national-day-banner {
+            width: 100%;
+            margin-bottom: 20px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.2);
+            transition: transform var(--transition), box-shadow var(--transition);
+            background: #021a12;
+            display: block;
+        }
+
+        .national-day-banner:active {
+            transform: scale(0.98);
+        }
+
+        .national-day-banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
         }
 
         /* ==================================================
@@ -522,6 +548,13 @@
                     <i class="fas fa-lock"></i>
                 </span>
             </a>
+
+            <!-- ==================================================
+                 بنر اليوم الوطني السعودي
+            ================================================== -->
+            <div class="national-day-banner">
+                <img src="أخضر حديث اليوم الوطني السعودي بانر.png" alt="بانر اليوم الوطني السعودي - عزنا بطبعنا - كل عام والوطن بخير">
+            </div>
 
             <!-- ==================================================
                  أزرار الفصول الدراسية
