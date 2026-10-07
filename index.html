@@ -8,7 +8,7 @@
     <meta name="theme-color" content="#020617">
     <meta name="description" content="بوابة التعلم الذكي لمادة تقنية رقمية 1 - الأستاذ راشد العتيبي">
 
-    <title>تقنية رقمية 1 | بوابة التعلم الذكي</title>
+    <title>تقنية رقمية 1 | مغلق للتحديث</title>
 
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -106,6 +106,106 @@
             bottom: -100px;
             left: -100px;
             background: var(--secondary);
+        }
+
+        /* ==================================================
+           شاشة التحديث المغلقة (Maintenance Screen)
+        ================================================== */
+        #maintenance-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(2, 6, 23, 0.96);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            padding: 20px;
+            text-align: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #maintenance-screen.hide {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .maint-card {
+            width: 100%;
+            max-width: 440px;
+            padding: 36px 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-xl);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+        }
+
+        .maint-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            display: grid;
+            place-items: center;
+            border-radius: 24px;
+            background: rgba(250, 204, 21, 0.12);
+            border: 1px solid rgba(250, 204, 21, 0.3);
+            color: var(--accent);
+            font-size: 2.5rem;
+            animation: gearRotate 6s linear infinite;
+        }
+
+        @keyframes gearRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .maint-title {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .maint-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        /* العداد التنازلي */
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            dir: ltr;
+        }
+
+        .countdown-box {
+            flex: 1;
+            padding: 12px 8px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            text-align: center;
+        }
+
+        .countdown-value {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            font-family: monospace;
+        }
+
+        .countdown-label {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 4px;
         }
 
         /* ==================================================
@@ -252,7 +352,7 @@
         }
 
         /* ==================================================
-           بنر إعلان اختبار الفترة الأولى (متحرك ومميز)
+           بنر إعلان اختبار الفترة الأولى
         ================================================== */
         .exam-banner {
             position: relative;
@@ -386,7 +486,6 @@
             transform: scale(0.98);
         }
 
-        /* حالة إغلاق الاختبار التشخيصي */
         .diagnostic-card.disabled {
             cursor: not-allowed;
             opacity: 0.6;
@@ -586,6 +685,36 @@
 <body>
 
     <!-- ==================================================
+         شاشة التحديث المغلقة (Maintenance Screen)
+    ================================================== -->
+    <div id="maintenance-screen" aria-label="الموقع تحت الصيانة">
+        <div class="maint-card">
+            <div class="maint-icon">
+                <i class="fas fa-wrench"></i>
+            </div>
+            <h2 class="maint-title">البوابة قيد التحديث</h2>
+            <p class="maint-desc">
+                نقوم حالياً بإجراء بعض التحسينات والتحديثات على البوابة لخدمتكم بشكل أفضل. سنعود للعمل قريباً!
+            </p>
+            <div class="countdown-container">
+                <div class="countdown-box">
+                    <span id="hours" class="countdown-value">00</span>
+                    <span class="countdown-label">ساعة</span>
+                </div>
+                <div class="countdown-box">
+                    <span id="minutes" class="countdown-value">00</span>
+                    <span class="countdown-label">دقيقة</span>
+                </div>
+                <div class="countdown-box">
+                    <span id="seconds" class="countdown-value">00</span>
+                    <span class="countdown-label">ثانية</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+    </div>
+
+    <!-- ==================================================
          شاشة التحميل
     ================================================== -->
     <div id="splash" aria-label="جاري تحميل الموقع">
@@ -620,7 +749,7 @@
             </p>
 
             <!-- ==================================================
-                 بنر اختبار الفترة الأولى (متحرك ومميز)
+                 بنر اختبار الفترة الأولى
             ================================================== -->
             <section class="exam-banner" aria-label="مواعيد اختبار الفترة الأولى">
                 <div class="exam-badge">
@@ -710,7 +839,48 @@
             }, 500);
         });
 
+        // ==================================================
+        // مؤقت إغلاق التحديث (ينتهي اليوم الساعة 8:00 مساءً)
+        // ==================================================
+        function startMaintenanceTimer() {
+            const targetTime = new Date();
+            targetTime.setHours(20, 0, 0, 0); // ضبط الوقت على الساعة 8 مساءً (20:00)
+
+            // إذا كان الوقت الحالي بعد الساعة 8 مساءً، اضبطه على 8 مساءً للغد تلقائياً
+            if (new Date() > targetTime) {
+                targetTime.setDate(targetTime.getDate() + 1);
+            }
+
+            const maintenanceScreen = document.getElementById("maintenance-screen");
+            const hoursEl = document.getElementById("hours");
+            const minutesEl = document.getElementById("minutes");
+            const secondsEl = document.getElementById("seconds");
+
+            const timerInterval = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = targetTime.getTime() - now;
+
+                if (distance <= 0) {
+                    clearInterval(timerInterval);
+                    maintenanceScreen.classList.add("hide"); // فتح الموقع تلقائياً عند انتهاء الوقت
+                    return;
+                }
+
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                hoursEl.textContent = String(hours).padStart(2, '0');
+                minutesEl.textContent = String(minutes).padStart(2, '0');
+                secondsEl.textContent = String(seconds).padStart(2, '0');
+            }, 1000);
+        }
+
+        startMaintenanceTimer();
+
+        // ==================================================
         // نسخ البريد الإلكتروني
+        // ==================================================
         const copyButton = document.getElementById("copyButton");
         const emailText = document.getElementById("emailText");
 
