@@ -150,6 +150,65 @@
       transform: translateY(-3px);
     }
 
+    /* ================= بنر موعد اختبار الفترة الأولى ================= */
+    .period-exam-banner {
+      background: linear-gradient(135deg, #ef4444, #f43f5e, #b91c1c);
+      background-size: 200% 200%;
+      animation: gradientShift 4s ease infinite, examGlow 2s infinite alternate;
+      color: #ffffff;
+      padding: 25px 20px;
+      border-radius: 20px;
+      text-align: center;
+      margin: 30px auto;
+      max-width: 850px;
+      border: 2px solid #fecdd3;
+      box-shadow: 0 10px 25px rgba(239, 68, 68, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+    .period-exam-banner h3 {
+      margin: 0 0 10px 0;
+      font-size: 1.8rem;
+      font-weight: 900;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    .period-exam-banner .exam-date-details {
+      font-size: 1.25rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+      line-height: 1.6;
+      background: rgba(0, 0, 0, 0.25);
+      padding: 12px;
+      border-radius: 12px;
+      display: inline-block;
+    }
+    .period-exam-banner .exam-date-details span {
+      color: #fef08a;
+      font-weight: 900;
+    }
+    .exam-select-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffffff;
+      color: #991b1b;
+      padding: 12px 28px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 900;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      border: none;
+      cursor: pointer;
+    }
+    .exam-select-btn:hover {
+      background: #fecdd3;
+      color: #881337;
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+
     /* ================= المحتوى الأساسي والأزرار ================= */
     .container {
       max-width: 900px;
@@ -273,7 +332,7 @@
     }
     .btn:hover { background: #0ea5e9; color: #fff; }
 
-    /* ================= زر الفلاش (للملخصات) ================= */
+    /* ================= زر الفلاش (لملخصات) ================= */
     .flash-btn {
       background: #38bdf8;
       color: #0f172a;
@@ -328,14 +387,23 @@
       70% { box-shadow: 0 0 0 12px rgba(245, 158, 11, 0); }
       100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
     }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes examGlow {
+      0% { box-shadow: 0 0 15px rgba(239, 68, 68, 0.4); }
+      100% { box-shadow: 0 0 30px rgba(239, 68, 68, 0.9); }
+    }
 
     /* ================= الميديا كويري (للجوال) ================= */
     @media (max-width: 768px) {
       .exam-upload-banner { flex-direction: column; text-align: center; font-size: 0.9rem; padding: 15px; }
       body { padding-top: 90px; }
-      .important-announcement { width: 90%; padding: 20px 15px; }
-      .important-announcement h3 { font-size: 1.3rem; }
-      .important-announcement p { font-size: 1rem; }
+      .important-announcement, .period-exam-banner { width: 90%; padding: 20px 15px; }
+      .important-announcement h3, .period-exam-banner h3 { font-size: 1.3rem; }
+      .important-announcement p, .period-exam-banner .exam-date-details { font-size: 1rem; }
       ul li { flex-direction: column; align-items: stretch; text-align: center; }
       ul li > a:first-child { margin-left: 0; margin-bottom: 10px; }
       .btn { text-align: center; }
@@ -374,6 +442,17 @@
       <h3>⚠️ تنبيــــه هـــــام</h3>
       <p>يجب على جميع الطلاب حل الواجبات الأسبوعية في منصة مدرستي أولاً بأول وذلك لأحتساب درجات الواجبات في أعمال الفترة الأولى.</p>
       <a href="https://schools.madrasati.sa/" target="_blank" class="madrasati-btn">🚀 الانتقال لمنصة مدرستي</a>
+    </div>
+
+    <!-- بنر موعد اختبار الفترة الأولى -->
+    <div class="period-exam-banner" data-aos="zoom-in" data-aos-delay="100">
+      <h3>🚨 موعد اختبار الفترة الأولى 🚨</h3>
+      <div class="exam-date-details">
+        يكون الاختبار يوم <span>الأثنين - الحصة الثانية</span> <br>
+        بتاريخ: <span>12/10/2026 م</span> | الموافق: <span>01/05/1448 هـ</span>
+      </div>
+      <br>
+      <a href="exam-topics.html" class="exam-select-btn">🎯 تحديد أجزاء الاختبار</a>
     </div>
 
     <!-- الأزرار الرئيسية -->
