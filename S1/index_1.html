@@ -240,6 +240,38 @@
       transform: translateY(-2px);
     }
 
+    /* زر الاختبار العملي المميز (الجديد) */
+    .special-exam-btn {
+      position: relative;
+      background: linear-gradient(135deg, #f59e0b, #ec4899, #8b5cf6);
+      background-size: 200% 200%;
+      animation: gradientShift 3s ease infinite, pulse-border 2s infinite;
+      color: #fff !important;
+      padding: 14px 24px;
+      font-size: 1.2rem;
+      border-radius: 14px;
+      font-weight: 900;
+      box-shadow: 0 6px 20px rgba(236, 72, 153, 0.5);
+    }
+    .special-exam-btn:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(236, 72, 153, 0.8);
+    }
+    /* شارة "جديد" العلوية لزر الاختبار العملي */
+    .badge-new {
+      position: absolute;
+      top: -12px;
+      left: -10px;
+      background: #ef4444;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 900;
+      padding: 3px 8px;
+      border-radius: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      animation: badgeBounce 1.5s infinite alternate;
+    }
+
     /* ================= البطاقات ================= */
     .cards {
       display: grid;
@@ -397,6 +429,10 @@
       0% { box-shadow: 0 0 15px rgba(239, 68, 68, 0.4); }
       100% { box-shadow: 0 0 30px rgba(239, 68, 68, 0.9); }
     }
+    @keyframes badgeBounce {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-4px); }
+    }
 
     /* ================= الميديا كويري (للجوال) ================= */
     @media (max-width: 768px) {
@@ -462,8 +498,13 @@
     <!-- الأزرار الرئيسية -->
     <div class="buttons-row">
       <a href="https://files.tahdiri.com/books/1448-GE-CBM-TRC1-SM1-mcomp.pdf" id="bookBtn" class="main-btn">📘 الكتاب الإلكتروني</a>
-      <a href="exam.html" class="main-btn">🧪 الاختبار العملي</a>
-      <!--<a href="https://www.wajibati.net/wp-content/uploads/2023/10/mo_tqeneh1msf1_1_5n8f12a4wv.pdf" class="main-btn" download>📗 الملخصات</a>-->
+      
+      <!-- زر الاختبار العملي البارز مع شارة جديد -->
+      <a href="exam.html" class="main-btn special-exam-btn">
+        <span class="badge-new">جديد 🔥</span>
+        🧪 الاختبار العملي
+      </a>
+
       <a href="convert.html" class="main-btn">🔄 التحويل بين الأنظمة</a>
       <a href="table.html" class="main-btn">📊 أنشئ جدولك</a>
     </div>
