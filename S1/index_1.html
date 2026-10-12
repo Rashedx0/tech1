@@ -34,7 +34,6 @@
       transition: opacity 0.8s ease;
     }
     
-    /* لودر CSS عصري وسريع بدلاً من الـ GIF */
     .modern-loader {
       width: 70px;
       height: 70px;
@@ -150,64 +149,63 @@
       transform: translateY(-3px);
     }
 
-    /* ================= بنر موعد اختبار الفترة الأولى ================= */
+    /* ================= بنر تأجيل الاختبار (تصميم هادئ ومناسب) ================= */
     .period-exam-banner {
-      background: linear-gradient(135deg, #ef4444, #f43f5e, #b91c1c);
-      background-size: 200% 200%;
-      animation: gradientShift 4s ease infinite, examGlow 2s infinite alternate;
-      color: #ffffff;
+      background: linear-gradient(135deg, #1e293b, #334155);
+      color: #f1f5f9;
       padding: 25px 20px;
       border-radius: 20px;
       text-align: center;
       margin: 30px auto;
       max-width: 850px;
-      border: 2px solid #fecdd3;
-      box-shadow: 0 10px 25px rgba(239, 68, 68, 0.4);
+      border: 1px solid #475569;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
       position: relative;
       overflow: hidden;
     }
     .period-exam-banner h3 {
-      margin: 0 0 10px 0;
-      font-size: 1.8rem;
-      font-weight: 900;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      margin: 0 0 12px 0;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #38bdf8;
     }
     .period-exam-banner .exam-date-details {
-      font-size: 1.25rem;
-      font-weight: bold;
-      margin-bottom: 15px;
-      line-height: 1.6;
-      background: rgba(0, 0, 0, 0.25);
-      padding: 12px;
+      font-size: 1.1rem;
+      font-weight: normal;
+      color: #cbd5e1;
+      margin-bottom: 20px;
+      line-height: 1.7;
+      background: rgba(15, 23, 42, 0.4);
+      padding: 15px;
       border-radius: 12px;
-      display: inline-block;
+      display: block;
+      border-right: 4px solid #38bdf8;
     }
     .period-exam-banner .exam-date-details span {
-      color: #fef08a;
-      font-weight: 900;
+      color: #38bdf8;
+      font-weight: bold;
     }
     .exam-select-btn {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: #ffffff;
-      color: #991b1b;
-      padding: 12px 28px;
-      border-radius: 12px;
+      background: #475569;
+      color: #ffffff;
+      padding: 10px 22px;
+      border-radius: 10px;
       text-decoration: none;
-      font-weight: 900;
-      font-size: 1.1rem;
+      font-weight: bold;
+      font-size: 1rem;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
       border: none;
       cursor: pointer;
       margin: 5px;
     }
     .exam-select-btn:hover {
-      background: #fecdd3;
-      color: #881337;
-      transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+      background: #38bdf8;
+      color: #0f172a;
+      transform: translateY(-2px);
     }
 
     /* ================= المحتوى الأساسي والأزرار ================= */
@@ -240,7 +238,7 @@
       transform: translateY(-2px);
     }
 
-    /* زر الاختبار العملي المميز (الجديد) */
+    /* زر الاختبار العملي المميز */
     .special-exam-btn {
       position: relative;
       background: linear-gradient(135deg, #f59e0b, #ec4899, #8b5cf6);
@@ -257,7 +255,6 @@
       transform: translateY(-4px) scale(1.05);
       box-shadow: 0 10px 25px rgba(236, 72, 153, 0.8);
     }
-    /* شارة "جديد" العلوية لزر الاختبار العملي */
     .badge-new {
       position: absolute;
       top: -12px;
@@ -350,8 +347,8 @@
     ul li > a:first-child {
       color: #FFFFFF;
       font-weight: bold;
-      margin-left: auto; /* يدفع باقي الأزرار لليسار */
-      pointer-events: none; /* اسم الدرس غير قابل للنقر */
+      margin-left: auto;
+      pointer-events: none;
     }
     a { text-decoration: none; color: #f8fafc; }
     .btn {
@@ -365,7 +362,6 @@
     }
     .btn:hover { background: #0ea5e9; color: #fff; }
 
-    /* ================= زر الفلاش (لملخصات وبنك الأسئلة) ================= */
     .flash-btn {
       background: #38bdf8;
       color: #0f172a;
@@ -413,7 +409,6 @@
 
     /* ================= الأنيميشن ================= */
     @keyframes spin { to { transform: rotate(360deg); } }
-    @keyframes bannerPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.85; } }
     @keyframes flash { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
     @keyframes pulse-border {
       0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.6); }
@@ -424,10 +419,6 @@
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
-    }
-    @keyframes examGlow {
-      0% { box-shadow: 0 0 15px rgba(239, 68, 68, 0.4); }
-      100% { box-shadow: 0 0 30px rgba(239, 68, 68, 0.9); }
     }
     @keyframes badgeBounce {
       0% { transform: translateY(0); }
@@ -474,32 +465,28 @@
 
   <div class="container">
     
-    <!-- الإعلان الهام الجديد (جذاب وملفت) -->
+    <!-- الإعلان الهام الجديد -->
     <div class="important-announcement" data-aos="zoom-in">
       <h3>⚠️ تنبيــــه هـــــام</h3>
       <p>يجب على جميع الطلاب حل الواجبات الأسبوعية في منصة مدرستي أولاً بأول وذلك لأحتساب درجات الواجبات في أعمال الفترة الأولى.</p>
       <a href="https://schools.madrasati.sa/" target="_blank" class="madrasati-btn">🚀 الانتقال لمنصة مدرستي</a>
     </div>
 
-    <!-- بنر موعد اختبار الفترة الأولى -->
+    <!-- بنر تأجيل الاختبار (تصميم هادئ ومناسب مع إبقاء الأزرار) -->
     <div class="period-exam-banner" data-aos="zoom-in" data-aos-delay="100">
-      <h3>🚨 موعد اختبار الفترة الأولى 🚨</h3>
-      <h3>🚨 فصل اولى ثالث يوم الثلاثاء 🚨</h3>
+      <h3>📅 إعلان بشأن اختبار الفترة الأولى</h3>
       <div class="exam-date-details">
-        بقية الفصول يكون الاختبار يوم <span>الأثنين - الحصة الثانية</span> <br>
-        بتاريخ: <span>12/10/2026 م</span> | الموافق: <span>01/05/1448 هـ</span>
+        نحيطكم علماً بأن اختبار الفترة الأولى قد تم <span>تأجيله إلى وقت يحدد لاحقاً</span>، وسيتم إبلاغكم بالموعد الجديد في حينه. يمكنكم الاستعداد والمراجعة عبر الروابط أدناه:
       </div>
-      <br>
       <a href="exam-topics.pdf" class="exam-select-btn">🎯 الملخص</a>
       <a href="bank_q.pdf" class="exam-select-btn">❓ بنك الأسئلة</a>
-      <a href="bank_q_s.pdf" class="exam-select-btn">❓بنك الأسئلة - محلول</a>
+      <a href="bank_q_s.pdf" class="exam-select-btn">❓ بنك الأسئلة - محلول</a>
     </div>
 
     <!-- الأزرار الرئيسية -->
     <div class="buttons-row">
       <a href="https://files.tahdiri.com/books/1448-GE-CBM-TRC1-SM1-mcomp.pdf" id="bookBtn" class="main-btn">📘 الكتاب الإلكتروني</a>
       
-      <!-- زر الاختبار العملي البارز مع شارة جديد -->
       <a href="exam.html" class="main-btn special-exam-btn">
         <span class="badge-new">جديد 🔥</span>
         🧪 الاختبار العملي
@@ -690,7 +677,7 @@
         const splash = document.getElementById("splash-screen");
         splash.classList.add("fade-out");
         setTimeout(() => splash.remove(), 800);
-      }, 1500); // قللت الوقت ليكون أسرع
+      }, 1500);
     });
     
     // 2. زر الصعود للأعلى
