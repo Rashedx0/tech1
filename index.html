@@ -20,7 +20,7 @@
 
     <style>
         /* ==================================================
-           المتغيرات الأساسية
+            المتغيرات الأساسية
         ================================================== */
         :root {
             --primary: #38bdf8;
@@ -51,7 +51,7 @@
         }
 
         /* ==================================================
-           إعادة الضبط وقواعد الصفحة
+            إعادة الضبط وقواعد الصفحة
         ================================================== */
         *, *::before, *::after {
             box-sizing: border-box;
@@ -109,7 +109,7 @@
         }
 
         /* ==================================================
-           شاشة التحميل (Splash Screen)
+            شاشة التحميل (Splash Screen)
         ================================================== */
         #splash {
             position: fixed;
@@ -152,7 +152,7 @@
         }
 
         /* ==================================================
-           الهيدر وزر المشاريع المميزة
+            الهيدر وزر المشاريع المميزة
         ================================================== */
         .top-header {
             width: 100%;
@@ -184,7 +184,7 @@
         }
 
         /* ==================================================
-           الحاوية الرئيسية
+            الحاوية الرئيسية
         ================================================== */
         .page-wrapper {
             width: 100%;
@@ -252,47 +252,17 @@
         }
 
         /* ==================================================
-           بنر إعلان اختبار الفترة الأولى (متحرك ومميز)
+            بنر إعلان التأجيل (تصميم هادئ ومريح)
         ================================================== */
         .exam-banner {
             position: relative;
             padding: 18px 16px;
             margin-bottom: 16px;
             border-radius: var(--radius-md);
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.18), rgba(239, 68, 68, 0.18));
-            border: 1px solid rgba(250, 204, 21, 0.4);
-            box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.2);
-            overflow: hidden;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(51, 65, 85, 0.5));
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
             text-align: center;
-            animation: pulseGlow 3s infinite ease-in-out;
-        }
-
-        .exam-banner::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(60deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transform: rotate(30deg);
-            animation: shimmer 4s infinite linear;
-        }
-
-        @keyframes pulseGlow {
-            0%, 100% {
-                border-color: rgba(250, 204, 21, 0.4);
-                box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.2);
-            }
-            50% {
-                border-color: rgba(250, 204, 21, 0.8);
-                box-shadow: 0 10px 30px 0px rgba(245, 158, 11, 0.4);
-            }
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%) rotate(30deg); }
-            100% { transform: translateX(100%) rotate(30deg); }
         }
 
         .exam-badge {
@@ -301,23 +271,12 @@
             gap: 6px;
             padding: 4px 12px;
             margin-bottom: 10px;
-            background: rgba(250, 204, 21, 0.2);
-            color: #facc15;
-            border: 1px solid rgba(250, 204, 21, 0.3);
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--primary);
+            border: 1px solid rgba(56, 189, 248, 0.25);
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 800;
-        }
-
-        .exam-badge i {
-            animation: bellRing 2s infinite ease;
-        }
-
-        @keyframes bellRing {
-            0%, 100% { transform: rotate(0); }
-            10%, 30%, 50% { transform: rotate(15deg); }
-            20%, 40% { transform: rotate(-15deg); }
-            60% { transform: rotate(0); }
         }
 
         .exam-title {
@@ -330,10 +289,11 @@
         .exam-details {
             display: flex;
             flex-direction: column;
-            gap: 4px;
-            font-size: 0.88rem;
+            gap: 6px;
+            font-size: 0.9rem;
             color: #cbd5e1;
             margin-bottom: 14px;
+            line-height: 1.6;
         }
 
         .exam-details span i {
@@ -348,16 +308,20 @@
             gap: 8px;
             width: 100%;
             padding: 10px 16px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: #020617;
+            background: rgba(56, 189, 248, 0.12);
+            color: var(--primary);
             font-size: 0.9rem;
             font-weight: 800;
-            border: none;
+            border: 1px solid rgba(56, 189, 248, 0.3);
             border-radius: var(--radius-sm);
             text-decoration: none;
-            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
-            transition: transform var(--transition), box-shadow var(--transition);
+            transition: transform var(--transition), background var(--transition);
             cursor: pointer;
+            margin-top: 6px;
+        }
+
+        .exam-action-btn:hover {
+            background: rgba(56, 189, 248, 0.22);
         }
 
         .exam-action-btn:active {
@@ -365,7 +329,7 @@
         }
 
         /* ==================================================
-           الاختبار التشخيصي (في المنتصف)
+            الاختبار التشخيصي (في المنتصف)
         ================================================== */
         .diagnostic-card {
             display: flex;
@@ -386,7 +350,6 @@
             transform: scale(0.98);
         }
 
-        /* حالة إغلاق الاختبار التشخيصي */
         .diagnostic-card.disabled {
             cursor: not-allowed;
             opacity: 0.6;
@@ -442,7 +405,7 @@
         }
 
         /* ==================================================
-           أزرار التنقل (الفصول)
+            أزرار التنقل (الفصول)
         ================================================== */
         .btn-container {
             display: flex;
@@ -482,7 +445,7 @@
         }
 
         /* ==================================================
-           قسم التواصل
+            قسم التواصل
         ================================================== */
         .contact-section {
             margin-top: 28px;
@@ -541,7 +504,7 @@
         }
 
         /* ==================================================
-           الفوتير
+            الفوتير
         ================================================== */
         .footer {
             margin-top: 24px;
@@ -557,7 +520,7 @@
         }
 
         /* ==================================================
-           تنسيقات الشاشات فائقة الصغر (أقل من 360px)
+            تنسيقات الشاشات فائقة الصغر (أقل من 360px)
         ================================================== */
         @media (max-width: 360px) {
             .main-card {
@@ -620,23 +583,21 @@
             </p>
 
             <!-- ==================================================
-                 بنر اختبار الفترة الأولى (متحرك ومميز)
+                 بنر إعلان تأجيل اختبار الفترة الأولى
             ================================================== -->
-            <section class="exam-banner" aria-label="مواعيد اختبار الفترة الأولى">
+            <section class="exam-banner" aria-label="إعلان اختبار الفترة الأولى">
                 <div class="exam-badge">
-                    <i class="fas fa-bell"></i>
-                    <span>تنويه هام</span>
+                    <i class="fas fa-info-circle"></i>
+                    <span>تنبيه هادئ</span>
                 </div>
                 <h2 class="exam-title">اختبار الفترة الأولى</h2>
                 <div class="exam-details">
-                    <span><i class="fas fa-calendar-day"></i> يوم الأثنين - الحصة الثانية</span>
-                    <span><i class="fas fa-calendar-day"></i> 🚨 فصل اولى ثالث يوم الثلاثاء 🚨</span>
-
-                    <span><i class="fas fa-clock"></i> 12/10/2026 م - 01/05/1448 هـ</span>
+                    <span>تم تأجيل اختبار الفترة الأولى إلى وقت يحدد لاحقاً.</span>
+                    <span>يمكنكم الاطلاع على الملخص وبنك الأسئلة أدناه للاستعداد والمراجعة:</span>
                 </div>
                 <a href="exam-topics.pdf" class="exam-action-btn">
                     <i class="fas fa-list-check" aria-hidden="true"></i>
-                    <span>الملخص</span>
+                    <span>الملخص وبنك الأسئلة</span>
                 </a>
             </section>
 
@@ -666,13 +627,7 @@
                     <span>الفصل الدراسي الأول</span>
                     <i class="fas fa-chevron-left" aria-hidden="true"></i>
                 </a>
-
-                <!-- الفصل الدراسي الثاني -->
-                <!--<a href="S2/index_2.html" class="nav-btn">
-                    <span>الفصل الدراسي الثاني</span>
-                    <i class="fas fa-chevron-left" aria-hidden="true"></i>
-                </a>
-            </nav>-->
+            </nav>
 
             <!-- ==================================================
                  قسم التواصل
