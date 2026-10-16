@@ -149,65 +149,6 @@
       transform: translateY(-3px);
     }
 
-    /* ================= بنر تأجيل الاختبار (تصميم هادئ ومناسب) ================= */
-    .period-exam-banner {
-      background: linear-gradient(135deg, #1e293b, #334155);
-      color: #f1f5f9;
-      padding: 25px 20px;
-      border-radius: 20px;
-      text-align: center;
-      margin: 30px auto;
-      max-width: 850px;
-      border: 1px solid #475569;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-      position: relative;
-      overflow: hidden;
-    }
-    .period-exam-banner h3 {
-      margin: 0 0 12px 0;
-      font-size: 1.6rem;
-      font-weight: 800;
-      color: #38bdf8;
-    }
-    .period-exam-banner .exam-date-details {
-      font-size: 1.1rem;
-      font-weight: normal;
-      color: #cbd5e1;
-      margin-bottom: 20px;
-      line-height: 1.7;
-      background: rgba(15, 23, 42, 0.4);
-      padding: 15px;
-      border-radius: 12px;
-      display: block;
-      border-right: 4px solid #38bdf8;
-    }
-    .period-exam-banner .exam-date-details span {
-      color: #38bdf8;
-      font-weight: bold;
-    }
-    .exam-select-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: #475569;
-      color: #ffffff;
-      padding: 10px 22px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      border: none;
-      cursor: pointer;
-      margin: 5px;
-    }
-    .exam-select-btn:hover {
-      background: #38bdf8;
-      color: #0f172a;
-      transform: translateY(-2px);
-    }
-
     /* ================= المحتوى الأساسي والأزرار ================= */
     .container {
       max-width: 900px;
@@ -429,9 +370,9 @@
     @media (max-width: 768px) {
       .exam-upload-banner { flex-direction: column; text-align: center; font-size: 0.9rem; padding: 15px; }
       body { padding-top: 90px; }
-      .important-announcement, .period-exam-banner { width: 90%; padding: 20px 15px; }
-      .important-announcement h3, .period-exam-banner h3 { font-size: 1.3rem; }
-      .important-announcement p, .period-exam-banner .exam-date-details { font-size: 1rem; }
+      .important-announcement { width: 90%; padding: 20px 15px; }
+      .important-announcement h3 { font-size: 1.3rem; }
+      .important-announcement p { font-size: 1rem; }
       ul li { flex-direction: column; align-items: stretch; text-align: center; }
       ul li > a:first-child { margin-left: 0; margin-bottom: 10px; }
       .btn { text-align: center; }
@@ -472,21 +413,13 @@
       <a href="https://schools.madrasati.sa/" target="_blank" class="madrasati-btn">🚀 الانتقال لمنصة مدرستي</a>
     </div>
 
-    <!-- بنر تأجيل الاختبار (تصميم هادئ ومناسب مع إبقاء الأزرار) -->
-    <div class="period-exam-banner" data-aos="zoom-in" data-aos-delay="100">
-      <h3>📅 إعلان بشأن اختبار الفترة الأولى</h3>
-      <div class="exam-date-details">
-        نحيطكم علماً بأن اختبار الفترة الأولى قد تم <span>تأجيله إلى وقت يحدد لاحقاً</span>، وسيتم إبلاغكم بالموعد الجديد في حينه. يمكنكم الاستعداد والمراجعة عبر الروابط أدناه:
-      </div>
-      <a href="exam-topics.pdf" class="exam-select-btn">🎯 الملخص</a>
-      <a href="bank_q.pdf" class="exam-select-btn">❓ بنك الأسئلة</a>
-      <a href="bank_q_s.pdf" class="exam-select-btn">❓ بنك الأسئلة - محلول</a>
-    </div>
-
     <!-- الأزرار الرئيسية -->
     <div class="buttons-row">
       <a href="https://files.tahdiri.com/books/1448-GE-CBM-TRC1-SM1-mcomp.pdf" id="bookBtn" class="main-btn">📘 الكتاب الإلكتروني</a>
-      
+      <a href="exam-topics.pdf" class="main-btn">🎯 الملخص</a>
+      <a href="bank_q.pdf" class="main-btn">❓ بنك الأسئلة</a>
+      <a href="bank_q_s.pdf" class="main-btn">❓ بنك الأسئلة - محلول</a>
+       
       <a href="exam.html" class="main-btn special-exam-btn">
         <span class="badge-new">جديد 🔥</span>
         🧪 الاختبار العملي
@@ -628,7 +561,7 @@
         </li>
       </ul>
     </section>
-    
+     
     <section id="unit4" data-aos="fade-up">
       <h2>
         💻 الوحدة الرابعة: البرمجة HTML
@@ -679,7 +612,7 @@
         setTimeout(() => splash.remove(), 800);
       }, 1500);
     });
-    
+     
     // 2. زر الصعود للأعلى
     const scrollTopBtn = document.getElementById("scrollTopBtn");
     window.addEventListener("scroll", () => {
