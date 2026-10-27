@@ -108,24 +108,24 @@
       position: relative;
     }
 
-    /* ================= إعلان اختبار الفترة الأولى (الجديد في المنتصف بالأعلى) ================= */
+    /* ================= إعلان اختبار الفترة الأولى (المحدث: سينتهي قريباً) ================= */
     .midterm-exam-announcement {
-      background: linear-gradient(135deg, #1e293b, #334155);
-      border: 2px solid #38bdf8;
+      background: linear-gradient(135deg, rgba(244, 63, 94, 0.12), rgba(250, 204, 21, 0.10));
+      border: 2px solid #f43f5e;
       color: #f1f5f9;
       padding: 30px 25px;
       border-radius: 20px;
       text-align: center;
       margin: 30px auto;
       max-width: 850px;
-      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.2);
-      animation: pulse-border 2s infinite;
+      box-shadow: 0 10px 30px rgba(244, 63, 94, 0.25);
+      animation: pulse-danger-border 2s infinite;
       position: relative;
     }
     .midterm-exam-announcement h3 {
       margin: 0 0 12px 0;
       font-size: 1.8rem;
-      color: #38bdf8;
+      color: #f43f5e;
       font-weight: 900;
     }
     .midterm-exam-announcement p {
@@ -156,37 +156,37 @@
       background: none !important;
       padding: 0 !important;
       margin: 0 !important;
-      color: #38bdf8;
+      color: #fca5a5;
       font-weight: bold;
       font-size: 1.05rem;
     }
     .exam-warning-notes {
       font-size: 0.95rem;
-      color: #f59e0b;
+      color: #fca5a5;
       font-weight: bold;
       margin-bottom: 25px;
       line-height: 1.6;
-      background: rgba(245, 158, 11, 0.1);
-      padding: 10px;
+      background: rgba(244, 63, 94, 0.1);
+      padding: 12px;
       border-radius: 8px;
     }
     .start-exam-btn {
       display: inline-block;
-      background: linear-gradient(135deg, #0ea5e9, #38bdf8);
-      color: #0f172a;
+      background: linear-gradient(135deg, #f43f5e, #e11d48);
+      color: #fff;
       padding: 15px 35px;
       border-radius: 14px;
       text-decoration: none;
       font-weight: 900;
       font-size: 1.25rem;
       transition: all 0.3s ease;
-      box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4);
+      box-shadow: 0 6px 20px rgba(244, 63, 94, 0.4);
     }
     .start-exam-btn:hover {
-      background: linear-gradient(135deg, #38bdf8, #7dd3fc);
-      color: #0f172a;
+      background: linear-gradient(135deg, #e11d48, #be123c);
+      color: #fff;
       transform: translateY(-4px) scale(1.03);
-      box-shadow: 0 10px 25px rgba(56, 189, 248, 0.7);
+      box-shadow: 0 10px 25px rgba(244, 63, 94, 0.7);
     }
 
     /* ================= الإعلان الهام (منصة مدرستي) ================= */
@@ -436,6 +436,11 @@
       70% { box-shadow: 0 0 0 15px rgba(56, 189, 248, 0); }
       100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
     }
+    @keyframes pulse-danger-border {
+      0% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.4); }
+      70% { box-shadow: 0 0 0 15px rgba(244, 63, 94, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); }
+    }
     @keyframes gradientShift {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
@@ -489,26 +494,26 @@
 
   <div class="container">
     
-    <!-- إعلان اختبار الفترة الأولى عن بعد (الجديد في المنتصف) -->
+    <!-- إعلان اختبار الفترة الأولى (المحدث: سينتهي قريباً) -->
     <div class="midterm-exam-announcement" data-aos="zoom-in">
-      <h3>🚀 بدء اختبار الفترة الأولى (عن بعد)</h3>
-      <p>تم فتح اختبار الفترة الأولى لمادة تقنية رقمية 1. يرجى من جميع الطلاب المبادرة بأداء الاختبار.</p>
+      <h3>⏳ سينتهي الاختبار قريباً</h3>
+      <p>تنبيه لجميع الطلاب الذين لم يختبروا بعد. نرجو سرعة الدخول وإنجاز الاختبار فوراً لمن فاته.</p>
       
       <div class="exam-details-box">
         <ul>
           <li>⏱️ مدة الاختبار: 35 دقيقة</li>
-          <li>📋 نوع الاختبار: عن بعد</li>
+          <li>🚨 الفرصة الأخيرة للإنجاز</li>
         </ul>
       </div>
 
       <div class="exam-warning-notes">
-        ⚠️ قبل أن تبدأ بالأختبار تذكر ان الله يراك<br>
-        • لابد من التأكد من اتصالك بالأنترنت<br>
-        • لاتخرج من صفحة الأختبار قبل الانتهاء منه
+        ⚠️ نرجو سرعة الدخول وإنجاز الاختبار فوراً لمن فاته<br>
+        • تأكد من استقرار اتصالك بالإنترنت<br>
+        • تذكر دائماً أن الله يراك في كل أحوالك
       </div>
 
       <div>
-        <a href="https://k.tahdiri.com/forms/exam?c=L5J53LJJN3GU" target="_blank" class="start-exam-btn">✍️ ابدأ الاختبار الآن</a>
+        <a href="https://k.tahdiri.com/forms/exam?c=L5J53LJJN3GU" target="_blank" class="start-exam-btn">✍️ اختبر الآن (الفرصة الأخيرة)</a>
       </div>
     </div>
 
