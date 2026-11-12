@@ -199,18 +199,18 @@
         }
 
         /* ==================================================
-            بنر إعلان الاختبار الجديد (سينتهي قريباً)
+            بنر إعلان الاختبار الرسمي (نهاية اليوم الخميس)
         ================================================== */
         .exam-banner {
             width: 100%;
             padding: 24px 20px;
             text-align: center;
-            background: linear-gradient(135deg, rgba(244, 63, 94, 0.12), rgba(250, 204, 21, 0.1));
-            border: 1px solid rgba(244, 63, 94, 0.35);
+            background: linear-gradient(135deg, rgba(225, 29, 72, 0.16), rgba(15, 23, 42, 0.85));
+            border: 1.5px solid rgba(244, 63, 94, 0.55);
             border-radius: var(--radius-xl);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 15px 35px -10px rgba(244, 63, 94, 0.25);
             position: relative;
             overflow: hidden;
             animation: cardAppear 0.5s ease both;
@@ -222,51 +222,57 @@
             top: 0;
             right: 0;
             width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, #f43f5e, #facc15);
+            height: 4px;
+            background: linear-gradient(90deg, #be123c, #f43f5e, #be123c);
         }
 
         .exam-badge {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 6px 14px;
+            gap: 7px;
+            padding: 6px 16px;
             margin-bottom: 12px;
-            background: rgba(244, 63, 94, 0.15);
-            border: 1px solid rgba(244, 63, 94, 0.4);
-            color: var(--danger);
+            background: rgba(244, 63, 94, 0.2);
+            border: 1px solid rgba(244, 63, 94, 0.5);
+            color: #fda4af;
             border-radius: 50px;
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             font-weight: 800;
+            letter-spacing: 0.2px;
             animation: pulseGlowDanger 2s infinite;
         }
 
         @keyframes pulseGlowDanger {
-            0%, 100% { box-shadow: 0 0 5px rgba(244, 63, 94, 0.2); }
-            50% { box-shadow: 0 0 15px rgba(244, 63, 94, 0.6); }
+            0%, 100% { box-shadow: 0 0 6px rgba(244, 63, 94, 0.25); }
+            50% { box-shadow: 0 0 18px rgba(244, 63, 94, 0.65); }
         }
 
         .exam-title {
-            font-size: 1.35rem;
+            font-size: 1.3rem;
             font-weight: 900;
             margin-bottom: 8px;
             color: #fff;
+            line-height: 1.4;
         }
 
         .exam-meta {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 16px;
             margin-bottom: 16px;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
+            color: #fecdd3;
+            font-size: 0.92rem;
+            font-weight: 700;
         }
 
         .exam-meta span {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 7px;
+            background: rgba(244, 63, 94, 0.12);
+            padding: 5px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(244, 63, 94, 0.25);
         }
 
         .exam-meta i {
@@ -274,10 +280,10 @@
         }
 
         .exam-warnings {
-            background: rgba(0, 0, 0, 0.25);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(2, 6, 23, 0.55);
+            border: 1px solid rgba(244, 63, 94, 0.2);
             border-radius: var(--radius-sm);
-            padding: 10px 12px;
+            padding: 12px 14px;
             margin-bottom: 18px;
             text-align: right;
         }
@@ -286,26 +292,28 @@
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 8px;
         }
 
         .exam-warnings li {
-            font-size: 0.78rem;
-            color: #cbd5e1;
+            font-size: 0.82rem;
+            color: #e2e8f0;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 8px;
+            line-height: 1.5;
         }
 
         .exam-warnings li i {
             color: var(--accent);
-            font-size: 0.7rem;
+            font-size: 0.8rem;
+            margin-top: 4px;
             flex-shrink: 0;
         }
 
         .exam-warnings li.urgent-alert {
-            color: #fca5a5;
-            font-weight: 700;
+            color: #fda4af;
+            font-weight: 800;
         }
 
         .exam-warnings li.urgent-alert i {
@@ -318,16 +326,21 @@
             justify-content: center;
             gap: 10px;
             width: 100%;
-            min-height: 48px;
-            padding: 10px 20px;
-            background: linear-gradient(135deg, #f43f5e, #e11d48);
+            min-height: 50px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #e11d48, #be123c);
             color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: var(--radius-md);
             font-size: 1rem;
             font-weight: 900;
             text-decoration: none;
-            box-shadow: 0 8px 20px rgba(244, 63, 94, 0.3);
-            transition: transform var(--transition), box-shadow var(--transition);
+            box-shadow: 0 8px 25px rgba(225, 29, 72, 0.4);
+            transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+        }
+
+        .exam-btn:hover {
+            background: linear-gradient(135deg, #f43f5e, #e11d48);
         }
 
         .exam-btn:active {
@@ -636,30 +649,31 @@
     <main class="page-wrapper">
 
         <!-- ==================================================
-             بنر إعلان اختبار الفترة الأولى (سينتهي قريباً)
+             بنر إعلان اختبار الفترة الأولى (الموعد النهائي اليوم الخميس)
         ================================================== -->
-        <section class="exam-banner" aria-label="إعلان قرب انتهاء الاختبار">
+        <section class="exam-banner" aria-label="تنبيه رسمي بشأن إغلاق اختبار الفترة الأولى">
             <div class="exam-badge">
-                <i class="fas fa-hourglass-half" aria-hidden="true"></i>
-                <span>سينتهي الاختبار قريباً</span>
+                <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
+                <span>تنبيه رسمي ونهائي | يُغلق بنهاية اليوم الخميس</span>
             </div>
             
-            <h2 class="exam-title">تنبيه لجميع الطلاب الذين لم يختبروا بعد</h2>
+            <h2 class="exam-title">إشعار حاسم للطلاب المتخلفين عن اختبار الفترة الأولى</h2>
             
             <div class="exam-meta">
-                <span><i class="fas fa-exclamation-circle" aria-hidden="true"></i> سارع بأداء الاختبار قبل إغلاق الرابط</span>
+                <span><i class="fas fa-clock" aria-hidden="true"></i> آخر موعد لأداء الاختبار: نهاية اليوم الخميس</span>
             </div>
 
             <div class="exam-warnings">
                 <ul>
-                    <li class="urgent-alert"><i class="fas fa-bell" aria-hidden="true"></i> نرجو سرعة الدخول وإنجاز الاختبار فوراً لمن فاته</li>
-                    <li><i class="fas fa-wifi" aria-hidden="true"></i> تأكد من استقرار اتصالك بالإنترنت</li>
-                    <li><i class="fas fa-eye" aria-hidden="true"></i> تذكر دائماً أن الله يراك في كل أحوالك</li>
+                    <li class="urgent-alert"><i class="fas fa-times-circle" aria-hidden="true"></i> سيتم رصد درجة (صفر) تلقائياً في نظام نور للفترة الأولى لكل طالب لم يؤدِّ الاختبار قبل إغلاق الرابط نهاية اليوم.</li>
+                    <li class="urgent-alert"><i class="fas fa-ban" aria-hidden="true"></i> لن يُقبل أي عذر بعد انتهاء الوقت المحدد ولن يُعاد فتح الاختبار نهائياً.</li>
+                    <li><i class="fas fa-wifi" aria-hidden="true"></i> تأكد من استقرار اتصالك بالإنترنت وكتابة بياناتك بدقة قبل الإرسال.</li>
+                    <li><i class="fas fa-eye" aria-hidden="true"></i> تذكّر دائماً أن الله يراك ومطّلع عليك في كل أحوالك.</li>
                 </ul>
             </div>
 
             <a href="https://k.tahdiri.com/forms/exam?c=L5J53LJJN3GU" target="_blank" rel="noopener noreferrer" class="exam-btn">
-                <span>اختبر الآن (الفرصة الأخيرة)</span>
+                <span>الدخول لأداء الاختبار فوراً قبل الإغلاق</span>
                 <i class="fas fa-arrow-left" aria-hidden="true"></i>
             </a>
         </section>
