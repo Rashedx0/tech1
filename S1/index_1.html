@@ -108,103 +108,6 @@
       position: relative;
     }
 
-    /* ================= إعلان اختبار الفترة الأولى (الرسمي والحاسم) ================= */
-    .midterm-exam-announcement {
-      background: linear-gradient(135deg, rgba(225, 29, 72, 0.16), rgba(15, 23, 42, 0.9));
-      border: 2px solid #e11d48;
-      color: #f1f5f9;
-      padding: 30px 25px;
-      border-radius: 20px;
-      text-align: center;
-      margin: 30px auto;
-      max-width: 850px;
-      box-shadow: 0 10px 35px rgba(225, 29, 72, 0.3);
-      animation: pulse-danger-border 2s infinite;
-      position: relative;
-    }
-    .midterm-exam-announcement h3 {
-      margin: 0 0 12px 0;
-      font-size: 1.8rem;
-      color: #f43f5e;
-      font-weight: 900;
-    }
-    .midterm-exam-announcement p {
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-bottom: 20px;
-      color: #fecdd3;
-    }
-    .exam-details-box {
-      background: rgba(2, 6, 23, 0.7);
-      border-radius: 12px;
-      padding: 15px;
-      margin-bottom: 20px;
-      display: inline-block;
-      width: 100%;
-      max-width: 600px;
-      border: 1px solid rgba(244, 63, 94, 0.3);
-    }
-    .exam-details-box ul {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .exam-details-box li {
-      background: none !important;
-      padding: 0 !important;
-      margin: 0 !important;
-      color: #fda4af;
-      font-weight: bold;
-      font-size: 1.05rem;
-    }
-    .exam-warning-notes {
-      font-size: 0.98rem;
-      color: #fca5a5;
-      font-weight: bold;
-      margin-bottom: 25px;
-      line-height: 1.7;
-      background: rgba(244, 63, 94, 0.12);
-      padding: 15px;
-      border-radius: 10px;
-      border: 1px solid rgba(244, 63, 94, 0.25);
-      text-align: right;
-    }
-    .exam-warning-notes ul {
-      margin: 0;
-      padding-right: 20px;
-      list-style: disc;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .exam-warning-notes li {
-      background: none !important;
-      padding: 0 !important;
-      margin: 0 !important;
-    }
-    .start-exam-btn {
-      display: inline-block;
-      background: linear-gradient(135deg, #e11d48, #be123c);
-      color: #fff;
-      padding: 15px 35px;
-      border-radius: 14px;
-      text-decoration: none;
-      font-weight: 900;
-      font-size: 1.25rem;
-      transition: all 0.3s ease;
-      box-shadow: 0 6px 20px rgba(225, 29, 72, 0.4);
-    }
-    .start-exam-btn:hover {
-      background: linear-gradient(135deg, #f43f5e, #e11d48);
-      color: #fff;
-      transform: translateY(-4px) scale(1.03);
-      box-shadow: 0 10px 25px rgba(225, 29, 72, 0.7);
-    }
-
     /* ================= الإعلان الهام (منصة مدرستي) ================= */
     .important-announcement {
       background: linear-gradient(135deg, #f59e0b, #fbbf24);
@@ -452,11 +355,6 @@
       70% { box-shadow: 0 0 0 15px rgba(56, 189, 248, 0); }
       100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
     }
-    @keyframes pulse-danger-border {
-      0% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.4); }
-      70% { box-shadow: 0 0 0 15px rgba(225, 29, 72, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0); }
-    }
     @keyframes gradientShift {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
@@ -471,10 +369,7 @@
     @media (max-width: 768px) {
       .exam-upload-banner { flex-direction: column; text-align: center; font-size: 0.9rem; padding: 15px; }
       body { padding-top: 90px; }
-      .important-announcement, .midterm-exam-announcement { width: 90%; padding: 20px 15px; }
-      .midterm-exam-announcement h3 { font-size: 1.4rem; }
-      .midterm-exam-announcement p { font-size: 1.05rem; }
-      .exam-details-box ul { flex-direction: column; gap: 5px; }
+      .important-announcement { width: 90%; padding: 20px 15px; }
       .important-announcement h3 { font-size: 1.3rem; }
       .important-announcement p { font-size: 1rem; }
       ul li { flex-direction: column; align-items: stretch; text-align: center; }
@@ -510,32 +405,6 @@
 
   <div class="container">
     
-    <!-- إعلان اختبار الفترة الأولى (الرسمي والحاسم) -->
-    <div class="midterm-exam-announcement" data-aos="zoom-in">
-      <h3>⚠️ إشعار هام ونهائي | اختبار الفترة الأولى</h3>
-      <p>ينتهي موعد أداء اختبار الفترة الأولى بنهاية اليوم الخميس، ولن يُقبل أي عذر بعد التخلف عن الموعد.</p>
-      
-      <div class="exam-details-box">
-        <ul>
-          <li>⏱️ الموعد النهائي: نهاية اليوم الخميس</li>
-          <li>🚨 الإجراء النظامي: رصد درجة (صفر) في نظام نور لمن لم يختبر</li>
-        </ul>
-      </div>
-
-      <div class="exam-warning-notes">
-        <ul>
-          <li>سيتم رصد درجة (صفر) تلقائياً في نظام نور للفترة الأولى لكل طالب لم يؤدِّ الاختبار قبل إغلاق الرابط بنهاية اليوم الخميس.</li>
-          <li>نرجو سرعة الدخول وإنجاز الاختبار فوراً لمن فاته.</li>
-          <li>تأكد من استقرار اتصالك بالإنترنت وصحة بياناتك قبل الإرسال.</li>
-          <li>تذكّر دائماً أن الله يراك ومطّلع عليك في كل أحوالك.</li>
-        </ul>
-      </div>
-
-      <div>
-        <a href="https://k.tahdiri.com/forms/exam?c=L5J53LJJN3GU" target="_blank" class="start-exam-btn">✍️ الدخول لأداء الاختبار فوراً قبل الإغلاق</a>
-      </div>
-    </div>
-
     <!-- الإعلان الهام (منصة مدرستي) -->
     <div class="important-announcement" data-aos="zoom-in">
       <h3>⚠️ تنبيــــه هـــــام</h3>
