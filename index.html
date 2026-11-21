@@ -200,132 +200,6 @@
         }
 
         /* ==================================================
-            بنر إعلان إغلاق اختبار الفترة الأولى (تصميم جديد ومغلق)
-        ================================================== */
-        .exam-banner {
-            width: 100%;
-            padding: 24px 20px;
-            text-align: center;
-            background: linear-gradient(135deg, rgba(148, 163, 184, 0.08), rgba(15, 23, 42, 0.90));
-            border: 1.5px solid rgba(148, 163, 184, 0.25);
-            border-radius: var(--radius-xl);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.4);
-            position: relative;
-            overflow: hidden;
-            animation: cardAppear 0.5s ease both;
-        }
-
-        .exam-banner::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, #64748b, #94a3b8, #64748b);
-        }
-
-        .exam-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            padding: 6px 16px;
-            margin-bottom: 12px;
-            background: rgba(148, 163, 184, 0.15);
-            border: 1px solid rgba(148, 163, 184, 0.3);
-            color: #cbd5e1;
-            border-radius: 50px;
-            font-size: 0.82rem;
-            font-weight: 800;
-            letter-spacing: 0.2px;
-        }
-
-        .exam-title {
-            font-size: 1.3rem;
-            font-weight: 900;
-            margin-bottom: 8px;
-            color: #fff;
-            line-height: 1.4;
-        }
-
-        .exam-meta {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 16px;
-            color: var(--text-secondary);
-            font-size: 0.92rem;
-            font-weight: 700;
-        }
-
-        .exam-meta span {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            background: rgba(255, 255, 255, 0.03);
-            padding: 5px 12px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-        }
-
-        .exam-meta i {
-            color: var(--primary);
-        }
-
-        .exam-warnings {
-            background: rgba(2, 6, 23, 0.6);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            padding: 12px 14px;
-            margin-bottom: 18px;
-            text-align: right;
-        }
-
-        .exam-warnings ul {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .exam-warnings li {
-            font-size: 0.82rem;
-            color: #cbd5e1;
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-            line-height: 1.5;
-        }
-
-        .exam-warnings li i {
-            color: var(--success);
-            font-size: 0.8rem;
-            margin-top: 4px;
-            flex-shrink: 0;
-        }
-
-        .exam-btn-closed {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-            min-height: 50px;
-            padding: 12px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-secondary);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            font-size: 1rem;
-            font-weight: 800;
-            cursor: not-allowed;
-            opacity: 0.7;
-            pointer-events: none;
-        }
-
-        /* ==================================================
             الكارت الرئيسي
         ================================================== */
         .main-card {
@@ -574,7 +448,7 @@
             تنسيقات الشاشات فائقة الصغر (أقل من 360px)
         ================================================== */
         @media (max-width: 360px) {
-            .main-card, .exam-banner {
+            .main-card {
                 padding: 24px 14px;
             }
             .main-title {
@@ -621,34 +495,6 @@
         المحتوى الرئيسي
     ================================================== -->
     <main class="page-wrapper">
-
-        <!-- ==================================================
-            بنر إعلان إغلاق اختبار الفترة الأولى
-        ================================================== -->
-        <section class="exam-banner" aria-label="إشعار إغلاق اختبار الفترة الأولى">
-            <div class="exam-badge">
-                <i class="fas fa-check-circle" aria-hidden="true"></i>
-                <span>انتهت الفترة | تم إغلاق الاختبار</span>
-            </div>
-            
-            <h2 class="exam-title">تم إغلاق اختبار الفترة الأولى رسمياً</h2>
-            
-            <div class="exam-meta">
-                <span><i class="fas fa-lock" aria-hidden="true"></i> تم انتهاء المهلة المحددة وإغلاق الرابط</span>
-            </div>
-
-            <div class="exam-warnings">
-                <ul>
-                    <li><i class="fas fa-check" aria-hidden="true"></i> سيتم رصد الدرجات في نظام نور.</li>
-                    <li><i class="fas fa-info-circle" aria-hidden="true"></i> شكراً للطلاب المتلزمين بالمواعيد.</li>
-                </ul>
-            </div>
-
-            <div class="exam-btn-closed">
-                <i class="fas fa-lock" aria-hidden="true"></i>
-                <span>انتهى موعد الاختبار وتم إغلاقه</span>
-            </div>
-        </section>
 
         <!-- الكارت الرئيسي -->
         <section class="main-card">
