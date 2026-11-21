@@ -196,7 +196,106 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            gap: 20px;
+            gap: 16px;
+        }
+
+        /* ==================================================
+            بنر الإجازة والعداد التنازلي
+        ================================================== */
+        .holiday-banner {
+            position: relative;
+            width: 100%;
+            padding: 20px 18px;
+            border-radius: var(--radius-xl);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.14) 0%, rgba(56, 189, 248, 0.14) 50%, rgba(250, 204, 21, 0.12) 100%);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            text-align: center;
+            overflow: hidden;
+            animation: cardAppear 0.5s ease both;
+        }
+
+        .holiday-banner::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 180px;
+            height: 180px;
+            background: radial-gradient(circle, rgba(250, 204, 21, 0.25) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .holiday-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            margin-bottom: 10px;
+            background: rgba(250, 204, 21, 0.15);
+            border: 1px solid rgba(250, 204, 21, 0.35);
+            border-radius: 50px;
+            color: var(--accent);
+            font-size: 0.78rem;
+            font-weight: 800;
+        }
+
+        .holiday-title {
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 4px;
+            letter-spacing: -0.2px;
+        }
+
+        .holiday-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .holiday-subtitle strong {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            direction: ltr; /* لترتيب الأيام من اليسار لليمين أو يمكن تغييره إلى rtl حسب الرغبة */
+        }
+
+        .countdown-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 6px;
+            background: rgba(2, 6, 23, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-md);
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .countdown-num {
+            font-size: 1.35rem;
+            font-weight: 900;
+            line-height: 1.1;
+            background: linear-gradient(180deg, #ffffff 20%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .countdown-label {
+            margin-top: 4px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--text-secondary);
         }
 
         /* ==================================================
@@ -454,6 +553,12 @@
             .main-title {
                 font-size: 1.5rem;
             }
+            .holiday-title {
+                font-size: 1.15rem;
+            }
+            .countdown-num {
+                font-size: 1.15rem;
+            }
             .diagnostic-text small {
                 display: none;
             }
@@ -495,6 +600,37 @@
         المحتوى الرئيسي
     ================================================== -->
     <main class="page-wrapper">
+
+        <!-- بنر الإجازة والعداد التنازلي -->
+        <section class="holiday-banner" aria-label="إجازة سعيدة والعداد التنازلي للعودة">
+            <div class="holiday-badge">
+                <span>🌴</span>
+                <span>فترة استراحة وتجديد نشاط</span>
+            </div>
+            <h2 class="holiday-title">إجازة سعيدة للجميع ✨</h2>
+            <p class="holiday-subtitle">
+                العد التنازلي للعودة للدراسة — <strong>الإثنين 30 نوفمبر</strong>
+            </p>
+
+            <div class="countdown-grid" id="countdownGrid">
+                <div class="countdown-box">
+                    <span class="countdown-num" id="cd-seconds">00</span>
+                    <span class="countdown-label">ثانية</span>
+                </div>
+                <div class="countdown-box">
+                    <span class="countdown-num" id="cd-minutes">00</span>
+                    <span class="countdown-label">دقيقة</span>
+                </div>
+                <div class="countdown-box">
+                    <span class="countdown-num" id="cd-hours">00</span>
+                    <span class="countdown-label">ساعة</span>
+                </div>
+                <div class="countdown-box">
+                    <span class="countdown-num" id="cd-days">00</span>
+                    <span class="countdown-label">يوم</span>
+                </div>
+            </div>
+        </section>
 
         <!-- الكارت الرئيسي -->
         <section class="main-card">
@@ -563,6 +699,48 @@
             }, 500);
         });
 
+        // ==================================================
+        // العداد التنازلي للعودة يوم الإثنين 30 نوفمبر 2026 (الساعة 7:00 صباحاً بتوقيت السعودية)
+        // ==================================================
+        const targetDate = new Date("2026-11-30T07:00:00+03:00").getTime();
+
+        const daysEl = document.getElementById("cd-days");
+        const hoursEl = document.getElementById("cd-hours");
+        const minutesEl = document.getElementById("cd-minutes");
+        const secondsEl = document.getElementById("cd-seconds");
+        const countdownGrid = document.getElementById("countdownGrid");
+
+        function updateCountdown() {
+            const now = Date.now();
+            const distance = targetDate - now;
+
+            if (distance <= 0) {
+                countdownGrid.innerHTML = `
+                    <div style="grid-column: 1 / -1; padding: 12px; background: rgba(74, 222, 128, 0.15); border: 1px solid rgba(74, 222, 128, 0.35); border-radius: 14px; color: #4ade80; font-weight: 800; direction: rtl;">
+                        🎓 عوداً حميداً! نتمنى لكم فصلاً دراسياً حافلاً بالنجاح
+                    </div>
+                `;
+                clearInterval(timerInterval);
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            daysEl.textContent = String(days).padStart(2, "0");
+            hoursEl.textContent = String(hours).padStart(2, "0");
+            minutesEl.textContent = String(minutes).padStart(2, "0");
+            secondsEl.textContent = String(seconds).padStart(2, "0");
+        }
+
+        updateCountdown();
+        const timerInterval = setInterval(updateCountdown, 1000);
+
+        // ==================================================
+        // نسخ البريد الإلكتروني
+        // ==================================================
         const copyButton = document.getElementById("copyButton");
         const emailText = document.getElementById("emailText");
 
